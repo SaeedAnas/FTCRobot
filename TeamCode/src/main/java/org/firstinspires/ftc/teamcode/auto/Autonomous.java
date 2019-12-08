@@ -344,6 +344,22 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
+    protected void move(Strafe direction, double distance, double power) {
+        if (opModeIsActive()) {
+            // target
+            DcMotor[] motors = direction.getMotors();
+            double[] target = direction.getTarget(distance, motors);
+            direction.setPower(power);
+            while(opModeIsActive() && direction.hasNotReached(target, motors)) {
+                telemetry.addData("Direction: ", direction);
+                telemetry.addData("AvgCurrent", getAvg(motors));
+                telemetry.addData("Target", target);
+                telemetry.update();
+            }
+            Direction.stopRobot(motors);
+        }
+    }
+
     /**
      * gets the average of all of the motors' current positions
      * @param motors array of DcMotors
@@ -389,6 +405,31 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
+    protected void autoCorrectMove(Strafe direction, double distance, double power) {
+        if (opModeIsActive()) {
+            double degree = getGyroYAngle();
+            double currentDegree;
+            DcMotor[] motors = direction.getMotors();
+            double[] target = direction.getTarget(distance, motors);
+            direction.setPower(power);
+            while (opModeIsActive() && direction.hasNotReached(target, motors)) {
+                currentDegree = getGyroYAngle();
+                if ((currentDegree < degree - DEGREE_THRESHOLD) || currentDegree > degree + DEGREE_THRESHOLD) {
+                    correctPosition(degree, power);
+                }
+                else {
+                    direction.setPower(power);
+                    telemetry.addData("Degree", degree);
+                    telemetry.addData("CurrentDegree", currentDegree);
+                    telemetry.addData("Direction: ", direction);
+                    telemetry.update();
+                }
+            }
+
+            Direction.stopRobot(motors);
+        }
+    }
+
     /**
      * Moves the robot to the specified degree (different from turns)
      * @param degree degree you want to go back to
@@ -411,12 +452,12 @@ public abstract class Autonomous extends LinearOpMode {
             topRight.setPower(power);
             bottomRight.setPower(power);
         }
-            double currentAngle = getGyroYAngle();
-            while(opModeIsActive() && ((currentAngle < degree - DEGREE_THRESHOLD) && (currentAngle > degree + DEGREE_THRESHOLD))) {
-                telemetry.addData("Status: ", "Correcting");
-                telemetry.update();
-                currentAngle = getGyroYAngle();
-            }
+        double currentAngle = getGyroYAngle();
+        while(opModeIsActive() && ((currentAngle < degree - DEGREE_THRESHOLD) && (currentAngle > degree + DEGREE_THRESHOLD))) {
+            telemetry.addData("Status: ", "Correcting");
+            telemetry.update();
+            currentAngle = getGyroYAngle();
+        }
 
         topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -467,6 +508,115 @@ public abstract class Autonomous extends LinearOpMode {
      * an enum for the move function
      * has four abstract methods
      */
+
+    public enum Strafe {
+        // TODO Change the getTarget and hasNotReached
+        LEFT {
+            @Override
+            public void setPower(double power) {
+                topRight.setPower(power);
+                topLeft.setPower(-power);
+                bottomRight.setPower(-power);
+                bottomLeft.setPower(power);
+            }
+
+            @Override
+            public double[] getTarget(double distance, DcMotor[] motors) {
+                double[] targets = new double[2];
+                targets[0] = getAvg(new DcMotor[] {motors[0], motors[3]}) + (COUNTS_PER_INCH * distance);
+                targets[1] = getAvg(new DcMotor[] {motors[1], motors[2]}) - (COUNTS_PER_INCH * distance);
+                return targets;
+            }
+
+            @Override
+            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
+                boolean hasNotReached = false;
+                double targetPos = getAvg(new DcMotor[] {motors[0], motors[3]});
+                double targetNeg = getAvg(new DcMotor[] {motors[1], motors[2]});
+                if (targets[0] < targetPos || targets[1] > targetNeg) {
+                    hasNotReached = true;
+                }
+                return hasNotReached;
+            }
+
+            @Override
+            public DcMotor[] getMotors() {
+                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
+            }
+        },
+        // TODO Change the getTarget and hasNotReached
+        RIGHT {
+            @Override
+            public void setPower(double power) {
+                topRight.setPower(-power);
+                topLeft.setPower(power);
+                bottomRight.setPower(power);
+                bottomLeft.setPower(-power);
+            }
+
+            @Override
+            public double[] getTarget(double distance, DcMotor[] motors) {
+                double[] targets = new double[2];
+                targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance);
+                targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance);
+                return targets;
+            }
+
+            @Override
+            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
+                boolean hasNotReached = false;
+                double targetPos = getAvg(new DcMotor[] {motors[1], motors[2]});
+                double targetNeg = getAvg(new DcMotor[] {motors[0], motors[3]});
+                if (targets[0] < targetPos || targets[1] > targetNeg) {
+                    hasNotReached = true;
+                }
+                return hasNotReached;
+            }
+
+            @Override
+            public DcMotor[] getMotors() {
+                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
+            }
+        };
+        /**
+         * moves the motors to go to a specific direction
+         * @param power
+         */
+        public abstract void setPower(double power);
+
+        /**
+         * finds the target tick count the motors should get to
+         * @param distance
+         * @param motors
+         * @return
+         */
+        public abstract double[] getTarget(double distance, DcMotor[] motors);
+
+        /**
+         * determines whether or not the robot has reached the target
+         * @param targets
+         * @param motors
+         * @return
+         */
+        public abstract boolean hasNotReached(double targets[], DcMotor[] motors);
+
+        /**
+         * gets the motors that are in use for the direction
+         * @return
+         */
+        public abstract DcMotor[] getMotors();
+
+        /**
+         * stops the motors
+         * @param motors
+         */
+        public static void stopRobot(DcMotor[] motors) {
+            for (DcMotor motor : motors) {
+                motor.setPower(0);
+            }
+        }
+
+    }
     public enum Direction {
 
         FORWARD {
@@ -544,153 +694,104 @@ public abstract class Autonomous extends LinearOpMode {
             public DcMotor[] getMotors() {
                 return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
             }
+        },
+        // TODO Change the getTarget and hasNotReached
+        FORWARD_LEFT {
+            @Override
+            public void setPower(double power) {
+                topRight.setPower(power);
+                bottomLeft.setPower(power);
+            }
+
+            @Override
+            public double getTarget(double distance, DcMotor[] motors) {
+                return getAvg(motors) + (COUNTS_PER_INCH * distance);
+            }
+
+            @Override
+            public boolean hasNotReached(double target, DcMotor[] motors) {
+                double motorAvg = getAvg(motors);
+                return motorAvg < target;
+            }
+
+            @Override
+            public DcMotor[] getMotors() {
+                return new DcMotor[]{topRight, bottomLeft};
+            }
+        },
+        // TODO Change the getTarget and hasNotReached
+        FORWARD_RIGHT {
+            @Override
+            public void setPower(double power) {
+                topLeft.setPower(power);
+                bottomRight.setPower(power);
+            }
+
+            @Override
+            public double getTarget(double distance, DcMotor[] motors) {
+                return getAvg(motors) + (COUNTS_PER_INCH * distance);
+            }
+
+            @Override
+            public boolean hasNotReached(double target, DcMotor[] motors) {
+                double motorAvg = getAvg(motors);
+                return motorAvg < target;
+            }
+
+            @Override
+            public DcMotor[] getMotors() {
+                return new DcMotor[]{topLeft, bottomRight};
+            }
+        },
+        // TODO Change the getTarget and hasNotReached
+        BACKWARD_LEFT {
+            @Override
+            public void setPower(double power) {
+                topRight.setPower(-power);
+                bottomLeft.setPower(-power);
+            }
+
+            @Override
+            public double getTarget(double distance, DcMotor[] motors) {
+                return getAvg(motors) - (COUNTS_PER_INCH * distance);
+            }
+
+            @Override
+            public boolean hasNotReached(double targets, DcMotor[] motors) {
+                double motorAvg = getAvg(motors);
+                return motorAvg > targets;
+            }
+
+            @Override
+            public DcMotor[] getMotors() {
+                return new DcMotor[]{topRight, bottomLeft};
+            }
+        },
+        // TODO Change the getTarget and hasNotReached
+        BACKWARD_RIGHT {
+            @Override
+            public void setPower(double power) {
+                topLeft.setPower(-power);
+                bottomRight.setPower(-power);
+            }
+
+            @Override
+            public double getTarget(double distance, DcMotor[] motors) {
+                return getAvg(motors) - (COUNTS_PER_INCH * distance);
+            }
+
+            @Override
+            public boolean hasNotReached(double target, DcMotor[] motors) {
+                double motorAvg = getAvg(motors);
+                return motorAvg < target;
+            }
+
+            @Override
+            public DcMotor[] getMotors() {
+                return new DcMotor[]{topLeft, bottomRight};
+            }
         };
-//        // TODO Change the getTarget and hasNotReached
-//        LEFT {
-//            @Override
-//            public void setPower(double power) {
-//                topRight.setPower(power);
-//                topLeft.setPower(-power);
-//                bottomRight.setPower(-power);
-//                bottomLeft.setPower(power);
-//            }
-//
-//            @Override
-//            public double[] getTarget(double distance, DcMotor[] motors) {
-//                double[] targets = new double[motors.length];
-//                for (int i = 0; i < targets.length; i++) {
-//                    targets[i] = motors[i].getCurrentPosition() - (distance * TICKS_PER_INCH_STRAIGHT);
-//                }
-//                return targets;
-//            }
-//
-//            @Override
-//            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-//                return false;
-//            }
-//
-//            @Override
-//            public DcMotor[] getMotors() {
-//                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
-//            }
-//        },
-//        // TODO Change the getTarget and hasNotReached
-//        RIGHT {
-//            @Override
-//            public void setPower(double power) {
-//                topRight.setPower(-power);
-//                topLeft.setPower(power);
-//                bottomRight.setPower(power);
-//                bottomLeft.setPower(-power);
-//            }
-//
-//            @Override
-//            public double[] getTarget(double distance, DcMotor[] motors) {
-//                return new double[0];
-//            }
-//
-//            @Override
-//            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-//                return false;
-//            }
-//
-//            @Override
-//            public DcMotor[] getMotors() {
-//                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
-//            }
-//        },
-//        // TODO Change the getTarget and hasNotReached
-//        FORWARD_LEFT {
-//            @Override
-//            public void setPower(double power) {
-//                topRight.setPower(power);
-//                bottomLeft.setPower(power);
-//            }
-//
-//            @Override
-//            public double[] getTarget(double distance, DcMotor[] motors) {
-//                return new double[0];
-//            }
-//
-//            @Override
-//            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-//                return false;
-//            }
-//
-//            @Override
-//            public DcMotor[] getMotors() {
-//                return new DcMotor[]{topRight, bottomLeft};
-//            }
-//        },
-//        // TODO Change the getTarget and hasNotReached
-//        FORWARD_RIGHT {
-//            @Override
-//            public void setPower(double power) {
-//                topLeft.setPower(power);
-//                bottomRight.setPower(power);
-//            }
-//
-//            @Override
-//            public double[] getTarget(double distance, DcMotor[] motors) {
-//                return new double[0];
-//            }
-//
-//            @Override
-//            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-//                return false;
-//            }
-//
-//            @Override
-//            public DcMotor[] getMotors() {
-//                return new DcMotor[]{topLeft, bottomRight};
-//            }
-//        },
-//        // TODO Change the getTarget and hasNotReached
-//        BACKWARD_LEFT {
-//            @Override
-//            public void setPower(double power) {
-//                topRight.setPower(-power);
-//                bottomLeft.setPower(-power);
-//            }
-//
-//            @Override
-//            public double[] getTarget(double distance, DcMotor[] motors) {
-//                return new double[0];
-//            }
-//
-//            @Override
-//            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-//                return false;
-//            }
-//
-//            @Override
-//            public DcMotor[] getMotors() {
-//                return new DcMotor[]{topRight, bottomLeft};
-//            }
-//        },
-//        // TODO Change the getTarget and hasNotReached
-//        BACKWARD_RIGHT {
-//            @Override
-//            public void setPower(double power) {
-//                topLeft.setPower(-power);
-//                bottomRight.setPower(-power);
-//            }
-//
-//            @Override
-//            public double[] getTarget(double distance, DcMotor[] motors) {
-//                return new double[0];
-//            }
-//
-//            @Override
-//            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-//                return false;
-//            }
-//
-//            @Override
-//            public DcMotor[] getMotors() {
-//                return new DcMotor[]{topLeft, bottomRight};
-//            }
-//        };
+
 
         /**
          * moves the motors to go to a specific direction

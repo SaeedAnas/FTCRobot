@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto.foundation;
 
 import org.firstinspires.ftc.teamcode.auto.Autonomous;
-
 import static org.firstinspires.ftc.teamcode.auto.Autonomous.Direction.*;
 import static org.firstinspires.ftc.teamcode.auto.Constants.*;
 
@@ -34,6 +33,11 @@ abstract class Foundation extends Autonomous {
         releaseFoundation();
         move(FORWARD, TILE_LENGTH - 3, DRIVE_SPEED);
         brake();
+    }
+
+    private void moveFoundationRed() {
+        releaseFoundation();
+
     }
 
 //    private void moveFoundationVertical(char team) {
