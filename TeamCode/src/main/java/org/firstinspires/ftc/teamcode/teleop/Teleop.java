@@ -67,9 +67,7 @@ public class Teleop extends LinearOpMode {
     }
 
     private void printStatus() {
-        telemetry.addData("X", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).firstAngle);
         telemetry.addData("Y", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).secondAngle);
-        telemetry.addData("Z", imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle);
         telemetry.update();
     }
 

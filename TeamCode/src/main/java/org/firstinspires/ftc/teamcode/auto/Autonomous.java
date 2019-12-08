@@ -17,6 +17,7 @@ import static org.firstinspires.ftc.teamcode.auto.Constants.*;
 public abstract class Autonomous extends LinearOpMode {
     // contains all methods to move the robot
 
+    // four mecanum wheels
     private static DcMotor topRight;
 
     private static DcMotor topLeft;
@@ -24,6 +25,8 @@ public abstract class Autonomous extends LinearOpMode {
     private static DcMotor bottomLeft;
 
     private static DcMotor bottomRight;
+
+    // we don't have any of this yet
 
     private static DcMotor armMotorLeft;
 
@@ -39,6 +42,10 @@ public abstract class Autonomous extends LinearOpMode {
 
     // private static CRServo armServo;
 
+    /**
+     * sole method to initialize the robot -> call this function in the beginning of every opMode
+     * initializes the imu, and sets the motors
+     */
     public void initHardware() {
         initImu();
 //        leftMotor = hardwareMap.get(DcMotor.class, "left");
@@ -83,6 +90,9 @@ public abstract class Autonomous extends LinearOpMode {
         waitForStart();
     }
 
+    /**
+     * Initializes the imu -> may take a couple of seconds
+     */
     private void initImu() {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
@@ -102,6 +112,16 @@ public abstract class Autonomous extends LinearOpMode {
 
     }
 
+    /**
+     * print the y value, which is the degree we use for imu turns
+     */
+    private void printDegree() {
+        telemetry.addData("Y", getGyroYAngle());
+    }
+
+    /**
+     * print the encoder values of the four wheels
+     */
     private void print() {
         telemetry.addData("topLeft: ", topLeft.getCurrentPosition());
         telemetry.addData("topRight: ", topRight.getCurrentPosition());
@@ -116,6 +136,10 @@ public abstract class Autonomous extends LinearOpMode {
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bottomRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bottomLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        topLeft.setPower(0);
+        topRight.setPower(0);
+        bottomRight.setPower(0);
+        bottomLeft.setPower(0);
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -123,25 +147,43 @@ public abstract class Autonomous extends LinearOpMode {
     }
 
     // Foundation code
+
+    /**
+     * brings the foundation servos down to grab the foundation
+     */
     protected void grabFoundation() {
         foundationLeft.setPosition(LEFT_FOUNDATION_DOWN);
         foundationRight.setPosition(RIGHT_FOUNDATION_DOWN);
     }
 
+    /**
+     * brings the foundation servos up to release the foundation
+     */
     protected void releaseFoundation() {
         foundationLeft.setPosition(LEFT_FOUNDATION_UP);
         foundationRight.setPosition(RIGHT_FOUNDATION_UP);
     }
 
+    /**
+     * uses the grab servo to hold on to a block
+     */
     protected void grab() {
         grabber.setPosition(GRABBER_GRAB);
     }
-
+    /**
+     * uses the grab servo to release the block
+     */
     protected void release() {
         grabber.setPosition(GRABBER_RELEASE);
     }
 
     // arm code
+
+    /**
+     * moves the arm up or down (-mm is down, +mm is up)
+     * @param mm the distance in millimeters that you want to move (- is down, + is up)
+     * @param power amount of power for the motors
+     */
     protected void whileArm(double mm, double power) {
         double target = ((armMotorLeft.getCurrentPosition() + (mm * TICKS_PER_MM_ARM)) + (armMotorRight.getCurrentPosition() + (mm * TICKS_PER_MM_ARM))) / 2;
         if (mm < 0) {
@@ -172,11 +214,21 @@ public abstract class Autonomous extends LinearOpMode {
 // right decreasing
 // left increasing
 
+    /**
+     * gets the Y value from the imu
+     * @return Y value of the imu
+     */
     private double getGyroYAngle() {
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
         return (angles.secondAngle);
     }
 
+    /**
+     *
+     * @param zeroReference the angle the robot was at during the beginning of the turn
+     * @param currentAngle the current angle of the robot
+     * @return the difference between the currentAngle and zeroReference
+     */
     private double adjustedAngle(double zeroReference, double currentAngle) {
         double adjusted = currentAngle - zeroReference;
         if (adjusted < -179) {
@@ -187,6 +239,11 @@ public abstract class Autonomous extends LinearOpMode {
         return adjusted;
     }
 
+    /**
+     * function to make it easier for the Red and Blue Auto modes to turn
+     * @param motorPower power
+     * @param targetDegree degree you want to turn (+ for right, - for left)
+     */
     protected void turnByGyro(double motorPower, double targetDegree) {
         if (targetDegree < 0) {
             turnLeftByGyro(motorPower, -(targetDegree - CORRECTION));
@@ -195,7 +252,11 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
-
+    /**
+     * Turns the robot left
+     * @param motorPower power
+     * @param targetDegree degree you want to turn
+     */
     private void turnLeftByGyro(double motorPower, double targetDegree) {
         double zeroReference = getGyroYAngle();
         double angleTurned = 0;
@@ -219,6 +280,11 @@ public abstract class Autonomous extends LinearOpMode {
         telemetry.update();
     }
 
+    /**
+     * turns the robot right
+     * @param motorPower power
+     * @param targetDegree degree you want to turn
+     */
     private void turnRightByGyro(double motorPower, double targetDegree) {
         double zeroReference = getGyroYAngle();
         double angleTurned = 0;
@@ -256,6 +322,12 @@ public abstract class Autonomous extends LinearOpMode {
 //        }
 //    }
 
+    /**
+     * Moves the robot in the direction you specify
+     * @param direction one of the Direction enums (ex. FORWARD, BACKWARD, LEFT)
+     * @param distance distance you want to travel (100, 200), never less than 0
+     * @param power power
+     */
     protected void move(Direction direction, double distance, double power) {
         if (opModeIsActive()) {
             // target
@@ -272,6 +344,11 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
+    /**
+     * gets the average of all of the motors' current positions
+     * @param motors array of DcMotors
+     * @return average of the DcMotor current positions
+     */
     protected static double getAvg(DcMotor[] motors) {
         double motorAvg = 0;
         for(DcMotor motor: motors) {
@@ -281,6 +358,12 @@ public abstract class Autonomous extends LinearOpMode {
         return motorAvg;
     }
 
+    /**
+     * Move function that auto corrects when it is moved off track
+     * @param direction one of the Direction enums (FORWARD, BACKWARD, LEFT)
+     * @param distance distance you want to travel
+     * @param power power
+     */
     protected void autoCorrectMove(Direction direction, double distance, double power) {
         if (opModeIsActive()) {
             double degree = getGyroYAngle();
@@ -295,6 +378,8 @@ public abstract class Autonomous extends LinearOpMode {
                 }
                 else {
                     direction.setPower(power);
+                    telemetry.addData("Degree", degree);
+                    telemetry.addData("CurrentDegree", currentDegree);
                     telemetry.addData("Direction: ", direction);
                     telemetry.update();
                 }
@@ -304,6 +389,11 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
+    /**
+     * Moves the robot to the specified degree (different from turns)
+     * @param degree degree you want to go back to
+     * @param power power
+     */
     private void correctPosition(double degree, double power) {
         topRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         topLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -323,7 +413,7 @@ public abstract class Autonomous extends LinearOpMode {
         }
             double currentAngle = getGyroYAngle();
             while(opModeIsActive() && ((currentAngle < degree - DEGREE_THRESHOLD) && (currentAngle > degree + DEGREE_THRESHOLD))) {
-                telemetry.addData("Status", "Correcting");
+                telemetry.addData("Status: ", "Correcting");
                 telemetry.update();
                 currentAngle = getGyroYAngle();
             }
@@ -335,29 +425,48 @@ public abstract class Autonomous extends LinearOpMode {
 
     }
 
-    private boolean isRight(double degree) {
+    /**
+     * determines whether turning right or left is the fasted way to get to a certain degree
+     * @param targetDegree degree you want to get back to
+     * @return
+     */
+    private boolean isRight(double targetDegree) {
         double currentAngle = getGyroYAngle();
         boolean isRight = false;
         // left increases
         // right decreases
         // -179 -> 179
         // if the current angle is negative and the degree > 0, then the fastest way to get to the degree is to go the opposite way.
-        if (currentAngle < 0 && degree > 0) {
-            isRight = true;
+        // degree = 160-360 , -160
+        // current-target < 0 go left
+        if ((currentAngle < 0 && targetDegree > 0)) {
+            if (currentAngle < -90 && targetDegree > 90) {
+                isRight = true;
+            } else if (currentAngle > -90 && targetDegree < 90){
+                isRight = false;
+            }
+        } else if ((currentAngle > 0 && targetDegree < 0)) {
+            if (currentAngle > 90 && targetDegree < -90) {
+                isRight = false;
+            } else if (currentAngle < 90 && targetDegree > -90) {
+                isRight = true;
+            }
         }
-        // we dont need these two because isRight is already false -> saves some time
-        else if (currentAngle > 0 && degree < 0) {
-             isRight = false;
-        } else if (currentAngle < degree) {
+        else if (currentAngle < targetDegree) {
             isRight = false;
         }
-        else if (currentAngle > degree) {
+        else if (currentAngle > targetDegree) {
             isRight = true;
         }
         return isRight;
     }
 
-
+    //right(negitive) currentAngle is negitive. currentAngle + Math.abs(currentAngle)
+    //left(positve) currentAngle is positive. currentAngle - Math.abs(currentAngle)
+    /**
+     * an enum for the move function
+     * has four abstract methods
+     */
     public enum Direction {
 
         FORWARD {
@@ -583,15 +692,38 @@ public abstract class Autonomous extends LinearOpMode {
 //            }
 //        };
 
-
+        /**
+         * moves the motors to go to a specific direction
+         * @param power
+         */
         public abstract void setPower(double power);
 
+        /**
+         * finds the target tick count the motors should get to
+         * @param distance
+         * @param motors
+         * @return
+         */
         public abstract double getTarget(double distance, DcMotor[] motors);
 
+        /**
+         * determines whether or not the robot has reached the target
+         * @param targets
+         * @param motors
+         * @return
+         */
         public abstract boolean hasNotReached(double targets, DcMotor[] motors);
 
+        /**
+         * gets the motors that are in use for the direction
+         * @return
+         */
         public abstract DcMotor[] getMotors();
 
+        /**
+         * stops the motors
+         * @param motors
+         */
         public static void stopRobot(DcMotor[] motors) {
             for (DcMotor motor : motors) {
                 motor.setPower(0);
@@ -600,6 +732,9 @@ public abstract class Autonomous extends LinearOpMode {
 
     }
 
+    /**
+     * calibrates the robot wheels
+     */
     protected void calibrate() {
         topLeft.setPower(0.5);
         sleep(1000);
@@ -644,6 +779,11 @@ public abstract class Autonomous extends LinearOpMode {
 
     }
 
+    /**
+     * Moves the robot in a direction for 1 second
+     * @param direction a Direction enum to specify which direction you want to travel
+     * @param power power
+     */
     protected void rotateMotorsOnce(Direction direction, double power) {
         DcMotor[] motors = direction.getMotors();
         direction.setPower(power);
@@ -651,5 +791,3 @@ public abstract class Autonomous extends LinearOpMode {
         Direction.stopRobot(motors);
     }
 }
-
-

@@ -10,9 +10,9 @@ public class AutoCorrectTest extends Autonomous {
     public void runOpMode() {
         initHardware();
         while (opModeIsActive()) {
-            autoCorrectMove(FORWARD, TILE_LENGTH, 0.3);
+            autoCorrectMove(FORWARD, TILE_LENGTH, 0);
             sleep(1000);
-            autoCorrectMove(BACKWARD, TILE_LENGTH, 0.3);
+            autoCorrectMove(BACKWARD, TILE_LENGTH, 0);
             sleep(1000);
         }
         // stop

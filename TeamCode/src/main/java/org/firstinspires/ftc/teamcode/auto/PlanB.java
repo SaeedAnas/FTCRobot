@@ -21,5 +21,4 @@ public class PlanB extends Autonomous {
         brake();
     }
 
-
 }
