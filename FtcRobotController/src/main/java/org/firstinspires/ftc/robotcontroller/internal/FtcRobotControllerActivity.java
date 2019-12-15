@@ -311,11 +311,11 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
         camera2BasicFragment = Camera2BasicFragment.newInstance();
         SingletonManager.getInstance(this);
 
-        if (null == savedInstanceState) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_camera, camera2BasicFragment)
-                    .commit();
-        }
+//        if (null == savedInstanceState) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.container_camera, camera2BasicFragment)
+//                    .commit();
+//        }
 
         preferencesHelper = new PreferencesHelper(TAG, context);
         preferencesHelper.writeBooleanPrefIfDifferent(context.getString(R.string.pref_rc_connected), true);

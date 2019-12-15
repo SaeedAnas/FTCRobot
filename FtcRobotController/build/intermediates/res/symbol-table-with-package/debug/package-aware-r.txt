@@ -813,7 +813,6 @@ id configureButton
 id configureFromTemplate
 id configureFromTemplateArea
 id container
-id container_camera
 id content
 id contentPanel
 id controller_name

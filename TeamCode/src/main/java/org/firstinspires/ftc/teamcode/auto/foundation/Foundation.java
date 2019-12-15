@@ -37,8 +37,29 @@ abstract class Foundation extends Autonomous {
 
     private void moveFoundationRed() {
         releaseFoundation();
-
+        autoCorrectMove(Strafe.RIGHT, 15, 0.3);
+        autoCorrectMove(FORWARD, 5, 0.3);
+        grabFoundation();
+        move(BACKWARD, 10, 0.3);
+        turnByGyro(0.7, 90);
+        releaseFoundation();
+        move(BACKWARD, TILE_LENGTH, 0.3);
     }
+    private void moveFoundationBlue() {
+        releaseFoundation();
+        autoCorrectMove(Strafe.LEFT, 15, 0.3);
+        autoCorrectMove(FORWARD, 5, 0.3);
+        grabFoundation();
+        move(BACKWARD, 10, 0.3);
+        turnByGyro(0.7, -90);
+        releaseFoundation();
+        move(BACKWARD, TILE_LENGTH, 0.3);
+    }
+    // 10 foudnation
+    // 20 skystone
+    // 8
+    // 10 both on the bridge
+
 
 //    private void moveFoundationVertical(char team) {
 //        releaseFoundation();
@@ -61,7 +82,11 @@ abstract class Foundation extends Autonomous {
 //    }
 
     void currentFoundation(char team) {
-        moveFoundationHorizontal(team);
+        if (team == 'r') {
+            moveFoundationRed();
+        } else if (team == 'b') {
+            moveFoundationBlue();
+        }
     }
 
 
