@@ -15,6 +15,7 @@ MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/anas/.gradle/caches
 MERGED from [com.android.support:cardview-v7:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/d280ec5d1eac08885b834bf6ffaad6a0/cardview-v7-28.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-v13:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/93610e7d4bc2fe81013b11a5eb0ef904/support-v13-28.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-v4:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/ce2f6058b582880ec3c9aa6ee9f900c8/support-v4-28.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:2:1-17:12
 MERGED from [:Inspection-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/2fe8b4c69f953c5a270b9f92f899542f/Inspection-release/AndroidManifest.xml:2:1-32:12
 MERGED from [:Blocks-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/def41eee5c95cb17fd68a97381b84930/Blocks-release/AndroidManifest.xml:2:1-41:12
 MERGED from [:RobotServer-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/0025be0fa4dfb9d5e55dc3827ce60841/RobotServer-release/AndroidManifest.xml:2:1-11:12
@@ -45,6 +46,8 @@ MERGED from [com.android.support:interpolator:28.0.0] /Users/anas/.gradle/caches
 MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/780607b29fa9b8b916b13db491ef41f2/livedata-1.1.1/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/178d52fd0f4d875d0c412c649f532470/livedata-core-1.1.1/AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/d8ef00b68490a45f49fd0664d6982489/runtime-1.1.1/AndroidManifest.xml:17:1-22:12
+MERGED from [org.openftc:easyopencv:1.2] /Users/anas/.gradle/caches/transforms-2/files-2.1/ac5176afd7c8e98e366b6c336b30327d/easyopencv-1.2/AndroidManifest.xml:2:1-11:12
+MERGED from [org.openftc:opencv-repackaged:4.1.0-A] /Users/anas/.gradle/caches/transforms-2/files-2.1/4653290a55ea65ec4287e8c9af05f43b/opencv-repackaged-4.1.0-A/AndroidManifest.xml:2:1-11:12
 INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
 INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
 INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
@@ -72,6 +75,8 @@ MERGED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-
 MERGED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/a61982c58efad1a027dce87ca57beccf/FtcCommon-release/AndroidManifest.xml:23:5-233:19
 MERGED from [:tensorflow-lite-0.0.0-nightly:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5c934979689d41157542c0b21a5be1f7/tensorflow-lite-0.0.0-nightly/AndroidManifest.xml:4:5-5:19
 MERGED from [:tensorflow-lite-0.0.0-nightly:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5c934979689d41157542c0b21a5be1f7/tensorflow-lite-0.0.0-nightly/AndroidManifest.xml:4:5-5:19
+MERGED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:11:5-15:19
 MERGED from [:Inspection-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/2fe8b4c69f953c5a270b9f92f899542f/Inspection-release/AndroidManifest.xml:19:5-30:19
 MERGED from [:Inspection-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/2fe8b4c69f953c5a270b9f92f899542f/Inspection-release/AndroidManifest.xml:19:5-30:19
 MERGED from [:Blocks-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/def41eee5c95cb17fd68a97381b84930/Blocks-release/AndroidManifest.xml:18:5-39:19
@@ -82,6 +87,8 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/anas/.gradle
 MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/ec51a15ecdd6ac6bc414bac2bbd5ef52/versionedparcelable-28.0.0/AndroidManifest.xml:22:5-23:19
 	android:appComponentFactory
 		ADDED from [com.android.support:support-compat:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/ccf94a4f227dfa4f17156620e28a8b98/support-compat-28.0.0/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:14:9-35
 	android:label
 		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:9-41
 	android:largeHeap
@@ -118,6 +125,8 @@ MERGED from [com.android.support:support-v13:28.0.0] /Users/anas/.gradle/caches/
 MERGED from [com.android.support:support-v13:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/93610e7d4bc2fe81013b11a5eb0ef904/support-v13-28.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/ce2f6058b582880ec3c9aa6ee9f900c8/support-v4-28.0.0/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:28.0.0] /Users/anas/.gradle/caches/transforms-2/files-2.1/ce2f6058b582880ec3c9aa6ee9f900c8/support-v4-28.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:7:5-9:41
 MERGED from [:Inspection-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/2fe8b4c69f953c5a270b9f92f899542f/Inspection-release/AndroidManifest.xml:7:5-9:41
 MERGED from [:Inspection-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/2fe8b4c69f953c5a270b9f92f899542f/Inspection-release/AndroidManifest.xml:7:5-9:41
 MERGED from [:Blocks-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/def41eee5c95cb17fd68a97381b84930/Blocks-release/AndroidManifest.xml:7:5-9:41
@@ -178,6 +187,10 @@ MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/anas/.gradle/cac
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/178d52fd0f4d875d0c412c649f532470/livedata-core-1.1.1/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.core:runtime:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/d8ef00b68490a45f49fd0664d6982489/runtime-1.1.1/AndroidManifest.xml:20:5-44
 MERGED from [android.arch.core:runtime:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/d8ef00b68490a45f49fd0664d6982489/runtime-1.1.1/AndroidManifest.xml:20:5-44
+MERGED from [org.openftc:easyopencv:1.2] /Users/anas/.gradle/caches/transforms-2/files-2.1/ac5176afd7c8e98e366b6c336b30327d/easyopencv-1.2/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:easyopencv:1.2] /Users/anas/.gradle/caches/transforms-2/files-2.1/ac5176afd7c8e98e366b6c336b30327d/easyopencv-1.2/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:opencv-repackaged:4.1.0-A] /Users/anas/.gradle/caches/transforms-2/files-2.1/4653290a55ea65ec4287e8c9af05f43b/opencv-repackaged-4.1.0-A/AndroidManifest.xml:7:5-9:41
+MERGED from [org.openftc:opencv-repackaged:4.1.0-A] /Users/anas/.gradle/caches/transforms-2/files-2.1/4653290a55ea65ec4287e8c9af05f43b/opencv-repackaged-4.1.0-A/AndroidManifest.xml:7:5-9:41
 INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
 INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
 	android:targetSdkVersion
