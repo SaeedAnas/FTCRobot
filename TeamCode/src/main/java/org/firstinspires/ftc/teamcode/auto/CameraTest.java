@@ -22,6 +22,7 @@ import java.util.Locale;
 public class CameraTest extends LinearOpMode {
     private OpenCvCamera phoneCam;
     private SkystoneDetector skyStoneDetector;
+    
 
     @Override
     public void runOpMode() {
@@ -50,6 +51,7 @@ public class CameraTest extends LinearOpMode {
          * (while a streaming session is in flight) *IS* supported.
          */
         skyStoneDetector = new SkystoneDetector();
+
         phoneCam.setPipeline(skyStoneDetector);
 
         /*

@@ -9,13 +9,11 @@ public class Servo extends Autonomous {
     @Override
     public void runOpMode() {
         initHardware();
-        if (opModeIsActive()) {
-            for(int i = 0; i <= 1; i+=0.1) {
-                moveFoundation(i,i);
-                telemetry.addData("ServoVal: ", i);
-                telemetry.update();
-                sleep(1000);
-            }
+        while (opModeIsActive()) {
+            grabFoundation();
+            sleep(1000);
+            releaseFoundation();
+            sleep(1000);
         }
         // stop
     }

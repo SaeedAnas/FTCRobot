@@ -79,6 +79,8 @@ public abstract class Autonomous extends LinearOpMode {
         topLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         bottomLeft = hardwareMap.get(DcMotor.class, "rearLeft");
         bottomRight = hardwareMap.get(DcMotor.class, "rearRight");
+        foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
+        foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

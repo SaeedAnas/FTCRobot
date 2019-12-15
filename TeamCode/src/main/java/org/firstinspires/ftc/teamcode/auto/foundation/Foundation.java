@@ -37,8 +37,8 @@ abstract class Foundation extends Autonomous {
 
     private void moveFoundationRed() {
         releaseFoundation();
-        autoCorrectMove(Strafe.RIGHT, 15, 0.3);
-        autoCorrectMove(FORWARD, 5, 0.3);
+        autoCorrectMove(FORWARD_RIGHT, 15, 0.3);
+        autoCorrectMove(FORWARD, 10, 0.3);
         grabFoundation();
         move(BACKWARD, 10, 0.3);
         turnByGyro(0.7, 90);
@@ -47,8 +47,8 @@ abstract class Foundation extends Autonomous {
     }
     private void moveFoundationBlue() {
         releaseFoundation();
-        autoCorrectMove(Strafe.LEFT, 15, 0.3);
-        autoCorrectMove(FORWARD, 5, 0.3);
+        autoCorrectMove(FORWARD_LEFT, 15, 0.3);
+        autoCorrectMove(FORWARD, 10, 0.3);
         grabFoundation();
         move(BACKWARD, 10, 0.3);
         turnByGyro(0.7, -90);

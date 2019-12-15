@@ -5,7 +5,6 @@ import org.firstinspires.ftc.teamcode.teleop.Tele;
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Multithreading extends Autonomous {
 
-
      @Override
      public void runOpMode() {
          initHardware();
@@ -51,8 +50,6 @@ public class Multithreading extends Autonomous {
                 arr[1] = false;
                 telemetry.update();
             }
-
-
         }
 
         void listen() {
@@ -69,7 +66,6 @@ public class Multithreading extends Autonomous {
         Thread l = new Thread(new Listener());
         Thread up = new Thread(new TelemetryRunnable());
         Thread down = new Thread(new OtherRunnable());
-        telemetry.addData("RIGHTBEFOREL", "AAA");
         telemetry.update();
         l.start();
         telemetry.addData("L", " Started");
