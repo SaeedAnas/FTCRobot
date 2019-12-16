@@ -15,6 +15,7 @@ public class AutoCorrectTest extends Autonomous {
             autoCorrectMove(BACKWARD, TILE_LENGTH, 0);
             sleep(1000);
         }
+
         // stop
     }
 
