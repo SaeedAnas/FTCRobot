@@ -54,6 +54,8 @@ public abstract class Autonomous extends LinearOpMode {
 
     private static Servo foundationLeft;
 
+    private static Servo sideServo;
+
     private BNO055IMU imu;
 
     static List<VuforiaTrackable> trackables = new ArrayList<VuforiaTrackable>();
@@ -65,7 +67,7 @@ public abstract class Autonomous extends LinearOpMode {
      * initializes the imu, and sets the motors
      */
     public void initHardware() {
-        initVuforia();
+        //initVuforia();
         initImu();
 //        leftMotor = hardwareMap.get(DcMotor.class, "left");
 //        rightMotor = hardwareMap.get(DcMotor.class, "right");
@@ -81,6 +83,7 @@ public abstract class Autonomous extends LinearOpMode {
         bottomRight = hardwareMap.get(DcMotor.class, "rearRight");
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
+        sideServo = hardwareMap.get(Servo.class, "sideServo");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -37,23 +37,37 @@ abstract class Foundation extends Autonomous {
 
     private void moveFoundationRed() {
         releaseFoundation();
-        autoCorrectMove(FORWARD_RIGHT, 15, 0.3);
+        autoCorrectMove(FORWARD_RIGHT, 20, 0.3);
+        sleep(500);
         autoCorrectMove(FORWARD, 10, 0.3);
+        sleep(500);
         grabFoundation();
+        sleep(500);
         move(BACKWARD, 10, 0.3);
+        sleep(500);
         turnByGyro(0.7, 90);
+        sleep(500);
         releaseFoundation();
+        sleep(500);
         move(BACKWARD, TILE_LENGTH, 0.3);
+        sleep(500);
     }
     private void moveFoundationBlue() {
         releaseFoundation();
-        autoCorrectMove(FORWARD_LEFT, 15, 0.3);
+        autoCorrectMove(FORWARD_LEFT, 20, 0.3);
+        sleep(500);
         autoCorrectMove(FORWARD, 10, 0.3);
+        sleep(500);
         grabFoundation();
+        sleep(500);
         move(BACKWARD, 10, 0.3);
+        sleep(500);
         turnByGyro(0.7, -90);
+        sleep(500);
         releaseFoundation();
+        sleep(500);
         move(BACKWARD, TILE_LENGTH, 0.3);
+        sleep(500);
     }
     // 10 foudnation
     // 20 skystone
