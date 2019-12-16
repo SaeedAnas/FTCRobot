@@ -22,7 +22,6 @@ import java.util.Locale;
 public class CameraTest extends LinearOpMode {
     private OpenCvCamera phoneCam;
     private SkystoneDetector skyStoneDetector;
-    
 
     @Override
     public void runOpMode() {
