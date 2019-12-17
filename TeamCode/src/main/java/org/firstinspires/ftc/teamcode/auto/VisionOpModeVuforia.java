@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto;
 import android.graphics.Bitmap;
+import android.widget.ImageView;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,6 +9,7 @@ import com.vuforia.Image;
 import com.vuforia.PIXEL_FORMAT;
 import com.vuforia.Vuforia;
 
+import org.firstinspires.ftc.robotcontroller.internal.SingletonManager;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -23,6 +25,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 import java.util.Arrays;
 import java.util.concurrent.BlockingQueue;
 
+import static org.firstinspires.ftc.robotcontroller.internal.SingletonManager.singleton;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous(name="Vision")
@@ -80,6 +83,7 @@ public class VisionOpModeVuforia extends LinearOpMode {
     private float phoneZRotate    = 0;
 
     VisionPipeline p;
+    ImageView stream = singleton.getStream();
 
     private boolean shouldWrite = false;
     @Override
@@ -92,8 +96,8 @@ public class VisionOpModeVuforia extends LinearOpMode {
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
          * If no camera monitor is desired, use the parameter-less constructor instead (commented out below).
          */
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
         // VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
 
@@ -135,18 +139,17 @@ public class VisionOpModeVuforia extends LinearOpMode {
                         bm.copyPixelsFromBuffer(img.getPixels());
                         Mat mat = bitmapToMat(bm, CvType.CV_8UC3);
                         Mat ret = p.processFrame(mat);
-                       Bitmap displayBitmap = Bitmap.createBitmap(ret.width(), ret.height(), Bitmap.Config.RGB_565);
+                       final Bitmap displayBitmap = Bitmap.createBitmap(ret.width(), ret.height(), Bitmap.Config.RGB_565);
                        Utils.matToBitmap(ret, displayBitmap);
-                       telemetry.addData("count", count);
-                       telemetry.addData("Rows", mat.rows());
-                       telemetry.addData("Cols", mat.cols());
-                        telemetry.addData("Hi", Arrays.toString(mat.get(mat.rows()-1, mat.cols()-1)));
-                       telemetry.addData("THIS WORKDS", "HI");
-
+                       singleton.getActivity().runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               stream.setImageBitmap(displayBitmap);
+                           }});
                     }
                 }
             }
-            telemetry.addData("gfsdafdsy: ",p.getVumarkLeftBoundary());
+            telemetry.addData("Count: ", count);
             telemetry.update();
             count++;
         }

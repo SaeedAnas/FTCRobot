@@ -134,17 +134,14 @@ public class Tele extends LinearOpMode {
 
     private void foundation() {
         if (gpad1x) {
-            if (isUp) {
                 foundationRight.setPosition(1);
                 foundationLeft.setPosition(1);
-                isUp = false;
-            } else {
+            } else if (gpad1y) {
                 foundationRight.setPosition(0.5);
                 foundationLeft.setPosition(0.5);
-                isUp=true;
             }
         }
-    }
+
 //
 //    private void grabber() {
 //
@@ -200,28 +197,28 @@ public class Tele extends LinearOpMode {
         double powerStraight = 0.8;
         double powerRotate = 0.5;
         // frontLeft
-        if (leftX1 < -0.5 && leftY1 < -0.5) {
+        if (leftX1 < -0.3 && leftY1 < -0.3) {
             strafeLeftFront(powerStrafe);
         }
         // frontRight
-        else if (leftX1 > 0.5 && leftY1 < -0.5) {
+        else if (leftX1 > 0.3 && leftY1 < -0.3) {
             strafeRightFront(powerStrafe);
         }
         //bottomLeft
-        else if (leftX1 < -0.5 && leftY1 > 0.5) {
+        else if (leftX1 < -0.3 && leftY1 > 0.3) {
             strafeLeftBack(powerStrafe);
         }
         // bottomRight
-        else if (leftX1 > 0.5 && leftY1 > 0.5) {
+        else if (leftX1 > 0.3 && leftY1 > 0.3) {
             strafeRightBack(powerStrafe);
         }
-        // slideRight
+        // rotateRight
         else if (leftX1 > 0.9) {
-            slideRight(powerStrafe);
+            rotateRight(powerRotate);
         }
-        // slideLeft
+        // rotateLeft
         else if (leftX1 < -0.9) {
-            slideLeft(powerStrafe);
+            rotateLeft(powerRotate);
         }
         // forward
         else if (leftY1 < -0.9) {
@@ -231,13 +228,13 @@ public class Tele extends LinearOpMode {
         else if (leftY1 > 0.9) {
             backward(powerStraight);
         }
-        // rotate right
+        // side right
         else if (rightX1 > 0.9) {
-            rotateRight(powerRotate);
+            slideRight(powerRotate);
         }
-        // rotate left
+        // slide left
         else if (rightX1 < -0.9) {
-            rotateLeft(powerRotate);
+            slideLeft(powerRotate);
         }
         else {
             stopRobot();
@@ -292,8 +289,8 @@ public class Tele extends LinearOpMode {
     private void rotateLeft(double power) {
         topRight.setPower(power);
         topLeft.setPower(-power);
-        bottomRight.setPower(-power);
-        bottomLeft.setPower(power);
+        bottomRight.setPower(power);
+        bottomLeft.setPower(-power);
     }
 
     private void strafeRightFront(double power) {

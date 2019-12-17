@@ -147,13 +147,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             android:layout_weight="1"
             />
 
-        <FrameLayout
-            android:id="@+id/container_camera"
+        <ImageView
+            android:id="@+id/filteredStream"
             android:layout_width="200dp"
             android:layout_height="300dp"
             android:layout_marginTop="220dp"
             android:background="#000"
-            tools:context="com.example.android.camera2basic.CameraActivity" />
+            android:rotation="90" />
 
 
       </LinearLayout>
