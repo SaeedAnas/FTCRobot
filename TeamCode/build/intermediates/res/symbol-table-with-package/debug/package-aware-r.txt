@@ -867,6 +867,7 @@ id files_holder
 id fill
 id fill_horizontal
 id fill_vertical
+id filteredStream
 id fixButton
 id forever
 id front

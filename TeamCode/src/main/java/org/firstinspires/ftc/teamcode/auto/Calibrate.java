@@ -5,7 +5,8 @@ public class Calibrate extends Autonomous {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            calibrate();
+            calibrateMotors();
+//            calibrate();
         }
         // stop
     }

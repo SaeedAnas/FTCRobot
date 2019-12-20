@@ -146,6 +146,7 @@ public class VisionOpModeVuforia extends LinearOpMode {
                            public void run() {
                                stream.setImageBitmap(displayBitmap);
                            }});
+                       telemetry.addData("Index: ", p.getIndex());
                     }
                 }
             }

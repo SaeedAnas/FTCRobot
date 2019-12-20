@@ -84,6 +84,8 @@ public abstract class Autonomous extends LinearOpMode {
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
+        armMotorRight = hardwareMap.get(DcMotor.class, "armMotorRight");
+        armMotorLeft = hardwareMap.get(DcMotor.class, "armMotorLeft");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -134,6 +136,21 @@ public abstract class Autonomous extends LinearOpMode {
         telemetry.addData("Status: ", "Imu Calibration Ready");
         telemetry.update();
 
+    }
+
+    public void calibrateMotors() {
+        armMotorRight.setPower(0.5);
+        sleep(1000);
+        armMotorRight.setPower(-0.5);
+        sleep(1000);
+        armMotorRight.setPower(0);
+        sleep(1000);
+        armMotorLeft.setPower(0.5);
+        sleep(1000);
+        armMotorLeft.setPower(-0.5);
+        sleep(1000);
+        armMotorLeft.setPower(0);
+        sleep(1000);
     }
 
     /**

@@ -74,8 +74,12 @@ public class VisionPipeline extends OpenCvPipeline{
 
     private Mat hierarchy = new Mat();
 
-    // private CSVWriter csvWriter = new CSVWriter(new File("colsums.java"));
+    private static int blockNum = -1;
+    private static int l = 0;
+    private static int r = 0;
+    private static int m = 0;
 
+    // private CSVWriter csvWriter = new CSVWriter(new File("colsums.java"));
 
     private final int INDEX_ERROR = -2; // index error code
 
@@ -84,9 +88,24 @@ public class VisionPipeline extends OpenCvPipeline{
             Imgproc.cvtColor(input,input,Imgproc.COLOR_RGB2GRAY);
             //Imgproc.adaptiveThreshold(input, input, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 101, 40);
             Imgproc.threshold(input,input,25,255, THRESH_BINARY_INV);
+
+            blockNum = searchMap(input);
+
             return input;
         } catch (Exception e) {
             return input;
+        }
+    }
+
+    public String getIndex() {
+        if (blockNum == 0) {
+            return "Left";
+        } else if (blockNum == 1) {
+            return "Middle";
+        } else if (blockNum == 2) {
+            return "Right";
+        } else {
+            return "None";
         }
     }
 
@@ -98,6 +117,54 @@ public class VisionPipeline extends OpenCvPipeline{
 
     private Mat crop(Mat image, Rect rect) {
         return new Mat(image, rect);
+    }
+
+    private int searchMap(Mat input) {
+        Mat left, middle, right;
+        left = new Mat(input, new Rect(0,0,input.cols()/3,input.rows()));
+        right = new Mat(input, new Rect(input.cols()/3, 0, input.cols()/3, input.rows()));
+        middle = new Mat(input, new Rect((input.cols()/3)*2, 0, input.cols()/3, input.rows()));
+
+       // int[] searchRange = {input.rows()/2 - 20, input.rows() + 20};
+        double l = searchDivision(left);
+        double r = searchDivision(right);
+        double m = searchDivision(middle);
+        return getLargest(new double[] {l, m, r});
+    }
+
+    private int getLargest(double[] arr) {
+        double largest = arr[0];
+        int index = 0;
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > largest) {
+                largest = arr[i];
+                index = i;
+            }
+        }
+
+        return index;
+
+    }
+
+    private double searchDivision (Mat input) {
+        double mean = 0;
+        int rows = input.rows();
+        int cols = input.cols();
+        int thresh = 20;
+
+//        for (int r = rows/2 - thresh; r < rows/2 + thresh; r++) {
+//            for (int c = 0; c < cols; c++) {
+//                    mean += input.get(r, c)[0];
+//            }
+//        }
+
+        for (int c = cols/2 - thresh; c < cols/2 + thresh; c++) {
+            for (int r = 0; r < rows; r++) {
+                mean += input.get(r, c)[0];
+            }
+        }
+        return mean;
     }
 
 

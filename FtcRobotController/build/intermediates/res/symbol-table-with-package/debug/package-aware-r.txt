@@ -855,6 +855,7 @@ id file_edit_button
 id file_info_layout
 id filename_editText
 id files_holder
+id filteredStream
 id fixButton
 id forever
 id groupList
