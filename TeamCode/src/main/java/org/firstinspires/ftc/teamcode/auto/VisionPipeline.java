@@ -153,17 +153,17 @@ public class VisionPipeline extends OpenCvPipeline{
         int cols = input.cols();
         int thresh = 20;
 
-//        for (int r = rows/2 - thresh; r < rows/2 + thresh; r++) {
-//            for (int c = 0; c < cols; c++) {
-//                    mean += input.get(r, c)[0];
-//            }
-//        }
-
-        for (int c = cols/2 - thresh; c < cols/2 + thresh; c++) {
-            for (int r = 0; r < rows; r++) {
-                mean += input.get(r, c)[0];
+        for (int r = rows/2 - thresh; r < rows/2 + thresh; r++) {
+            for (int c = 0; c < cols; c++) {
+                    mean += input.get(r, c)[0];
             }
         }
+
+//        for (int c = cols/2 - thresh; c < cols/2 + thresh; c++) {
+//            for (int r = 0; r < rows; r++) {
+//                mean += input.get(r, c)[0];
+//            }
+//        }
         return mean;
     }
 

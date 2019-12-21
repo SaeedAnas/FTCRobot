@@ -26,6 +26,10 @@ public class Tele extends LinearOpMode {
 
     private static DcMotor bottomRight;
 
+    private static DcMotor armMotorRight;
+
+    private static DcMotor armMotorLeft;
+
     private static Servo foundationRight;
 
     private static Servo foundationLeft;
@@ -44,7 +48,7 @@ public class Tele extends LinearOpMode {
             SLOW_DOWN1 = 1.3,
             SLOW_DOWN2 = 1.5;
     private static boolean isUp = false;
-    private static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper;
+    private static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right;
     private static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
 
     @Override
@@ -58,6 +62,8 @@ public class Tele extends LinearOpMode {
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
+        armMotorRight = hardwareMap.get(DcMotor.class, "slideRight");
+        armMotorLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -66,6 +72,7 @@ public class Tele extends LinearOpMode {
         // reverse right motors
         topRight.setDirection(DcMotorSimple.Direction.REVERSE);
         bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
         // rightMotor is upside-down
 //        leftMotor.setDirection(DcMotor.Direction.REVERSE);
 //        armMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -87,6 +94,7 @@ public class Tele extends LinearOpMode {
             getValues();
             foundation();
             move();
+            arm();
             printValues();
         }
     }
@@ -114,6 +122,9 @@ public class Tele extends LinearOpMode {
         leftY2 = gamepad2.left_stick_y;
         rightX2 = gamepad2.right_stick_x;
         rightY2 = gamepad2.right_stick_y;
+        dpad2Up = gamepad2.dpad_up;
+        dpad2down = gamepad2.dpad_down;
+        dpad2right = gamepad2.dpad_right;
     }
 
     private void printValues() {
@@ -141,6 +152,28 @@ public class Tele extends LinearOpMode {
                 foundationLeft.setPosition(0.5);
             }
         }
+
+    private void arm() {
+        if (dpad2Up) {
+            armMotorLeft.setPower(0.5);
+            armMotorRight.setPower(0.5);
+        } else if (dpad2down) {
+            armMotorLeft.setPower(-0.5);
+            armMotorRight.setPower(-0.5);
+        } else {
+            armMotorLeft.setPower(0);
+            armMotorRight.setPower(0);
+        }
+    }
+
+    private void servo() {
+        if (gpad2leftBumper) {
+            sideServo.setPosition(0.5);
+        }
+        else if (gpad2rightBumper) {
+            sideServo.setPosition(0) ;
+        }
+    }
 
 //
 //    private void grabber() {

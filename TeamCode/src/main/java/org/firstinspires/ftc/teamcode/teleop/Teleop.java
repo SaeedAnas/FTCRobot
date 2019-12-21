@@ -87,6 +87,7 @@ public class Teleop extends LinearOpMode {
         armServo = hardwareMap.get(CRServo.class, "armServo");
 
 
+
         //buttons g1xButton, g1yButton, g2aButton,g2bButton,g2rightBump,g2leftBump;
         gpad1x = gamepad1.x;
         gpad1y = gamepad1.y;
