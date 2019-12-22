@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.test;
 
-import static org.firstinspires.ftc.teamcode.auto.Autonomous.Direction.*;
-import static org.firstinspires.ftc.teamcode.auto.Constants.*;
+import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Servo extends Autonomous {

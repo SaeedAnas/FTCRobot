@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.test;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.teleop.Tele;
+import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
+
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class Multithreading extends Autonomous {
 

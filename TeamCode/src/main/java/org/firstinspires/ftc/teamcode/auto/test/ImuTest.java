@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.test;
+
+import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class ImuTest extends Autonomous {

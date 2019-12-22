@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.auto.block;
 
-import org.firstinspires.ftc.teamcode.auto.Autonomous;
+import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 
-import static org.firstinspires.ftc.teamcode.auto.Autonomous.Direction.*;
-import static org.firstinspires.ftc.teamcode.auto.Constants.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 abstract class Block extends Autonomous {
     // PLEASE READ:

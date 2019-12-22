@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class SingletonManager {
     public static SingletonManager singleton;
     private FtcRobotControllerActivity context;
@@ -27,4 +31,6 @@ public class SingletonManager {
     public ImageView getStream() {
         return stream;
     }
+
+
 }

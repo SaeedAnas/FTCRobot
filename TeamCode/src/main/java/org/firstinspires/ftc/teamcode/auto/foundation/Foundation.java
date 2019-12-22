@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.teamcode.auto.foundation;
 
-import org.firstinspires.ftc.teamcode.auto.Autonomous;
-import static org.firstinspires.ftc.teamcode.auto.Autonomous.Direction.*;
-import static org.firstinspires.ftc.teamcode.auto.Constants.*;
+import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 abstract class Foundation extends Autonomous {
     // PLEASE READ:

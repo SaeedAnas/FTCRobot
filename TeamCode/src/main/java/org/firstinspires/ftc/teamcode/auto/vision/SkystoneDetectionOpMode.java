@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.vision;
 
 
 import com.disnodeteam.dogecv.detectors.skystone.SkystoneDetector;
@@ -18,8 +18,9 @@ import java.util.Locale;
  * Original Work Copright(c) 2019 OpenFTC Team
  * Derived Work Copyright(c) 2019 DogeDevs
  */
-@Autonomous
-public class CameraTest extends LinearOpMode {
+@Autonomous(name = "Skystone Detector OpMode", group="DogeCV")
+
+public class SkystoneDetectionOpMode extends LinearOpMode {
     private OpenCvCamera phoneCam;
     private SkystoneDetector skyStoneDetector;
 
@@ -50,7 +51,6 @@ public class CameraTest extends LinearOpMode {
          * (while a streaming session is in flight) *IS* supported.
          */
         skyStoneDetector = new SkystoneDetector();
-
         phoneCam.setPipeline(skyStoneDetector);
 
         /*

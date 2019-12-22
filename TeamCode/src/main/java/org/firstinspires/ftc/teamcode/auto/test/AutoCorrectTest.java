@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.test;
 
-import static org.firstinspires.ftc.teamcode.auto.Autonomous.Direction.*;
-import static org.firstinspires.ftc.teamcode.auto.Constants.*;
+import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
+
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class AutoCorrectTest extends Autonomous {

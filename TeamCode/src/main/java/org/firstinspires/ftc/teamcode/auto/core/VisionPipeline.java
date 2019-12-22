@@ -1,7 +1,10 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.core;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -17,13 +20,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.firstinspires.ftc.teamcode.auto.core.VariableManager.vars;
 import static org.opencv.imgproc.Imgproc.ADAPTIVE_THRESH_MEAN_C;
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY_INV;
-
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class VisionPipeline extends OpenCvPipeline{
     // THIS DETECTOR RETURNS THE PIXEL LOCATION OF THE LEFT MOST BOUNDARY OF THE BLACK TARGET
     // YOU CAN EASILY MODIFY IT TO GET YOU THE CENTER
@@ -79,6 +85,14 @@ public class VisionPipeline extends OpenCvPipeline{
     private static int r = 0;
     private static int m = 0;
 
+    private static double[] vals = {-1, -1, -1};
+    private static HashMap<String, Double> positionMap = new HashMap<String, Double>() {{
+        positionMap.put("Left", -1.0);
+        positionMap.put("Middle", -1.0);
+        positionMap.put("Right", -1.0);
+    }};
+    private Telemetry telemetry = vars.getTelemetry();
+
     // private CSVWriter csvWriter = new CSVWriter(new File("colsums.java"));
 
     private final int INDEX_ERROR = -2; // index error code
@@ -89,7 +103,7 @@ public class VisionPipeline extends OpenCvPipeline{
             //Imgproc.adaptiveThreshold(input, input, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 101, 40);
             Imgproc.threshold(input,input,25,255, THRESH_BINARY_INV);
 
-            blockNum = searchMap(input);
+//            blockNum = searchMap(input);
 
             return input;
         } catch (Exception e) {
@@ -119,33 +133,88 @@ public class VisionPipeline extends OpenCvPipeline{
         return new Mat(image, rect);
     }
 
-    private int searchMap(Mat input) {
+
+    public int searchMap(Mat input) {
         Mat left, middle, right;
         left = new Mat(input, new Rect(0,0,input.cols()/3,input.rows()));
-        right = new Mat(input, new Rect(input.cols()/3, 0, input.cols()/3, input.rows()));
-        middle = new Mat(input, new Rect((input.cols()/3)*2, 0, input.cols()/3, input.rows()));
+        middle = new Mat(input, new Rect(input.cols()/3, 0, input.cols()/3, input.rows()));
+        right = new Mat(input, new Rect((input.cols()/3)*2, 0, input.cols()/3, input.rows()));
 
        // int[] searchRange = {input.rows()/2 - 20, input.rows() + 20};
-        double l = searchDivision(left);
-        double r = searchDivision(right);
-        double m = searchDivision(middle);
-        return getLargest(new double[] {l, m, r});
+        Thread l = new Thread(new MatSearcher(left, "Left"));
+        Thread m = new Thread(new MatSearcher(middle, "Middle"));
+        Thread r = new Thread(new MatSearcher(right, "Right"));
+        l.start();
+        m.start();
+        r.start();
+        waitForThread();
+        int largest = getLargest(vals);
+        resetMap();
+        return largest;
     }
 
-    private int getLargest(double[] arr) {
-        double largest = arr[0];
-        int index = 0;
+    private String getLargest(HashMap<String, Double> posMap) {
+        double largest = -1;
+        String position = "";
 
-        for (int i = 1; i < arr.length; i++) {
-            if (arr[i] > largest) {
-                largest = arr[i];
-                index = i;
+        for (Map.Entry<String, Double> pos : posMap.entrySet()) {
+            if (pos.getValue() > largest) {
+                largest = pos.getValue();
+                
             }
         }
 
-        return index;
+        return position;
 
     }
+
+    private boolean isReady() {
+        boolean isReady = true;
+        for (Map.Entry<String, Double> pos : positionMap.entrySet()) {
+            if (pos.getValue() < 0) {
+                isReady = false;
+            }
+        }
+        return isReady;
+    }
+
+    private void waitForThread() {
+        while(!isReady()) {
+            telemetry.addData("Status: ","Waiting");
+        }
+    }
+
+    class MatSearcher implements Runnable {
+        private Mat division;
+        private String position;
+
+        MatSearcher(Mat division, String position) {
+            this.division = division;
+            this.position = position;
+        }
+
+        @Override
+        public void run() {
+            positionMap.replace(position, searchDivision(division));
+        }
+    }
+
+
+    private void resetVals() {
+        for (int i = 0; i < vals.length; i++) {
+            vals[i] = -1;
+        }
+    }
+
+    private void resetMap() {
+        for (Map.Entry<String, Double> pos : positionMap.entrySet()) {
+            positionMap.replace(pos.getKey(), -1.0);
+        }
+    }
+
+
+
+
 
     private double searchDivision (Mat input) {
         double mean = 0;

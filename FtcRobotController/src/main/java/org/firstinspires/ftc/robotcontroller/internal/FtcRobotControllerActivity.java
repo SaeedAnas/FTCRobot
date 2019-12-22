@@ -310,7 +310,7 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
 
         camera2BasicFragment = Camera2BasicFragment.newInstance();
         SingletonManager.getInstance(this, findViewById(R.id.filteredStream));
-
+        getActionBar().hide();
 //        if (null == savedInstanceState) {
 //            getSupportFragmentManager().beginTransaction()
 //                    .replace(R.id.container_camera, camera2BasicFragment)

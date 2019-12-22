@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.core;
 
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -41,8 +41,8 @@ public class Constants {
     //
     // NOTE: If you are running on a CONTROL HUB, with only one USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     //
-    protected static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    protected static final boolean PHONE_IS_PORTRAIT = false  ;
+    public static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
+    public static final boolean PHONE_IS_PORTRAIT = false  ;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -56,27 +56,27 @@ public class Constants {
      * Once you've obtained a license key, copy the string from the Vuforia web site
      * and paste it in to your code on the next line, between the double quotes.
      */
-    protected static final String VUFORIA_KEY =
-            "AVkAyx3/////AAABmYdyw7V6PUSel7U9ewtEEL2IhIh/Tm3oN+WUruzFFBvM0UxDGV568bm9ypYMLndtLha14b/MV+wy655J6ERCXJhCtur/UbPnP8oB84ZVjBj1FBK1V9lPumOu8zxDJejYGh2qVyOjhpuMvSmhBncps70LW8cTEMPeMZNS4q81D5AzsYqmo0JeJ4CEiMnBgrsbbqUxsJIqhDYf2GPbwuYSSONMwJF8dfBDUyjA29uE+VeLEikATT842Kev7CGtYmSEmej0HhZDxkoiTM5D8tHfkpxQ1ApLp5oeWv96ihTw7z3/ILnQv/8IlNvVb31EVl3f0TVBBKxUy6dITvsTpLQMp684qMgx9EJRBP+imJjC9HtN";
+    public static final String VUFORIA_KEY =
+            "AT8pGt3/////AAABmQ9LKBWthkikgQSErtn4C1GN+U/k35mErGuydnhrXtBLs2+wEnRYzMx2qJC0Q+4bHLUaWRZ18gRQcTZOoaKDYfG7yIcNfsexI4G5IdAgwfAZnSbrWco7IW2mdaHZrQ5mw/u0mh1RHbcPdK3JAheEknMP53n73JNNBFbEcB+IN2qPSI4AUrWqK3TuAl7XCnEBQrHKB7kU62rXWs+4r4/RcNB0g/yMZ3S5Yv7vfHYGMEA3/Wj+4PC/6v/pO9StgMjxKaVZMjTYiHvUN6yi6CgVfQlKlmkEMU0IR60PcUgA9hKq9CPXVNPN1tXCTGFGdd+WbhFEGdkbZxY3scU85G4kDQy2oNbFRaClpdHYINBOV1U1";
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
-    protected static final float mmPerInch        = 25.4f;
-    protected static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
+    public static final float mmPerInch        = 25.4f;
+    public static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
     // Constant for Stone Target
-    protected static final float stoneZ = 2.00f * mmPerInch;
+    public static final float stoneZ = 2.00f * mmPerInch;
 
     // Constants for the center support targets
-    protected static final float bridgeZ = 6.42f * mmPerInch;
-    protected static final float bridgeY = 23 * mmPerInch;
-    protected static final float bridgeX = 5.18f * mmPerInch;
-    protected static final float bridgeRotY = 59;                                 // Units are degrees
-    protected static final float bridgeRotZ = 180;
+    public static final float bridgeZ = 6.42f * mmPerInch;
+    public static final float bridgeY = 23 * mmPerInch;
+    public static final float bridgeX = 5.18f * mmPerInch;
+    public static final float bridgeRotY = 59;                                 // Units are degrees
+    public static final float bridgeRotZ = 180;
 
     // Constants for perimeter targets
-    protected static final float halfField = 72 * mmPerInch;
-    protected static final float quadField  = 36 * mmPerInch;
+    public static final float halfField = 72 * mmPerInch;
+    public static final float quadField  = 36 * mmPerInch;
 
     // Class Members
     public static OpenGLMatrix lastLocation = null;
