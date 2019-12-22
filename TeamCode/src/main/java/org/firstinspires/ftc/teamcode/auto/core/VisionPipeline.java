@@ -2,34 +2,23 @@ package org.firstinspires.ftc.teamcode.auto.core;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.firstinspires.ftc.teamcode.auto.core.VariableManager.vars;
-import static org.opencv.imgproc.Imgproc.ADAPTIVE_THRESH_MEAN_C;
-import static org.opencv.imgproc.Imgproc.THRESH_BINARY;
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY_INV;
-@RequiresApi(api = Build.VERSION_CODES.N)
+
 public class VisionPipeline extends OpenCvPipeline{
     // THIS DETECTOR RETURNS THE PIXEL LOCATION OF THE LEFT MOST BOUNDARY OF THE BLACK TARGET
     // YOU CAN EASILY MODIFY IT TO GET YOU THE CENTER
@@ -86,12 +75,6 @@ public class VisionPipeline extends OpenCvPipeline{
     private static int m = 0;
 
     private static double[] vals = {-1, -1, -1};
-    private static HashMap<String, Double> positionMap = new HashMap<String, Double>() {{
-        positionMap.put("Left", -1.0);
-        positionMap.put("Middle", -1.0);
-        positionMap.put("Right", -1.0);
-    }};
-    private Telemetry telemetry = vars.getTelemetry();
 
     // private CSVWriter csvWriter = new CSVWriter(new File("colsums.java"));
 
@@ -100,16 +83,33 @@ public class VisionPipeline extends OpenCvPipeline{
     public Mat processFrame(Mat input) {
         try {
             Imgproc.cvtColor(input,input,Imgproc.COLOR_RGB2GRAY);
-            //Imgproc.adaptiveThreshold(input, input, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 101, 40);
-            Imgproc.threshold(input,input,25,255, THRESH_BINARY_INV);
-
-//            blockNum = searchMap(input);
-
+////            //Imgproc.adaptiveThreshold(input, input, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 101, 40);
+           Imgproc.threshold(input,input,25,255, THRESH_BINARY_INV);
+//////            blockNum = searchMap(input);
+//            input.type();
             return input;
         } catch (Exception e) {
             return input;
         }
     }
+
+//    private double[] getIntegralSums(Mat input) {
+//        Mat left, middle, right;
+//        left = new Mat(input, new Rect(0,0,input.cols()/3,input.rows()));
+//        middle = new Mat(input, new Rect(input.cols()/3, 0, input.cols()/3, input.rows()));
+//        right = new Mat(input, new Rect((input.cols()/3)*2, 0, input.cols()/3, input.rows()));
+//
+//
+//    }
+//
+//    private double getIntegralSum(Mat input) {
+//        int rows = input.rows();
+//        int cols = input.cols();
+//
+//        Mat sum = new Mat(rows+1, cols+1, 32);
+//        Mat sqsum = new Mat(rows+1, cols+1, 64);
+//        Imgproc.integral2(input, sum, sqsum,-1);
+//    }
 
     public String getIndex() {
         if (blockNum == 0) {
@@ -121,8 +121,8 @@ public class VisionPipeline extends OpenCvPipeline{
         } else {
             return "None";
         }
-    }
 
+    }
 
     private Mat crop(Mat image, Point topLeftCorner, Point bottomRightCorner) {
         Rect cropRect = new Rect(topLeftCorner, bottomRightCorner);
@@ -133,7 +133,6 @@ public class VisionPipeline extends OpenCvPipeline{
         return new Mat(image, rect);
     }
 
-
     public int searchMap(Mat input) {
         Mat left, middle, right;
         left = new Mat(input, new Rect(0,0,input.cols()/3,input.rows()));
@@ -141,9 +140,9 @@ public class VisionPipeline extends OpenCvPipeline{
         right = new Mat(input, new Rect((input.cols()/3)*2, 0, input.cols()/3, input.rows()));
 
        // int[] searchRange = {input.rows()/2 - 20, input.rows() + 20};
-        Thread l = new Thread(new MatSearcher(left, "Left"));
-        Thread m = new Thread(new MatSearcher(middle, "Middle"));
-        Thread r = new Thread(new MatSearcher(right, "Right"));
+        Thread l = new Thread(new MatSearcher(left, 0));
+        Thread m = new Thread(new MatSearcher(middle, 1));
+        Thread r = new Thread(new MatSearcher(right, 2));
         l.start();
         m.start();
         r.start();
@@ -153,25 +152,25 @@ public class VisionPipeline extends OpenCvPipeline{
         return largest;
     }
 
-    private String getLargest(HashMap<String, Double> posMap) {
-        double largest = -1;
-        String position = "";
+    private int getLargest(double[] vals) {
+        double largest = vals[0];
+        int index = 0;
 
-        for (Map.Entry<String, Double> pos : posMap.entrySet()) {
-            if (pos.getValue() > largest) {
-                largest = pos.getValue();
-                
+        for (int i = 1; i < vals.length; i++) {
+            if (vals[i] > largest) {
+                largest = vals[i];
+                index = i;
             }
         }
 
-        return position;
+        return index;
 
     }
 
     private boolean isReady() {
         boolean isReady = true;
-        for (Map.Entry<String, Double> pos : positionMap.entrySet()) {
-            if (pos.getValue() < 0) {
+        for (int i = 0; i < vals.length; i++) {
+            if (vals[i] < 0) {
                 isReady = false;
             }
         }
@@ -180,25 +179,24 @@ public class VisionPipeline extends OpenCvPipeline{
 
     private void waitForThread() {
         while(!isReady()) {
-            telemetry.addData("Status: ","Waiting");
+
         }
     }
 
     class MatSearcher implements Runnable {
         private Mat division;
-        private String position;
+        private int index;
 
-        MatSearcher(Mat division, String position) {
+        MatSearcher(Mat division, int index) {
             this.division = division;
-            this.position = position;
+            this.index = index;
         }
 
         @Override
         public void run() {
-            positionMap.replace(position, searchDivision(division));
+            vals[index] = searchDivision(division);
         }
     }
-
 
     private void resetVals() {
         for (int i = 0; i < vals.length; i++) {
@@ -207,20 +205,21 @@ public class VisionPipeline extends OpenCvPipeline{
     }
 
     private void resetMap() {
-        for (Map.Entry<String, Double> pos : positionMap.entrySet()) {
-            positionMap.replace(pos.getKey(), -1.0);
+        for (int i = 0; i < vals.length; i++) {
+            vals[i] = -1;
         }
     }
-
-
-
-
 
     private double searchDivision (Mat input) {
         double mean = 0;
         int rows = input.rows();
         int cols = input.cols();
         int thresh = 20;
+
+        Mat sum = new Mat(rows+1, cols+1, 32);
+        Mat sqsum = new Mat(rows+1, cols+1, 64);
+        Imgproc.integral2(input, sum, sqsum,-1);
+
 
         for (int r = rows/2 - thresh; r < rows/2 + thresh; r++) {
             for (int c = 0; c < cols; c++) {

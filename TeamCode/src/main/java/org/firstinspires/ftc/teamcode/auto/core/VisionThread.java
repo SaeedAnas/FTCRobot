@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.auto.core;
 
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.widget.ImageView;
 
 import com.vuforia.Image;
@@ -46,6 +48,7 @@ public class VisionThread implements Runnable {
         vuforia.setFrameQueueCapacity(1);
     }
 
+
     private void stream() {
         VuforiaLocalizer.CloseableFrame vuFrame = null;
         if (!vuforia.getFrameQueue().isEmpty()) {
@@ -61,7 +64,6 @@ public class VisionThread implements Runnable {
                     if (img.getFormat() == PIXEL_FORMAT.RGB565) {
                         Bitmap displayBitmap = processImage(img);
                         update(displayBitmap);
-                        telemetry.addData("Index: ", p.getIndex());
                     }
                 }
             }
@@ -76,7 +78,7 @@ public class VisionThread implements Runnable {
         Mat mat = bitmapToMat(bm, CvType.CV_8UC3);
         Mat ret = p.processFrame(mat);
         lastFrame = ret;
-        final Bitmap displayBitmap = Bitmap.createBitmap(ret.width(), ret.height(), Bitmap.Config.RGB_565);
+        final Bitmap displayBitmap = Bitmap.createBitmap(ret.width(), ret.height(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(ret, displayBitmap);
         return displayBitmap;
     }

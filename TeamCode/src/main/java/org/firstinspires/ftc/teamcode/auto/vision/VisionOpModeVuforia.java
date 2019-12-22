@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto.vision;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.widget.ImageView;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -15,12 +17,14 @@ import org.firstinspires.ftc.teamcode.auto.core.VisionPipeline;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 
 import static org.firstinspires.ftc.robotcontroller.internal.SingletonManager.singleton;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous(name="VisionThread")
-public class VisionOpModeVuforia extends LinearOpMode {
+
+public class VisionOpModeVuforia extends org.firstinspires.ftc.teamcode.auto.core.Autonomous {
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final boolean PHONE_IS_PORTRAIT = false  ;
 
@@ -71,6 +75,7 @@ public class VisionOpModeVuforia extends LinearOpMode {
     ImageView stream = singleton.getStream();
 
     private boolean shouldWrite = false;
+
     @Override
     public void runOpMode() {
         p = new VisionPipeline();
@@ -126,20 +131,31 @@ public class VisionOpModeVuforia extends LinearOpMode {
                         Mat ret = p.processFrame(mat);
                        final Bitmap displayBitmap = Bitmap.createBitmap(ret.width(), ret.height(), Bitmap.Config.RGB_565);
                        Utils.matToBitmap(ret, displayBitmap);
-                       singleton.getActivity().runOnUiThread(new Runnable() {
+                        Imgproc.integral(ret,ret);
+                        telemetry.addData("First: ", cvtArray(ret.get(ret.rows(), ret.cols())));
+                        singleton.getActivity().runOnUiThread(new Runnable() {
                            @Override
                            public void run() {
                                stream.setImageBitmap(displayBitmap);
                            }});
-                       telemetry.addData("Index: ", p.getIndex());
                     }
                 }
             }
-            telemetry.addData("Count: ", count);
+//            telemetry.addData("Count: ", count);
             telemetry.update();
-            count++;
+//            count++;
         }
 
+    }
+
+
+    private String cvtArray(double[] arr) {
+        String str = "";
+        for (double i : arr) {
+            str += i;
+            str += ", ";
+        }
+        return str;
     }
 
     private Mat bitmapToMat (Bitmap bit, int cvType) {

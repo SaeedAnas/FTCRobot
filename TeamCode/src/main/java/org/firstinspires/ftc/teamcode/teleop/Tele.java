@@ -155,11 +155,11 @@ public class Tele extends LinearOpMode {
 
     private void arm() {
         if (dpad2Up) {
-            armMotorLeft.setPower(0.5);
-            armMotorRight.setPower(0.5);
+            armMotorLeft.setPower(0.7);
+            armMotorRight.setPower(0.7);
         } else if (dpad2down) {
-            armMotorLeft.setPower(-0.5);
-            armMotorRight.setPower(-0.5);
+            armMotorLeft.setPower(-0.7);
+            armMotorRight.setPower(-0.7);
         } else {
             armMotorLeft.setPower(0);
             armMotorRight.setPower(0);
@@ -276,6 +276,8 @@ public class Tele extends LinearOpMode {
     }
 
 
+
+
     private void stopRobot() {
         topRight.setPower(0);
         topLeft.setPower(0);
@@ -346,6 +348,42 @@ public class Tele extends LinearOpMode {
         topLeft.setPower(-power);
         bottomRight.setPower(-power);
     }
+
+//    public void drive(){
+//
+//        double y = -gamepad1.left_stick_y; // reversed
+//        double x = gamepad1.left_stick_x * STRAFE_FIX;
+//        double rx = gamepad1.right_stick_x;
+//
+//        double frontLeftPower=(y + x + rx);
+//        double frontRightPower=(y - x - rx);
+//        double backLeftPower=(y - x + rx);
+//        double backRightPower=(y + x - rx);
+//        if (Math.abs(frontLeftPower) > 1 || Math.abs(backLeftPower) > 1 ||
+//                Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1 ) {
+//            // Find the largest power
+//            double max = 0;
+//            max = Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower));
+//            max = Math.max(Math.abs(frontRightPower), max);
+//            max = Math.max(Math.abs(backRightPower), max);
+//
+//            // Divide everything by max
+//            frontLeftPower /= max;
+//            backLeftPower /= max;
+//            frontRightPower /= max;
+//            backRightPower /= max;
+//            topRight.setPower(backRightPower);
+//            backLeft.setPower(backLeftPower);
+//            frontRight.setPower(frontRightPower);
+//            frontLeft.setPower(frontLeftPower);
+//
+//        }
+//        else{
+//            backRight.setPower(backRightPower);
+//            backLeft.setPower(backLeftPower);
+//            frontRight.setPower(frontRightPower);
+//            frontLeft.setPower(frontLeftPower);
+//        }
 
 
 }
