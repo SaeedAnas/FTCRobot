@@ -843,6 +843,7 @@ public abstract class Autonomous extends LinearOpMode {
          * moves the motors to go to a specific direction
          * @param power
          */
+
         public abstract void setPower(double power);
 
         /**
@@ -931,6 +932,7 @@ public abstract class Autonomous extends LinearOpMode {
      * @param direction a Direction enum to specify which direction you want to travel
      * @param power power
      */
+
     protected void rotateMotorsOnce(Direction direction, double power) {
         DcMotor[] motors = direction.getMotors();
         direction.setPower(power);
