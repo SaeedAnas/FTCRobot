@@ -6,26 +6,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
-import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.auto.vision.VisionPipeline;
+import org.firstinspires.ftc.teamcode.auto.vision.VisionThread;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
-import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 public abstract class Autonomous extends LinearOpMode {
@@ -54,6 +45,9 @@ public abstract class Autonomous extends LinearOpMode {
 
     private static Servo sideServo;
 
+    private static Thread vision;
+
+
     private BNO055IMU imu;
 
     static List<VuforiaTrackable> trackables = new ArrayList<VuforiaTrackable>();
@@ -67,7 +61,6 @@ public abstract class Autonomous extends LinearOpMode {
     public void initHardware() {
         //initVuforia();
         initImu();
-        VariableManager.getInstance(telemetry);
 //        leftMotor = hardwareMap.get(DcMotor.class, "left");
 //        rightMotor = hardwareMap.get(DcMotor.class, "right");
 //        armMotorLeft = hardwareMap.get(DcMotor.class, "armLeft");
@@ -75,8 +68,8 @@ public abstract class Autonomous extends LinearOpMode {
 //        foundationLeft = hardwareMap.get(Servo.class, "leftFoundation");
 //        foundationRight = hardwareMap.get(Servo.class, "rightFoundation");
 //        grabber = hardwareMap.get(Servo.class, "grabber");
-        Thread vision = new Thread(new VisionThread());
-        vision.run();
+        vision = new Thread(new VisionThread());
+        vision.start();
         topRight = hardwareMap.get(DcMotor.class, "frontRight");
         topLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         bottomLeft = hardwareMap.get(DcMotor.class, "rearLeft");
@@ -136,6 +129,15 @@ public abstract class Autonomous extends LinearOpMode {
         telemetry.addData("Status: ", "Imu Calibration Ready");
         telemetry.update();
 
+    }
+
+    protected void printBlockPositon() {
+        telemetry.addData("Block Positon: ", VisionPipeline.getBlockPosition());
+        telemetry.update();
+    }
+
+    protected void stopVision() {
+        vision.interrupt();
     }
 
     public void calibrateMotors() {

@@ -18,11 +18,12 @@ package org.firstinspires.ftc.robotcontroller.internal;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.TextureView;
+import android.widget.ImageView;
 
 /**
  * A {@link TextureView} that can be adjusted to a specified aspect ratio.
  */
-public class AutoFitTextureView extends TextureView {
+public class AutoFitTextureView extends android.support.v7.widget.AppCompatImageView {
 
     private int mRatioWidth = 0;
     private int mRatioHeight = 0;

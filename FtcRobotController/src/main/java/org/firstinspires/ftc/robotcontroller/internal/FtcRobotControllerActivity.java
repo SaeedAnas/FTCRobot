@@ -106,7 +106,6 @@ import org.firstinspires.ftc.ftccommon.internal.FtcRobotControllerWatchdogServic
 import org.firstinspires.ftc.ftccommon.internal.ProgramAndManageActivity;
 import org.firstinspires.ftc.onbotjava.OnBotJavaHelperImpl;
 import org.firstinspires.ftc.onbotjava.OnBotJavaProgrammingMode;
-import org.firstinspires.ftc.robotcontroller.external.samples.CameraCapture;
 import org.firstinspires.ftc.robotcore.external.navigation.MotionDetection;
 import org.firstinspires.ftc.robotcore.internal.hardware.android.AndroidBoard;
 import org.firstinspires.ftc.robotcore.internal.network.DeviceNameManagerFactory;
@@ -138,7 +137,7 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
         return TAG;
     }
 
-    private Camera2BasicFragment camera2BasicFragment;
+    //private Camera2BasicFragment camera2BasicFragment;
 
     private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
     private static final int NUM_GAMEPADS = 2;
@@ -308,7 +307,7 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_ftc_controller);
 
-        camera2BasicFragment = Camera2BasicFragment.newInstance();
+        //camera2BasicFragment = Camera2BasicFragment.newInstance();
         SingletonManager.getInstance(this, findViewById(R.id.filteredStream), findViewById(R.id.mat));
 
 //        if (null == savedInstanceState) {
@@ -426,7 +425,7 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
 
         // If we're start()ing after a stop(), then shut the old robot down so
         // we can refresh it with new state (e.g., with new hw configurations)
-        Camera2BasicFragment c = new Camera2BasicFragment();
+        //Camera2BasicFragment c = new Camera2BasicFragment();
         shutdownRobot();
 
         updateUIAndRequestRobotSetup();
@@ -855,7 +854,7 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
         Toast.makeText(this, text,  Toast.LENGTH_LONG).show();
     }
 
-    public Camera2BasicFragment getFragment() {
-        return camera2BasicFragment;
-    }
+//    public Camera2BasicFragment getFragment() {
+//        return camera2BasicFragment;
+//    }
 }
