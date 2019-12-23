@@ -921,6 +921,7 @@ id lynxUsbDeviceModules
 id lynxUsbDeviceName
 id lynx_module_devices
 id lynx_module_name
+id mat
 id matrixcontroller_name
 id media_actions
 id menu_buttons
@@ -1034,6 +1035,7 @@ id textView10
 id textView11
 id textView12
 id textView13
+id textView2
 id textView3
 id textView4
 id textView5

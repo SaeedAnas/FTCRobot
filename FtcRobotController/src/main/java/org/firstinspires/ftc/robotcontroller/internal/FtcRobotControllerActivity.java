@@ -309,7 +309,7 @@ public class FtcRobotControllerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ftc_controller);
 
         camera2BasicFragment = Camera2BasicFragment.newInstance();
-        SingletonManager.getInstance(this, findViewById(R.id.filteredStream));
+        SingletonManager.getInstance(this, findViewById(R.id.filteredStream), findViewById(R.id.mat));
 
 //        if (null == savedInstanceState) {
 //            getSupportFragmentManager().beginTransaction()

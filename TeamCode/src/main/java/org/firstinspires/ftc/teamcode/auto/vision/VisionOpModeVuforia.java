@@ -132,7 +132,6 @@ public class VisionOpModeVuforia extends org.firstinspires.ftc.teamcode.auto.cor
                        final Bitmap displayBitmap = Bitmap.createBitmap(ret.width(), ret.height(), Bitmap.Config.RGB_565);
                        Utils.matToBitmap(ret, displayBitmap);
                         Imgproc.integral(ret,ret);
-                        telemetry.addData("First: ", cvtArray(ret.get(ret.rows(), ret.cols())));
                         singleton.getActivity().runOnUiThread(new Runnable() {
                            @Override
                            public void run() {

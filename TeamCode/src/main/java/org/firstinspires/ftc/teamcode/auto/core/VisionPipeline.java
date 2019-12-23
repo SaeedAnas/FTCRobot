@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.core;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.widget.TextView;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
@@ -13,10 +14,13 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.firstinspires.ftc.robotcontroller.internal.SingletonManager.singleton;
 import static org.firstinspires.ftc.teamcode.auto.core.VariableManager.vars;
+import static org.opencv.core.CvType.*;
 import static org.opencv.imgproc.Imgproc.THRESH_BINARY_INV;
 
 public class VisionPipeline extends OpenCvPipeline{
@@ -80,18 +84,36 @@ public class VisionPipeline extends OpenCvPipeline{
 
     private final int INDEX_ERROR = -2; // index error code
 
+    private TextView mat = singleton.getMatView();
+
     public Mat processFrame(Mat input) {
         try {
             Imgproc.cvtColor(input,input,Imgproc.COLOR_RGB2GRAY);
-////            //Imgproc.adaptiveThreshold(input, input, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 101, 40);
-           Imgproc.threshold(input,input,25,255, THRESH_BINARY_INV);
-//////            blockNum = searchMap(input);
-//            input.type();
+            Imgproc.threshold(input,input,25,255, THRESH_BINARY_INV);
+               Mat smol = new Mat(input, new Rect(0, 0, 20, 20));
+               Mat sum = new Mat(input.rows() + 1, input.cols() + 1, CV_32F);
+               Mat sqsum = new Mat(input.rows() + 1, input.cols() + 1, CV_64F);
+               Imgproc.integral2(input, sum, sqsum, CV_32F);
+               updateTextView("\n\n\n" + Arrays.toString(sum.get(sum.rows()-2, sum.cols()-2)) + " " + Arrays.toString(smol.get(smol.rows()-1, smol.rows()-1)));
+              // updateTextView(sum.toString());
+
             return input;
         } catch (Exception e) {
             return input;
         }
     }
+
+        public void updateTextView(final String toThis) {
+            singleton.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mat.setText(toThis);
+                }
+            });
+        }
+
+
+
 
 //    private double[] getIntegralSums(Mat input) {
 //        Mat left, middle, right;
@@ -108,7 +130,7 @@ public class VisionPipeline extends OpenCvPipeline{
 //
 //        Mat sum = new Mat(rows+1, cols+1, 32);
 //        Mat sqsum = new Mat(rows+1, cols+1, 64);
-//        Imgproc.integral2(input, sum, sqsum,-1);
+//        Imgproc.integral2(input, sum, sqsum,CV_32F);
 //    }
 
     public String getIndex() {

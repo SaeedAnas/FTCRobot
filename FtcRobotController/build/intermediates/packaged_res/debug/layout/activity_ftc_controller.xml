@@ -147,13 +147,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             android:layout_weight="1"
             />
 
+        <TextView
+            android:id="@+id/mat"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp" />
+
         <ImageView
             android:id="@+id/filteredStream"
             android:layout_width="200dp"
             android:layout_height="300dp"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="120dp"
             android:background="#000"
             android:rotation="90" />
+
+
 
 
       </LinearLayout>
@@ -208,5 +216,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     android:id="@+id/webViewBlocksRuntime"
     android:layout_width="1dp"
     android:layout_height="1dp" />
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="TextView" />
 
 </LinearLayout>
