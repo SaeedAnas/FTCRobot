@@ -54,16 +54,14 @@ public class VisionPipeline {
      * @return either left, middle, or right depending on which one has the skystone
      */
     public static String getBlockPosition() {
-        String s = createString(lastIntegrals);
         int pos =  getLargest(lastIntegrals);
         if (pos == LEFT) {
-            return s +", Left";
+            return "Left";
         } else if (pos == MIDDLE) {
-            return s + ", Middle";
+            return "Middle";
         } else {
-            return s + ", Right";
+            return  "Right";
         }
-
     }
 
     /**
@@ -84,17 +82,16 @@ public class VisionPipeline {
 
         Utils.matToBitmap(ret, retBitmap);
 
-        final Bitmap displayBitmap = scaleImage(retBitmap);
+        return scaleImage(retBitmap);
 
-        return displayBitmap;
     }
 
     /**
      * Processes the image into grayscale and extracts the integral values from the regions of intrest
      * @param input image from the camera in an opencv Mat object for easier processing
-     * @return
+     * @return processed black white image
      */
-    Mat processFrame(Mat input) {
+    private Mat processFrame(Mat input) {
 
         try {
             /* Vuforia camera streams images that are rotated 90 degrees counterclockwise,
@@ -267,26 +264,26 @@ public class VisionPipeline {
         lastIntegralString = s.toString();
 
     }
-
-    private static String createString(double[] arr) {
-
-        StringBuilder s = new StringBuilder("\n\n");
-
-        for (int i = 0; i < arr.length; i++) {
-            if (i == LEFT) {
-                s.append("Left: ");
-            } else if (i == MIDDLE) {
-                s.append("Middle: ");
-            } else if (i == RIGHT){
-                s.append("Right: ");
-            }
-            s.append(arr[i]);
-            s.append(" ");
-        }
-
-         return s.toString();
-
-    }
+//
+//    private static String createString(double[] arr) {
+//
+//        StringBuilder s = new StringBuilder("\n\n");
+//
+//        for (int i = 0; i < arr.length; i++) {
+//            if (i == LEFT) {
+//                s.append("Left: ");
+//            } else if (i == MIDDLE) {
+//                s.append("Middle: ");
+//            } else if (i == RIGHT){
+//                s.append("Right: ");
+//            }
+//            s.append(arr[i]);
+//            s.append(" ");
+//        }
+//
+//         return s.toString();
+//
+//    }
 
 
     /**
@@ -369,9 +366,8 @@ public class VisionPipeline {
 
         Matrix matrix = new Matrix();
         matrix.postScale(xScale, yScale);
-        Bitmap scaledImage = Bitmap.createBitmap(image, 0,0,width,height,matrix,true);
+        return Bitmap.createBitmap(image, 0,0,width,height,matrix,true);
 
-        return scaledImage;
     }
 
     /**

@@ -5,7 +5,7 @@ import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 public class VisionOpModeVuforia extends Autonomous {
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         initHardware();
         while(opModeIsActive()) {
             printBlockPositon();

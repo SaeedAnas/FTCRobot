@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto.vision;
 
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
 import android.widget.ImageView;
 
 import com.vuforia.Image;
@@ -10,9 +9,7 @@ import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.opencv.android.Utils;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
+
 
 import static org.firstinspires.ftc.robotcontroller.internal.SingletonManager.singleton;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.VUFORIA_KEY;
