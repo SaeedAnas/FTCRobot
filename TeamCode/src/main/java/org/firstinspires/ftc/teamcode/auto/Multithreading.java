@@ -11,8 +11,8 @@ public class Multithreading extends Autonomous {
          int count = 1;
          while (opModeIsActive()) {
              if(count == 1)
-            multithreadingDemonstration();
-             count++;
+                 multithreadingDemonstration();
+                count++;
          }
          // stop
      }

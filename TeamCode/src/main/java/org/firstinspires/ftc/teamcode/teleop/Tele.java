@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.teamcode.auto.Constants;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
@@ -36,6 +37,10 @@ public class Tele extends LinearOpMode {
 
     private static Servo sideServo;
 
+    public static DcMotor cascadeRight;
+
+    public static DcMotor cascadeLeft;
+
 
     // Constants
     private static final double
@@ -48,7 +53,7 @@ public class Tele extends LinearOpMode {
             SLOW_DOWN1 = 1.3,
             SLOW_DOWN2 = 1.5;
     private static boolean isUp = false;
-    private static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right;
+    private static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right, dpad1Up, dpad1Down, dpad1Right;
     private static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
 
     @Override
@@ -64,11 +69,15 @@ public class Tele extends LinearOpMode {
         sideServo = hardwareMap.get(Servo.class, "sideServo");
         armMotorRight = hardwareMap.get(DcMotor.class, "slideRight");
         armMotorLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        cascadeLeft = hardwareMap.get (DcMotor.class, "cascadeLeft");
+        cascadeRight = hardwareMap.get (DcMotor.class, "cascadeRight");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bottomRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         bottomLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        cascadeRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        cascadeLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // reverse right motors
         topRight.setDirection(DcMotorSimple.Direction.REVERSE);
         bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -82,12 +91,16 @@ public class Tele extends LinearOpMode {
         topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cascadeRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cascadeLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // set motor to run using encoder
         topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cascadeLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cascadeRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -125,7 +138,12 @@ public class Tele extends LinearOpMode {
         dpad2Up = gamepad2.dpad_up;
         dpad2down = gamepad2.dpad_down;
         dpad2right = gamepad2.dpad_right;
+        dpad1Up = gamepad1.dpad_up;
+        dpad1Down = gamepad1.dpad_down;
+        dpad1Right = gamepad1.dpad_right;
+
     }
+
 
     private void printValues() {
         telemetry.addData("leftX1", leftX1);
@@ -172,6 +190,21 @@ public class Tele extends LinearOpMode {
         }
         else if (gpad2rightBumper) {
             sideServo.setPosition(0) ;
+        }
+    }
+
+    private void runCascade() {
+        if (dpad1Up){
+            Thread cascadeUp = new Thread(new multiThreadCascadeUp());
+            cascadeUp.start();
+        }
+        if (dpad1Down){
+            Thread cascadeDown = new Thread(new multiThreadCascadeDown());
+            cascadeDown.start();
+        }
+        if (dpad1Right){
+            Thread cascadeRest = new Thread(new multiThreadCascadeRest());
+            cascadeRest.start();
         }
     }
 
@@ -349,3 +382,4 @@ public class Tele extends LinearOpMode {
 
 
 }
+
