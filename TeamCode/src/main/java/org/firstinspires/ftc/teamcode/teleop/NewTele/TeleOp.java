@@ -34,6 +34,10 @@ public class TeleOp extends LinearOpMode {
 
     protected static Servo grabber;
 
+    protected static DcMotor cascadeRight;
+
+    protected static DcMotor cascadeLeft;
+
     protected static CRServo blockMover;
 
     protected Buttons b;
@@ -65,8 +69,8 @@ public class TeleOp extends LinearOpMode {
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
-        armMotorRight = hardwareMap.get(DcMotor.class, "slideRight");
-        armMotorLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
         blockMover = hardwareMap.get(CRServo.class, "blockMover");
 
@@ -78,7 +82,7 @@ public class TeleOp extends LinearOpMode {
         // reverse right motors
         topRight.setDirection(DcMotorSimple.Direction.REVERSE);
         bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        armMotorRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        cascadeRight.setDirection(DcMotorSimple.Direction.REVERSE);
         // rightMotor is upside-down
 //        leftMotor.setDirection(DcMotor.Direction.REVERSE);
 //        armMotorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -87,12 +91,16 @@ public class TeleOp extends LinearOpMode {
         topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cascadeRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cascadeLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // set motor to run using encoder
         topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cascadeLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cascadeRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         b = new Buttons();
         buttons = new SparseArray<>();
         buttons.append(0, new MechanumMovement());
