@@ -7,13 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
-import com.qualcomm.hardware.bosch.BNO055IMU;
-
 @TeleOp(name = "tele", group = "teloop")
 public class Tele extends LinearOpMode {
 
@@ -47,12 +40,23 @@ public class Tele extends LinearOpMode {
             SERVO_RELEASE = 0.7,
             SLOW_DOWN1 = 1.3,
             SLOW_DOWN2 = 1.5;
-    private static boolean isUp = false;
-    private static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right;
-    private static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
+    public static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right;
+    public static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
 
     @Override
     public void runOpMode() {
+
+        waitForStart();
+        while (opModeIsActive()) {
+            getValues();
+//            foundation();
+//            move();
+//            arm();
+            printValues();
+        }
+    }
+
+    private void initHardware() {
         telemetry.addData("Status: ", "Initializing");
         telemetry.update();
         topRight = hardwareMap.get(DcMotor.class, "frontRight");
@@ -88,15 +92,9 @@ public class Tele extends LinearOpMode {
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        telemetry.addData("Status: ", "Ready");
+        telemetry.update();
 
-        waitForStart();
-        while (opModeIsActive()) {
-            getValues();
-            foundation();
-            move();
-            arm();
-            printValues();
-        }
     }
 
     private void getValues() {
@@ -129,29 +127,29 @@ public class Tele extends LinearOpMode {
 
     private void printValues() {
         telemetry.addData("leftX1", leftX1);
-        telemetry.addData("leftY1",leftY1);
-        telemetry.addData("rightX1",rightX1);
-        telemetry.addData("rightY1",rightY1);
-        telemetry.addData("leftX2",leftX2);
-        telemetry.addData("leftY2",leftY2);
-        telemetry.addData("rightX2",rightX2);
-        telemetry.addData("rightY2",rightY2);
-        telemetry.addData("gpad1leftTrigger",gpad1leftTrigger);
-        telemetry.addData("gpad1rightTrigger",gpad1rightTrigger);
-        telemetry.addData("gpad2leftTrigger",gpad2leftTrigger);
-        telemetry.addData("gpad2rightTrigger",gpad2rightTrigger);
+        telemetry.addData("leftY1", leftY1);
+        telemetry.addData("rightX1", rightX1);
+        telemetry.addData("rightY1", rightY1);
+        telemetry.addData("leftX2", leftX2);
+        telemetry.addData("leftY2", leftY2);
+        telemetry.addData("rightX2", rightX2);
+        telemetry.addData("rightY2", rightY2);
+        telemetry.addData("gpad1leftTrigger", gpad1leftTrigger);
+        telemetry.addData("gpad1rightTrigger", gpad1rightTrigger);
+        telemetry.addData("gpad2leftTrigger", gpad2leftTrigger);
+        telemetry.addData("gpad2rightTrigger", gpad2rightTrigger);
         telemetry.update();
     }
 
     private void foundation() {
         if (gpad1x) {
-                foundationRight.setPosition(1);
-                foundationLeft.setPosition(1);
-            } else if (gpad1y) {
-                foundationRight.setPosition(0.5);
-                foundationLeft.setPosition(0.5);
-            }
+            foundationRight.setPosition(1);
+            foundationLeft.setPosition(1);
+        } else if (gpad1y) {
+            foundationRight.setPosition(0.5);
+            foundationLeft.setPosition(0.5);
         }
+    }
 
     private void arm() {
         if (dpad2Up) {
@@ -169,11 +167,11 @@ public class Tele extends LinearOpMode {
     private void servo() {
         if (gpad2leftBumper) {
             sideServo.setPosition(0.5);
-        }
-        else if (gpad2rightBumper) {
-            sideServo.setPosition(0) ;
+        } else if (gpad2rightBumper) {
+            sideServo.setPosition(0);
         }
     }
+
 
 //
 //    private void grabber() {
@@ -224,7 +222,6 @@ public class Tele extends LinearOpMode {
     // bottomRight >0.5 --lx > 0.5 --ly
 
 
-
     private void move() {
         double powerStrafe = 0.5;
         double powerStraight = 0.8;
@@ -268,14 +265,11 @@ public class Tele extends LinearOpMode {
         // slide left
         else if (rightX1 < -0.9) {
             slideLeft(powerRotate);
-        }
-        else {
+        } else {
             stopRobot();
         }
 
     }
-
-
 
 
     private void stopRobot() {
@@ -349,18 +343,18 @@ public class Tele extends LinearOpMode {
         bottomRight.setPower(-power);
     }
 
-//    public void drive(){
+//    public void drive() {
 //
 //        double y = -gamepad1.left_stick_y; // reversed
 //        double x = gamepad1.left_stick_x * STRAFE_FIX;
 //        double rx = gamepad1.right_stick_x;
 //
-//        double frontLeftPower=(y + x + rx);
-//        double frontRightPower=(y - x - rx);
-//        double backLeftPower=(y - x + rx);
-//        double backRightPower=(y + x - rx);
+//        double frontLeftPower = (y + x + rx);
+//        double frontRightPower = (y - x - rx);
+//        double backLeftPower = (y - x + rx);
+//        double backRightPower = (y + x - rx);
 //        if (Math.abs(frontLeftPower) > 1 || Math.abs(backLeftPower) > 1 ||
-//                Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1 ) {
+//                Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1) {
 //            // Find the largest power
 //            double max = 0;
 //            max = Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower));
@@ -372,18 +366,19 @@ public class Tele extends LinearOpMode {
 //            backLeftPower /= max;
 //            frontRightPower /= max;
 //            backRightPower /= max;
-//            topRight.setPower(backRightPower);
-//            backLeft.setPower(backLeftPower);
-//            frontRight.setPower(frontRightPower);
-//            frontLeft.setPower(frontLeftPower);
+//            bottomRight.setPower(backRightPower);
+//            bottomLeft.setPower(backLeftPower);
+//            topRight.setPower(frontRightPower);
+//            topLeft.setPower(frontLeftPower);
 //
+//        } else {
+//            bottomRight.setPower(backRightPower);
+//            bottomLeft.setPower(backLeftPower);
+//            topRight.setPower(frontRightPower);
+//            topLeft.setPower(frontLeftPower);
 //        }
-//        else{
-//            backRight.setPower(backRightPower);
-//            backLeft.setPower(backLeftPower);
-//            frontRight.setPower(frontRightPower);
-//            frontLeft.setPower(frontLeftPower);
-//        }
-
+//
+//
+//    }
 
 }
