@@ -18,10 +18,6 @@ public class TeleOp extends LinearOpMode {
 
     protected static DcMotor bottomRight;
 
-    protected static DcMotor armMotorRight;
-
-    protected static DcMotor armMotorLeft;
-
     protected static DcMotor intakeLeft;
 
     protected static DcMotor intakeRight;
@@ -73,8 +69,6 @@ public class TeleOp extends LinearOpMode {
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
         blockMover = hardwareMap.get(CRServo.class, "blockMover");
-
-
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -106,6 +100,7 @@ public class TeleOp extends LinearOpMode {
         buttons = new SparseArray<>();
         buttons.append(0, new MechanumMovement());
         buttons.append(1, new Foundation());
+        buttons.append(2, new Intake());
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
     }
