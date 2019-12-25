@@ -45,6 +45,12 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
+    private void run() {
+        for (int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).run();
+        }
+    }
+
     void initHardware() {
         telemetry.addData("Status: ", "Initializing");
         telemetry.update();
