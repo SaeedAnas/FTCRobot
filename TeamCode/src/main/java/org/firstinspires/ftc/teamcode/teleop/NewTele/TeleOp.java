@@ -89,6 +89,9 @@ public class TeleOp extends LinearOpMode {
         bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         b = new Buttons();
+        buttons = new SparseArray<>();
+        buttons.append(0, new MechanumMovement());
+        buttons.append(1, new Foundation());
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
     }

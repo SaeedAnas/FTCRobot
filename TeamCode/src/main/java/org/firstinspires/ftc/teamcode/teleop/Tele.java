@@ -151,18 +151,6 @@ public class Tele extends LinearOpMode {
         }
     }
 
-    private void arm() {
-        if (dpad2Up) {
-            armMotorLeft.setPower(0.7);
-            armMotorRight.setPower(0.7);
-        } else if (dpad2down) {
-            armMotorLeft.setPower(-0.7);
-            armMotorRight.setPower(-0.7);
-        } else {
-            armMotorLeft.setPower(0);
-            armMotorRight.setPower(0);
-        }
-    }
 
     private void servo() {
         if (gpad2leftBumper) {
