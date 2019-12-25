@@ -41,7 +41,7 @@ public class TeleOp extends LinearOpMode {
         initHardware();
         while(opModeIsActive()) {
             b.update();
-
+            run();
         }
     }
 
