@@ -70,6 +70,7 @@ public class TeleOp extends LinearOpMode {
         grabber = hardwareMap.get(Servo.class, "grabber");
         blockMover = hardwareMap.get(CRServo.class, "blockMover");
 
+
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

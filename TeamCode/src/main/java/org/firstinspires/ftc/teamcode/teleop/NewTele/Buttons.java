@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.teleop.NewTele;
 
 public class Buttons extends TeleOp{
-    protected static boolean gpad1x, gpad1y, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right;
+    protected static boolean gpad1x, gpad1y, gpad1a, gpad1b, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right;
     protected static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
     protected void update() {
         gpad1x = gamepad1.x;
         gpad1y = gamepad1.y;
+        gpad1a = gamepad1.a;
+        gpad2b = gamepad1.b;
         gpad2a = gamepad2.a;
         gpad2b = gamepad1.b;
         gpad2x = gamepad2.x;
