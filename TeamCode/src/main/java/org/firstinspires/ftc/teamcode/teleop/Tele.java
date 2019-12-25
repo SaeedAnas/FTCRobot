@@ -123,6 +123,7 @@ public class Tele extends LinearOpMode {
         dpad2Up = gamepad2.dpad_up;
         dpad2down = gamepad2.dpad_down;
         dpad2right = gamepad2.dpad_right;
+
     }
 
     private void printValues() {
@@ -330,6 +331,7 @@ public class Tele extends LinearOpMode {
         topLeft.setPower(-power);
         bottomRight.setPower(-power);
     }
+
 
 //    public void drive() {
 //
