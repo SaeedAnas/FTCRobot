@@ -511,7 +511,6 @@ public abstract class Autonomous extends LinearOpMode {
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
     }
 
     /**
@@ -938,20 +937,6 @@ public abstract class Autonomous extends LinearOpMode {
         direction.setPower(power);
         sleep(1000);
         Direction.stopRobot(motors);
-    }
-
-
-
-
-    protected void regularDemonstration() {
-        for(long i = 0; i < 10000000; i++) {
-            telemetry.addData("Count: ", i);
-            telemetry.update();
-        }
-        for (long i = 10000000; i > 0; i--) {
-            telemetry.addData("Count: ", i);
-            telemetry.update();
-        }
     }
 
     public boolean isActive() {

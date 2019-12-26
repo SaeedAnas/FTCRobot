@@ -15,6 +15,8 @@ public class CascadeConstants extends ThreadButton{
     static boolean mutexDown = true;
     static boolean mutexReset = true;
 
+    static boolean anasisgay = true;
+
 
     public void targetPosition (boolean target){
         if(cascadeLeft.getCurrentPosition() < encoderValue || cascadeRight.getCurrentPosition() < encoderValue){

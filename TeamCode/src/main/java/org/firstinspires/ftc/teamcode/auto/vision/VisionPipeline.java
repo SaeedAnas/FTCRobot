@@ -53,15 +53,8 @@ public class VisionPipeline {
      * Should only be used when the first three blocks are in the camera's view.
      * @return either left, middle, or right depending on which one has the skystone
      */
-    public static String getBlockPosition() {
-        int pos =  getLargest(lastIntegrals);
-        if (pos == LEFT) {
-            return "Left";
-        } else if (pos == MIDDLE) {
-            return "Middle";
-        } else {
-            return  "Right";
-        }
+    public static int getBlockPosition(char team) {
+        return getLargest(lastIntegrals);
     }
 
     /**

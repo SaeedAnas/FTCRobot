@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto.block;
 
 import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
+import org.firstinspires.ftc.teamcode.auto.vision.VisionPipeline;
 
 import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
@@ -18,24 +19,13 @@ abstract class Block extends Autonomous {
         else if (team == 'r')
             turnVal = -1;
     }
-    private void grabBlock(char team) {
-        checkTeam(team);
-        release();
-        whileArm(20, ARM_SPEED);
-        sleep(500);
-        move(FORWARD, (TILE_LENGTH * 2) - ROBOT_LENGTH, DRIVE_SPEED);
-        sleep(500);
-        whileArm(-10, ARM_SPEED + 0.1);
-        sleep(500);
-        grab();
-        sleep(500);
-        move(BACKWARD, (TILE_LENGTH * 2) - ROBOT_LENGTH, DRIVE_SPEED);
-        turnByGyro(0.2, -95 * turnVal);
-        move(FORWARD, 10, DRIVE_SPEED);
-        release();
+
+    private static void getBlock(char team){
+        VisionPipeline.getBlockPosition(team);
     }
 
+
      void currentBlock(char team) {
-        grabBlock(team);
+
     }
 }
