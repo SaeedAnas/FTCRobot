@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.teleop.NewTele;
 
 public class CascadeConstants extends ThreadButton{
-    static int count = 0;
+    static int count = 0; //cascadeUp = count ++  cascadeDown = count -- cascadeReset = distance*count
     static double blockHeight = 4; //actually dont know (hight of the block)
     static double PullyCumm = 1.75;
     static double countPerRev = 1440;
@@ -16,6 +16,7 @@ public class CascadeConstants extends ThreadButton{
 
     // max 34 inches
     // max COUNTS_PER_INCH * 34;
+
 
     public void targetPosition (boolean target){
         if(cascadeLeft.getCurrentPosition() < encoderValue || cascadeRight.getCurrentPosition() < encoderValue){

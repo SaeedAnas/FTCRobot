@@ -103,7 +103,10 @@ public class TeleOp extends LinearOpMode {
         buttons.append(0, new MechanumMovement());
         buttons.append(1, new Foundation());
         buttons.append(2, new Intake());
-        buttons.append(3, new CascadeConstants());
+        buttons.append(3, new slides());
+        buttons.append(4, new sideServo());
+        buttons.append(5, new grabber());
+        buttons.append(6, new Continuous());
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
     }
