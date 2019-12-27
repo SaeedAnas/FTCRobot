@@ -12,17 +12,16 @@ abstract class Block extends Autonomous {
     // PLEASE READ:
     // ALWAYS CODE FOR BLUE TEAM AND ADD * turnVal to the turns
     // -Degree is left, +Degree is right
-    static char team;
 
     // blue
     private void getBlock(char team){
         int pos = VisionPipeline.getBlockPosition();
         if (pos == 0) {
-            one('b');
+            one(team);
         } else if (pos == 1) {
-            two('b');
+            two(team);
         } else if (pos == 2) {
-            three('b');
+            three(team);
         }
     }
     // Go to the first block
