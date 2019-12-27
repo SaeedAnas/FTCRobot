@@ -3,10 +3,10 @@ import org.firstinspires.ftc.teamcode.teleop.Tele;
 
 public class CascadeConstants extends ThreadButton{
     static int count = 0;
-    static double distance = -3.5; //actually dont know (hight of the block)
-    static double PullyCurrcum = 2;
+    static double blockHeight = 4; //actually dont know (hight of the block)
+    static double PullyCumm = 1.75;
     static double countPerRev = 1440;
-    static double COUNTS_PER_INCH = countPerRev / (PullyCurrcum * Math.PI); //COUNTER_PER_INCH is differnt
+    static double COUNTS_PER_INCH = countPerRev / (PullyCumm * Math.PI); //COUNTER_PER_INCH is differnt
     //COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI)
     static double encoderValue;
     static double max = 6;
@@ -15,8 +15,8 @@ public class CascadeConstants extends ThreadButton{
     static boolean mutexDown = true;
     static boolean mutexReset = true;
 
-    static boolean anasisgay = true;
-
+    // max 34 inches
+    // max COUNTS_PER_INCH * 34;
 
     public void targetPosition (boolean target){
         if(cascadeLeft.getCurrentPosition() < encoderValue || cascadeRight.getCurrentPosition() < encoderValue){
@@ -25,7 +25,7 @@ public class CascadeConstants extends ThreadButton{
         }
     }
     public void cascadeUp(int block) {
-        double encoderValue = COUNTS_PER_INCH * (distance * block) + 0.3;
+        double encoderValue = COUNTS_PER_INCH * (blockHeight * block) + 0.3;
         count++;
         if(count < max) {
 
@@ -42,7 +42,7 @@ public class CascadeConstants extends ThreadButton{
     }
 
     public void cascadeDown(int block) {
-        double encoderValue = COUNTS_PER_INCH * (distance * block);
+        double encoderValue = COUNTS_PER_INCH * (blockHeight * block);
         count--;
         if (count >= min) {
             while (cascadeLeft.getCurrentPosition() > encoderValue || cascadeRight.getCurrentPosition() > encoderValue) {
