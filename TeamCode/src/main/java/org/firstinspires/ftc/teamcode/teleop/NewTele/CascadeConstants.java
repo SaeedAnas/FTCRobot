@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.teleop.NewTele;
 public class CascadeConstants extends ThreadButton{
     static int count = 0; //cascadeUp = count ++  cascadeDown = count -- cascadeReset = distance*count
     static double blockHeight = 4; //actually dont know (hight of the block)
+    static int block = 1;
     static double PullyCumm = 1.75;
     static double countPerRev = 1440;
     static double COUNTS_PER_INCH = countPerRev / (PullyCumm * Math.PI); //COUNTER_PER_INCH is differnt
     //COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI)
-    static double encoderValue;
+    static double encoderValue = COUNTS_PER_INCH * (blockHeight * block);
     static double max = 6;
     static double min = 0;
     static boolean mutexUp = true;
@@ -24,13 +25,11 @@ public class CascadeConstants extends ThreadButton{
             cascadeRight.setPower(0.5);
         }
     }
-    public void cascadeUp(int block) {
-        double encoderValue = COUNTS_PER_INCH * (blockHeight * block) + 0.3;
+    public void cascadeUp() {
+        double distance = encoderValue + 0.3;
         count++;
         if(count < max) {
-
-
-            while (cascadeLeft.getCurrentPosition() < encoderValue || cascadeRight.getCurrentPosition() < encoderValue) {
+            while (cascadeLeft.getCurrentPosition() < distance || cascadeRight.getCurrentPosition() < distance) {
                 cascadeLeft.setPower(0.5);
                 cascadeRight.setPower(0.5);
                 telemetry.addData("Status: ", "Cascade Up");
@@ -39,13 +38,16 @@ public class CascadeConstants extends ThreadButton{
             cascadeLeft.setPower(0);
             cascadeRight.setPower(0);
         }
+        else{
+            mutexUp = false;
+        }
     }
 
-    public void cascadeDown(int block) {
-        double encoderValue = COUNTS_PER_INCH * (blockHeight * block);
+    public void cascadeDown() {
+        double distance = encoderValue;
         count--;
         if (count >= min) {
-            while (cascadeLeft.getCurrentPosition() > encoderValue || cascadeRight.getCurrentPosition() > encoderValue) {
+            while (cascadeLeft.getCurrentPosition() > distance || cascadeRight.getCurrentPosition() > distance) {
                 cascadeLeft.setPower(-0.5);
                 cascadeRight.setPower(-0.5);
                 telemetry.addData("Status: ", "Cascade Down");
@@ -54,11 +56,14 @@ public class CascadeConstants extends ThreadButton{
             cascadeLeft.setPower(0);
             cascadeRight.setPower(0);
         }
+        else{
+            mutexDown = false;
+        }
     }
 
     public void cascadeReset() {
-        double encoderValue = 50;
-        while(cascadeLeft.getCurrentPosition() > encoderValue || cascadeRight.getCurrentPosition() > encoderValue){
+        double distance = encoderValue*count;
+        while(cascadeLeft.getCurrentPosition() > distance || cascadeRight.getCurrentPosition() > distance){
             cascadeLeft.setPower(-0.5);
             cascadeRight.setPower(-0.5);
             telemetry.addData("Status: ", "Cascade Reset");
@@ -66,6 +71,9 @@ public class CascadeConstants extends ThreadButton{
         }
         cascadeRight.setPower(0);
         cascadeLeft.setPower(0);
+        if(cascadeLeft.getCurrentPosition() < distance || cascadeRight.getCurrentPosition() < distance){
+            mutexReset = false;
+        }
     }
 
     @Override

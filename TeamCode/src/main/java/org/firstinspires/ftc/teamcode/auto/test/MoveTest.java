@@ -12,21 +12,11 @@ public class MoveTest extends Autonomous {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            autoCorrectMove(FORWARD, TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(BACKWARD,TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(Strafe.LEFT,TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(Strafe.RIGHT, TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(FORWARD_LEFT,TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(BACKWARD_LEFT, TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(FORWARD_RIGHT,TILE_LENGTH, 0.3);
-            sleep(1000);
-            autoCorrectMove(BACKWARD_RIGHT,TILE_LENGTH, 0.3);
+            intakeLeft.setPower(1);
+            intakeRight.setPower(1);
+            sleep(10000);
+            intakeLeft.setPower(0);
+            intakeRight.setPower(0);
         }
         // stop
     }

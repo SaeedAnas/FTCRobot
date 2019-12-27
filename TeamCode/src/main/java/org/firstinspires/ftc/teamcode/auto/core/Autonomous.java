@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.auto.core;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,70 +13,55 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+
 import org.firstinspires.ftc.teamcode.auto.vision.VisionPipeline;
 import org.firstinspires.ftc.teamcode.auto.vision.VisionThread;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 public abstract class Autonomous extends LinearOpMode {
     // contains all methods to move the robot
 
+    // tune encoders becasue we are shit
+    // measure
     // four mecanum wheels
-    private static DcMotor topRight;
+    protected static DcMotor topRight;
 
-    private static DcMotor topLeft;
+    protected static DcMotor topLeft;
 
-    private static DcMotor bottomLeft;
+    protected static DcMotor bottomLeft;
 
-    private static DcMotor bottomRight;
+    protected static DcMotor bottomRight;
 
-    // we don't have any of this yet
+    protected static DcMotor intakeLeft;
 
-    private static DcMotor armMotorLeft;
+    protected static DcMotor intakeRight;
 
-    private static DcMotor armMotorRight;
+    protected static Servo foundationRight;
 
-    private static Servo grabber;
+    protected static Servo foundationLeft;
 
-    private static Servo foundationRight;
+    protected static Servo sideServo;
 
-    private static Servo foundationLeft;
+    protected static Servo grabber;
 
-    private static Servo sideServo;
+    protected static DcMotor cascadeRight;
+
+    protected static DcMotor cascadeLeft;
+
+    protected static CRServo blockMover;
 
     private static Thread vision;
 
     private BNO055IMU imu;
 
-    static List<VuforiaTrackable> trackables = new ArrayList<VuforiaTrackable>();
-
-    private static DcMotor intakeLeft;
-
-    private static DcMotor intakeRight;
-
-
-
-    // private static CRServo armServo;
 
     /**
      * sole method to initialize the robot -> call this function in the beginning of every opMode
      * initializes the imu, and sets the motors
      */
     public void initHardware() {
-        //initVuforia();
-//        leftMotor = hardwareMap.get(DcMotor.class, "left");
-//        rightMotor = hardwareMap.get(DcMotor.class, "right");
-//        armMotorLeft = hardwareMap.get(DcMotor.class, "armLeft");
-//        armMotorRight = hardwareMap.get(DcMotor.class, "armRight");
-//        foundationLeft = hardwareMap.get(Servo.class, "leftFoundation");
-//        foundationRight = hardwareMap.get(Servo.class, "rightFoundation");
-//        grabber = hardwareMap.get(Servo.class, "grabber");
-        vision = new Thread(new VisionThread());
-        vision.start();
+        startVision();
         initImu();
         topRight = hardwareMap.get(DcMotor.class, "frontRight");
         topLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -82,8 +70,10 @@ public abstract class Autonomous extends LinearOpMode {
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
-        armMotorRight = hardwareMap.get(DcMotor.class, "slideRight");
-        armMotorLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
+        grabber = hardwareMap.get(Servo.class, "grabber");
+        blockMover = hardwareMap.get(CRServo.class, "blockMover");
         intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
         intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
@@ -94,22 +84,23 @@ public abstract class Autonomous extends LinearOpMode {
         // reverse right motors
         topRight.setDirection(DcMotorSimple.Direction.REVERSE);
         bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        // rightMotor is upside-down
-//        leftMotor.setDirection(DcMotor.Direction.REVERSE);
-//        armMotorRight.setDirection(DcMotor.Direction.REVERSE);
+        cascadeRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // reset the encoder
         topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cascadeRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        cascadeLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // set motor to run using encoder
         topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        cascadeLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        cascadeRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry.addData("Ready!", "Press Start.");
         telemetry.update();
         // wait for play
@@ -143,25 +134,28 @@ public abstract class Autonomous extends LinearOpMode {
         telemetry.update();
     }
 
+    protected void startVision() {
+        vision = new Thread(new VisionThread());
+        vision.start();
+    }
     protected void stopVision() {
         vision.interrupt();
     }
 
     public void calibrateMotors() {
-        armMotorRight.setPower(0.5);
+        cascadeRight.setPower(0.5);
         sleep(1000);
-        armMotorRight.setPower(-0.5);
+        cascadeRight.setPower(-0.5);
         sleep(1000);
-        armMotorRight.setPower(0);
+        cascadeRight.setPower(0);
         sleep(1000);
-        armMotorLeft.setPower(0.5);
+        cascadeLeft.setPower(0.5);
         sleep(1000);
-        armMotorLeft.setPower(-0.5);
+        cascadeLeft.setPower(-0.5);
         sleep(1000);
-        armMotorLeft.setPower(0);
+        cascadeLeft.setPower(0);
         sleep(1000);
     }
-
     /**
      * print the y value, which is the degree we use for imu turns
      */
@@ -172,6 +166,7 @@ public abstract class Autonomous extends LinearOpMode {
     /**
      * print the encoder values of the four wheels
      */
+
     private void print() {
         telemetry.addData("topLeft: ", topLeft.getCurrentPosition());
         telemetry.addData("topRight: ", topRight.getCurrentPosition());
@@ -182,10 +177,6 @@ public abstract class Autonomous extends LinearOpMode {
 
 
     protected void brake() {
-        topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bottomRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bottomLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setPower(0);
         topRight.setPower(0);
         bottomRight.setPower(0);
@@ -219,50 +210,17 @@ public abstract class Autonomous extends LinearOpMode {
         foundationRight.setPosition(right);
     }
 
-    /**
-     * uses the grab servo to hold on to a block
-     */
-    protected void grab() {
-        grabber.setPosition(GRABBER_GRAB);
+    // TODO finish this method
+    protected void pickUpBlock() {
+
     }
-    /**
-     * uses the grab servo to release the block
-     */
-    protected void release() {
-        grabber.setPosition(GRABBER_RELEASE);
+
+    // TODO finish this method
+    protected void dropBlock() {
+
     }
 
     // arm code
-
-    /**
-     * moves the arm up or down (-mm is down, +mm is up)
-     * @param mm the distance in millimeters that you want to move (- is down, + is up)
-     * @param power amount of power for the motors
-     */
-    protected void whileArm(double mm, double power) {
-        double target = ((armMotorLeft.getCurrentPosition() + (mm * TICKS_PER_MM_ARM)) + (armMotorRight.getCurrentPosition() + (mm * TICKS_PER_MM_ARM))) / 2;
-        if (mm < 0) {
-            armMotorLeft.setPower(-power);
-            armMotorRight.setPower(-power);
-            while (opModeIsActive() && (armMotorLeft.getCurrentPosition() > target && armMotorRight.getCurrentPosition() > target)) {
-                telemetry.addData("MovingArm", armMotorLeft.getCurrentPosition());
-                telemetry.addData("TARGET", target);
-                telemetry.update();
-            }
-            armMotorLeft.setPower(0);
-            armMotorRight.setPower(0);
-        } else {
-            armMotorLeft.setPower(power);
-            armMotorRight.setPower(power);
-            while (opModeIsActive() && (armMotorLeft.getCurrentPosition() < target && armMotorRight.getCurrentPosition() < target)) {
-                telemetry.addData("MovingArm", armMotorLeft.getCurrentPosition());
-                telemetry.addData("TARGET", target);
-                telemetry.update();
-            }
-            armMotorLeft.setPower(0);
-            armMotorRight.setPower(0);
-        }
-    }
 
 // 179 -> -179
 // y value
@@ -362,20 +320,6 @@ public abstract class Autonomous extends LinearOpMode {
         telemetry.addData("Power = 0", 0);
         telemetry.update();
     }
-
-//    protected void move(Direction direction, double distance, double power) {
-//        if (opModeIsActive()) {
-//            DcMotor[] motors = direction.getMotors();
-//            double[] targets = direction.getTarget(distance, motors);
-//            direction.setPower(power);
-//            while (opModeIsActive() && direction.hasNotReached(targets, motors)) {
-//                    direction.setPower(power);
-//                    telemetry.addData("Direction: ", direction);
-//                    print();
-//            }
-//            Direction.stopRobot(motors);
-//        }
-//    }
 
     /**
      * Moves the robot in the direction you specify
@@ -481,7 +425,7 @@ public abstract class Autonomous extends LinearOpMode {
                 }
             }
 
-            Direction.stopRobot(motors);
+            Strafe.stopRobot(motors);
         }
     }
 
@@ -566,6 +510,7 @@ public abstract class Autonomous extends LinearOpMode {
     public enum Strafe {
         // TODO Change the getTarget and hasNotReached
         LEFT {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topRight.setPower(power);
@@ -577,8 +522,8 @@ public abstract class Autonomous extends LinearOpMode {
             @Override
             public double[] getTarget(double distance, DcMotor[] motors) {
                 double[] targets = new double[2];
-                targets[0] = getAvg(new DcMotor[] {motors[0], motors[3]}) + (COUNTS_PER_INCH * distance);
-                targets[1] = getAvg(new DcMotor[] {motors[1], motors[2]}) - (COUNTS_PER_INCH * distance);
+                targets[0] = getAvg(new DcMotor[] {motors[0], motors[3]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
+                targets[1] = getAvg(new DcMotor[] {motors[1], motors[2]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
                 return targets;
             }
 
@@ -595,11 +540,12 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
+                return new DcMotor[]{topRight, topLeft, bottomRight, bottomLeft};
             }
         },
         // TODO Change the getTarget and hasNotReached
         RIGHT {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topRight.setPower(-power);
@@ -611,8 +557,8 @@ public abstract class Autonomous extends LinearOpMode {
             @Override
             public double[] getTarget(double distance, DcMotor[] motors) {
                 double[] targets = new double[2];
-                targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance);
-                targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance);
+                targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
+                targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
                 return targets;
             }
 
@@ -674,6 +620,7 @@ public abstract class Autonomous extends LinearOpMode {
     public enum Direction {
 
         FORWARD {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topRight.setPower(power);
@@ -684,24 +631,11 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-//                double[] targets = new double[motors.length];
-//                for (int i = 0; i < targets.length; i++) {
-//                    targets[i] = motors[i].getCurrentPosition() + (distance * TICKS_PER_INCH_STRAIGHT);
-//                }
-//                return targets;
-                return getAvg(motors) + (COUNTS_PER_INCH * distance);
+                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
             }
 
             @Override
             public boolean hasNotReached(double target, DcMotor[] motors) {
-//                boolean hasNotReached = true;
-//                for (int i = 0; i < targets.length; i++) {
-//                    if (motors[i].getCurrentPosition() > targets[i]) {
-//                        hasNotReached = false;
-//                        break;
-//                    }
-//                }
-//                return hasNotReached;
                 double motorAvg = getAvg(motors);
                 return motorAvg < target;
             }
@@ -712,6 +646,7 @@ public abstract class Autonomous extends LinearOpMode {
             }
         },
         BACKWARD {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topRight.setPower(-power);
@@ -722,24 +657,11 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-//                double[] targets = new double[motors.length];
-//                for (int i = 0; i < targets.length; i++) {
-//                    targets[i] = motors[i].getCurrentPosition() - (distance * TICKS_PER_INCH_STRAIGHT);
-//                }
-//                return targets;
-                return getAvg(motors) - (COUNTS_PER_INCH * distance);
+                return getAvg(motors) - (COUNTS_PER_INCH * distance) - CORRECTION;
             }
 
             @Override
             public boolean hasNotReached(double target, DcMotor[] motors) {
-//                boolean hasNotReached = true;
-////                for (int i = 0; i < targets.length; i++) {
-////                    if (motors[i].getCurrentPosition() < targets[i]) {
-////                        hasNotReached = false;
-////                        break;
-////                    }
-////                }
-////                return hasNotReached;
                 double motorAvg = getAvg(motors);
                 return motorAvg > target;
             }
@@ -751,6 +673,7 @@ public abstract class Autonomous extends LinearOpMode {
         },
         // TODO Change the getTarget and hasNotReached
         FORWARD_LEFT {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topRight.setPower(power);
@@ -759,7 +682,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) + (COUNTS_PER_INCH * distance);
+                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
             }
 
             @Override
@@ -775,6 +698,7 @@ public abstract class Autonomous extends LinearOpMode {
         },
         // TODO Change the getTarget and hasNotReached
         FORWARD_RIGHT {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topLeft.setPower(power);
@@ -783,7 +707,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) + (COUNTS_PER_INCH * distance);
+                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
             }
 
             @Override
@@ -799,6 +723,7 @@ public abstract class Autonomous extends LinearOpMode {
         },
         // TODO Change the getTarget and hasNotReached
         BACKWARD_LEFT {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topRight.setPower(-power);
@@ -807,7 +732,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) - (COUNTS_PER_INCH * distance);
+                return getAvg(motors) - (COUNTS_PER_INCH * distance) - CORRECTION;
             }
 
             @Override
@@ -823,6 +748,7 @@ public abstract class Autonomous extends LinearOpMode {
         },
         // TODO Change the getTarget and hasNotReached
         BACKWARD_RIGHT {
+            final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override
             public void setPower(double power) {
                 topLeft.setPower(-power);
@@ -831,7 +757,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) - (COUNTS_PER_INCH * distance);
+                return getAvg(motors) - (COUNTS_PER_INCH * distance) - CORRECTION;
             }
 
             @Override
@@ -887,66 +813,4 @@ public abstract class Autonomous extends LinearOpMode {
 
     }
 
-    /**
-     * calibrates the robot wheels
-     */
-    protected void calibrate() {
-        topLeft.setPower(0.5);
-        sleep(1000);
-        print();
-        topLeft.setPower(-0.5);
-        sleep(1000);
-        print();
-        topRight.setPower(0.5);
-        sleep(1000);
-        print();
-        topRight.setPower(-0.5);
-        sleep(1000);
-        print();
-        bottomLeft.setPower(0.5);
-        sleep(1000);
-        print();
-        bottomLeft.setPower(-0.5);
-        sleep(1000);
-        print();
-        bottomRight.setPower(0.5);
-        sleep(1000);
-        print();
-        bottomRight.setPower(-0.5);
-        sleep(1000);
-        print();
-//        rotateMotorsOnce(FORWARD, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(BACKWARD, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(LEFT, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(RIGHT, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(FORWARD_LEFT, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(BACKWARD_LEFT, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(FORWARD_RIGHT, 1);
-//        sleep(1000);
-//        rotateMotorsOnce(BACKWARD_RIGHT, 1);
-//        sleep(1000);
-
-    }
-
-    /**
-     * Moves the robot in a direction for 1 second
-     * @param direction a Direction enum to specify which direction you want to travel
-     * @param power power
-     */
-    protected void rotateMotorsOnce(Direction direction, double power) {
-        DcMotor[] motors = direction.getMotors();
-        direction.setPower(power);
-        sleep(1000);
-        Direction.stopRobot(motors);
-    }
-
-    public boolean isActive() {
-        return opModeIsActive();
-    }
 }

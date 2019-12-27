@@ -6,7 +6,7 @@ public class RedBlock extends Block {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            currentBlock('r');
+            getBlock('r');
         }
         // stop
         //anas sucks

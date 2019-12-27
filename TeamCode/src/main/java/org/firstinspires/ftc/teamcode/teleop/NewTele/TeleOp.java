@@ -206,57 +206,6 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-
-    private void move() {
-        double powerStrafe = 0.5;
-        double powerStraight = 0.8;
-        double powerRotate = 0.5;
-        // frontLeft
-        if (leftX1 < -0.3 && leftY1 < -0.3) {
-            strafeLeftFront(powerStrafe);
-        }
-        // frontRight
-        else if (leftX1 > 0.3 && leftY1 < -0.3) {
-            strafeRightFront(powerStrafe);
-        }
-        //bottomLeft
-        else if (leftX1 < -0.3 && leftY1 > 0.3) {
-            strafeLeftBack(powerStrafe);
-        }
-        // bottomRight
-        else if (leftX1 > 0.3 && leftY1 > 0.3) {
-            strafeRightBack(powerStrafe);
-        }
-        // rotateRight
-        else if (leftX1 > 0.9) {
-            rotateRight(powerRotate);
-        }
-        // rotateLeft
-        else if (leftX1 < -0.9) {
-            rotateLeft(powerRotate);
-        }
-        // forward
-        else if (leftY1 < -0.9) {
-            forward(powerStraight);
-        }
-        // backward
-        else if (leftY1 > 0.9) {
-            backward(powerStraight);
-        }
-        // side right
-        else if (rightX1 > 0.9) {
-            slideRight(powerRotate);
-        }
-        // slide left
-        else if (rightX1 < -0.9) {
-            slideLeft(powerRotate);
-        } else {
-            stopRobot();
-        }
-
-    }
-
-
     private void stopRobot() {
         topRight.setPower(0);
         topLeft.setPower(0);
@@ -264,68 +213,156 @@ public class TeleOp extends LinearOpMode {
         bottomLeft.setPower(0);
     }
 
+    
+    //peter move function code variables
+    public static void accurateMove() {
+        double y = -gamepad1.left_stick_y; // reversed
+        double x = gamepad1.left_stick_x*1;//STRAFE FIX
+        double rx = gamepad1.right_stick_x;
 
-    private void forward(double power) {
-        topRight.setPower(power);
-        topLeft.setPower(power);
-        bottomRight.setPower(power);
-        bottomLeft.setPower(power);
+        double frontLeftPower=(y + x + rx);
+        double frontRightPower=(y - x - rx);
+        double backLeftPower=(y - x + rx);
+        double backRightPower=(y + x - rx);
+        if (Math.abs(frontLeftPower) > 1 || Math.abs(backLeftPower) > 1 || Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1 ) {
+            // Find the largest power
+            double max = 0;
+            max = Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower));
+            max = Math.max(Math.abs(frontRightPower), max);
+            max = Math.max(Math.abs(backRightPower), max);
+
+            // Divide everything by max
+            frontLeftPower /= max;
+            backLeftPower /= max;
+            frontRightPower /= max;
+            backRightPower /= max;
+            bottomRight.setPower(backRightPower);
+            bottomLeft.setPower(backLeftPower);
+            topRight.setPower(frontRightPower);
+            topLeft.setPower(frontLeftPower);
+
+        }
+
+        else{
+            bottomRight.setPower(backRightPower);
+            bottomLeft.setPower(backLeftPower);
+            topRight.setPower(frontRightPower);
+            topLeft.setPower(frontLeftPower);
+        }
     }
-
-    private void backward(double power) {
-        topRight.setPower(-power);
-        topLeft.setPower(-power);
-        bottomRight.setPower(-power);
-        bottomLeft.setPower(-power);
-    }
-
-    private void slideLeft(double power) {
-        topRight.setPower(power);
-        topLeft.setPower(-power);
-        bottomRight.setPower(-power);
-        bottomLeft.setPower(power);
-    }
-
-    private void slideRight(double power) {
-        topRight.setPower(-power);
-        topLeft.setPower(power);
-        bottomRight.setPower(power);
-        bottomLeft.setPower(-power);
-    }
-
-    private void rotateRight(double power) {
-        topRight.setPower(-power);
-        topLeft.setPower(power);
-        bottomRight.setPower(-power);
-        bottomLeft.setPower(power);
-    }
-
-    private void rotateLeft(double power) {
-        topRight.setPower(power);
-        topLeft.setPower(-power);
-        bottomRight.setPower(power);
-        bottomLeft.setPower(-power);
-    }
-
-    private void strafeRightFront(double power) {
-        topLeft.setPower(power);
-        bottomRight.setPower(power);
-    }
-
-    private void strafeRightBack(double power) {
-        topRight.setPower(-power);
-        bottomLeft.setPower(-power);
-    }
-
-    private void strafeLeftFront(double power) {
-        topRight.setPower(power);
-        bottomLeft.setPower(power);
-    }
-
-    private void strafeLeftBack(double power) {
-
-        topLeft.setPower(-power);
-        bottomRight.setPower(-power);
-    }
-
 }
+
+
+//     private void forward(double power) {
+//         topRight.setPower(power);
+//         topLeft.setPower(power);
+//         bottomRight.setPower(power);
+//         bottomLeft.setPower(power);
+//     }
+
+//     private void backward(double power) {
+//         topRight.setPower(-power);
+//         topLeft.setPower(-power);
+//         bottomRight.setPower(-power);
+//         bottomLeft.setPower(-power);
+//     }
+
+//     private void slideLeft(double power) {
+//         topRight.setPower(power);
+//         topLeft.setPower(-power);
+//         bottomRight.setPower(-power);
+//         bottomLeft.setPower(power);
+//     }
+
+//     private void slideRight(double power) {
+//         topRight.setPower(-power);
+//         topLeft.setPower(power);
+//         bottomRight.setPower(power);
+//         bottomLeft.setPower(-power);
+//     }
+
+//     private void rotateRight(double power) {
+//         topRight.setPower(-power);
+//         topLeft.setPower(power);
+//         bottomRight.setPower(-power);
+//         bottomLeft.setPower(power);
+//     }
+
+//     private void rotateLeft(double power) {
+//         topRight.setPower(power);
+//         topLeft.setPower(-power);
+//         bottomRight.setPower(power);
+//         bottomLeft.setPower(-power);
+//     }
+
+//     private void strafeRightFront(double power) {
+//         topLeft.setPower(power);
+//         bottomRight.setPower(power);
+//     }
+
+//     private void strafeRightBack(double power) {
+//         topRight.setPower(-power);
+//         bottomLeft.setPower(-power);
+//     }
+
+//     private void strafeLeftFront(double power) {
+//         topRight.setPower(power);
+//         bottomLeft.setPower(power);
+//     }
+
+//     private void strafeLeftBack(double power) {
+
+//         topLeft.setPower(-power);
+//         bottomRight.setPower(-power);
+//     }
+
+// }
+
+// private void move() {
+    //     double powerStrafe = 0.5;
+    //     double powerStraight = 0.8;
+    //     double powerRotate = 0.5;
+    //     // frontLeft
+    //     if (leftX1 < -0.3 && leftY1 < -0.3) {
+    //         strafeLeftFront(powerStrafe);
+    //     }
+    //     // frontRight
+    //     else if (leftX1 > 0.3 && leftY1 < -0.3) {
+    //         strafeRightFront(powerStrafe);
+    //     }
+    //     //bottomLeft
+    //     else if (leftX1 < -0.3 && leftY1 > 0.3) {
+    //         strafeLeftBack(powerStrafe);
+    //     }
+    //     // bottomRight
+    //     else if (leftX1 > 0.3 && leftY1 > 0.3) {
+    //         strafeRightBack(powerStrafe);
+    //     }
+    //     // rotateRight
+    //     else if (leftX1 > 0.9) {
+    //         rotateRight(powerRotate);
+    //     }
+    //     // rotateLeft
+    //     else if (leftX1 < -0.9) {
+    //         rotateLeft(powerRotate);
+    //     }
+    //     // forward
+    //     else if (leftY1 < -0.9) {
+    //         forward(powerStraight);
+    //     }
+    //     // backward
+    //     else if (leftY1 > 0.9) {
+    //         backward(powerStraight);
+    //     }
+    //     // side right
+    //     else if (rightX1 > 0.9) {
+    //         slideRight(powerRotate);
+    //     }
+    //     // slide left
+    //     else if (rightX1 < -0.9) {
+    //         slideLeft(powerRotate);
+    //     } else {
+    //         stopRobot();
+    //     }
+
+    // }

@@ -4,6 +4,8 @@ import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 import org.firstinspires.ftc.teamcode.auto.vision.VisionPipeline;
 
 import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Strafe.LEFT;
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Strafe.RIGHT;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 abstract class Block extends Autonomous {
@@ -11,21 +13,978 @@ abstract class Block extends Autonomous {
     // ALWAYS CODE FOR BLUE TEAM AND ADD * turnVal to the turns
     // -Degree is left, +Degree is right
 
-    private static int turnVal;
+    // blue
+    private void getBlock(char team){
+        int pos = VisionPipeline.getBlockPosition();
+        if (pos == 0) {
+            one(team);
+        } else if (pos == 1) {
+            two(team);
+        } else if (pos == 2) {
+            three(team);
+        }
+    }
+    // Go to the first block
+    // Get the first block
+    // Go to foundation
+    // Put the first block
+    // Go to the second block
+    // Get the second block
+    // Go to foundation
+    // Put the second block
+    // Grab Foundaton
+    // Go Back
+    // Turn to the wall
+    // Push foundation into the build site
+    int oneBlockLength = 8;
+    double d1Block = Math.sqrt(2) * (oneBlockLength * 2.5);
+    int d2Block;
+    double d3Block = (TILE_LENGTH * 2) - ROBOT_WIDTH;
+    int d1Foundation;
+    int d2Foundation;
+    int d3Foundation;
+    int d4Foundation;
+    int d5Foundation;
+    int d6Foundation;
+    int space = 5;
 
-    private static void checkTeam(char team) {
-        if (team == 'b')
-            turnVal = 1;
-        else if (team == 'r')
-            turnVal = -1;
+    private void toFirst(char team) {
+        int distance = 10;
+        if (team =='b') {
+        move(FORWARD_RIGHT, d1Block, DRIVE_SPEED);
+        move(RIGHT, distance, DRIVE_SPEED);
+        pickUpBlock();
+        move(LEFT, space, DRIVE_SPEED);
+        } else if (team == 'r') {
+        move(FORWARD_LEFT, d1Block, DRIVE_SPEED);
+        move(LEFT, distance, DRIVE_SPEED);
+        pickUpBlock();
+        move(RIGHT, space, DRIVE_SPEED);
+        }
     }
 
-    private static void getBlock(char team){
-        VisionPipeline.getBlockPosition();
+    private void toSecond(char team) {
+        int distance = 15;
+        if (team == 'b') {
+        move(FORWARD_RIGHT, d2Block, DRIVE_SPEED);
+        move(RIGHT, distance, DRIVE_SPEED);
+        pickUpBlock();
+        move(LEFT, space, DRIVE_SPEED);
+        } else if (team == 'r') {
+            move(FORWARD_LEFT, d2Block, DRIVE_SPEED);
+            move(LEFT, distance, DRIVE_SPEED);
+            pickUpBlock();
+            move(RIGHT, space, DRIVE_SPEED);
+        }
+    }
+
+    private void toThird(char team) {
+        if (team == 'b') {
+        move(RIGHT, d3Block,DRIVE_SPEED);
+        pickUpBlock();
+        move(LEFT,space,DRIVE_SPEED);
+        } else if (team == 'r') {
+            move(LEFT,d3Block, DRIVE_SPEED);
+            pickUpBlock();
+            move(RIGHT, space, DRIVE_SPEED);
+        }
+    }
+
+    private void firstToFoundation(char team) {
+            moveToFoundation(d1Foundation,team);
+
+    }
+
+    private void secondToFoundation(char team) {
+            moveToFoundation(d2Foundation, team);
+
+    }
+
+    private void thirdToFoundation(char team) {
+            moveToFoundation(d3Foundation, team);
+   
+    }
+    
+    private void moveToFoundation(double distance, char team) {
+        if(team == 'b') {
+        move(FORWARD, distance, DRIVE_SPEED);
+        move(RIGHT, space, DRIVE_SPEED);
+        dropBlock();
+        move(LEFT, space, DRIVE_SPEED);
+        } else if (team == 'r') {
+            move(FORWARD, distance,DRIVE_SPEED);
+            move(LEFT, space, DRIVE_SPEED);
+            dropBlock();
+            move(RIGHT, space, DRIVE_SPEED);
+        }
+    }
+
+    private void moveToBlock(double distance, char team) {
+        if (team == 'b') {
+        move(BACKWARD,distance, DRIVE_SPEED);
+        move(RIGHT,space, DRIVE_SPEED);
+        pickUpBlock();
+        move(LEFT,space,DRIVE_SPEED);
+        } else if (team == 'r') {
+            move(BACKWARD, distance, DRIVE_SPEED);
+            move(LEFT, space, DRIVE_SPEED);
+            pickUpBlock();
+            move(RIGHT, space,DRIVE_SPEED);
+        }
+    }
+
+    private void foundationToFourth(char team) {
+            moveToBlock(d4Foundation, team);
+    }
+
+    private void foundationToFifth(char team) {
+
+            moveToBlock(d5Foundation,team);
+ 
+    }
+
+    private void foundationToSixth(char team) {
+        moveToBlock(d6Foundation, team);
+    }
+
+    private void fourthToFoundation(char team) {
+        moveToFoundation(d4Foundation, team);
+    }
+
+    private void fifthToFoundation(char team) {
+        moveToFoundation(d5Foundation, team);
+    }
+
+    private void sixthToFoundation(char team) {
+        moveToFoundation(d6Foundation, team);
+    }
+
+    private void moveFoundation(char team) {
+        if (team == 'b') {
+        turnByGyro(TURN_SPEED, 90);
+        move(BACKWARD,(TILE_LENGTH*2)-ROBOT_LENGTH, 1);
+        turnByGyro(TURN_SPEED, -90);
+        move(FORWARD, 5, 1);
+        move(BACKWARD_LEFT, 15, DRIVE_SPEED);
+        move(BACKWARD, 15, DRIVE_SPEED);
+        } else if (team == 'r') {
+        turnByGyro(TURN_SPEED, -90);
+        move(BACKWARD, (TILE_LENGTH*2)-ROBOT_LENGTH, 1);
+        move(FORWARD, TILE_LENGTH, 1);
+        turnByGyro(TURN_SPEED, 90);
+        move(BACKWARD, 15, DRIVE_SPEED);
+        move(FORWARD, 15, DRIVE_SPEED);
+        }
     }
 
 
-     void currentBlock(char team) {
+    private void one(char team) {
+        toFirst(team);
+        firstToFoundation(team);
+        foundationToFourth(team);
+        fourthToFoundation(team);
+        moveFoundation(team);
+    }
 
+    private void two(char team) {
+        toSecond(team);
+        secondToFoundation(team);
+        foundationToFifth(team);
+        fifthToFoundation(team);
+        moveFoundation(team);
+    }
+
+    private void three(char team) {
+        toThird(team);
+        thirdToFoundation(team);
+        foundationToSixth(team);
+        sixthToFoundation(team);
+        moveFoundation(team);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void dickbutt() {
+        telemetry.addData("Status: ", "Dicking Butt");
+        telemetry.update();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
