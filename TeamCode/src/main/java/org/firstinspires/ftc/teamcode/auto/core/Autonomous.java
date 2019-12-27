@@ -210,7 +210,7 @@ public abstract class Autonomous extends LinearOpMode {
         foundationRight.setPosition(right);
     }
 
-    // TODO finish this method
+    // TODO finish this method anto arm
     protected void pickUpBlock() {
 
     }

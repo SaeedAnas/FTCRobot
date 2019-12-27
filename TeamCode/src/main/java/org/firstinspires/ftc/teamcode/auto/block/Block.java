@@ -12,7 +12,6 @@ abstract class Block extends Autonomous {
     // PLEASE READ:
     // ALWAYS CODE FOR BLUE TEAM AND ADD * turnVal to the turns
     // -Degree is left, +Degree is right
-    static char team;
 
     // blue
     private void getBlock(char team){

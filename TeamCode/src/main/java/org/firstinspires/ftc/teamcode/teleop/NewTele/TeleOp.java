@@ -141,7 +141,7 @@ public class TeleOp extends LinearOpMode {
         dpad1Right = opmode.gamepad1.dpad_right;
     }
 
-    private void continuous() {
+    private void continuousRack() {
         if (leftY2 > 0) {
             blockMover.setPower(0.7);
         } else if (leftY2 < 0) {
@@ -152,9 +152,9 @@ public class TeleOp extends LinearOpMode {
     }
 
     private void grabber() {
-        if (dpad1Left) {
+        if (dpad2Left) {
             grabber.setPosition(1);
-        } else if (dpad1Right) {
+        } else if (dpad2Right) {
             grabber.setPosition(0);
         }
     }
@@ -179,7 +179,7 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-    private void slides() {
+    private void cascade() {
         if (dpad2Up) {
             cascadeLeft.setPower(0.5);
             cascadeRight.setPower(0.5);
@@ -192,7 +192,7 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-    private void sideServo() {
+    private void autoArm() {
         if (dpad1Up) {
             sideServo.setPosition(1);
         } else if (dpad1Down) {
