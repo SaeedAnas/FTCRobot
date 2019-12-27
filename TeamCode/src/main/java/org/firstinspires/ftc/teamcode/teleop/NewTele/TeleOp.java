@@ -69,6 +69,8 @@ public class TeleOp extends LinearOpMode {
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
         blockMover = hardwareMap.get(CRServo.class, "blockMover");
+        intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
+        intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -21,7 +21,7 @@ abstract class Block extends Autonomous {
     }
 
     private static void getBlock(char team){
-        VisionPipeline.getBlockPosition(team);
+        VisionPipeline.getBlockPosition();
     }
 
 

@@ -47,10 +47,15 @@ public abstract class Autonomous extends LinearOpMode {
 
     private static Thread vision;
 
-
     private BNO055IMU imu;
 
     static List<VuforiaTrackable> trackables = new ArrayList<VuforiaTrackable>();
+
+    private static DcMotor intakeLeft;
+
+    private static DcMotor intakeRight;
+
+
 
     // private static CRServo armServo;
 
@@ -60,7 +65,6 @@ public abstract class Autonomous extends LinearOpMode {
      */
     public void initHardware() {
         //initVuforia();
-        initImu();
 //        leftMotor = hardwareMap.get(DcMotor.class, "left");
 //        rightMotor = hardwareMap.get(DcMotor.class, "right");
 //        armMotorLeft = hardwareMap.get(DcMotor.class, "armLeft");
@@ -70,6 +74,7 @@ public abstract class Autonomous extends LinearOpMode {
 //        grabber = hardwareMap.get(Servo.class, "grabber");
         vision = new Thread(new VisionThread());
         vision.start();
+        initImu();
         topRight = hardwareMap.get(DcMotor.class, "frontRight");
         topLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         bottomLeft = hardwareMap.get(DcMotor.class, "rearLeft");
@@ -79,6 +84,8 @@ public abstract class Autonomous extends LinearOpMode {
         sideServo = hardwareMap.get(Servo.class, "sideServo");
         armMotorRight = hardwareMap.get(DcMotor.class, "slideRight");
         armMotorLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+        intakeLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
+        intakeRight = hardwareMap.get(DcMotor.class, "intakeRight");
         // armServo = hardwareMap.get(CRServo.class, "armServo");
         topRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         topLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
