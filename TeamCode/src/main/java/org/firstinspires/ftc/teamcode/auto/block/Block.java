@@ -18,11 +18,11 @@ abstract class Block extends Autonomous {
     private void getBlock(char team){
         int pos = VisionPipeline.getBlockPosition();
         if (pos == 0) {
-            one('b');
+            one(team);
         } else if (pos == 1) {
-            two('b');
+            two(team);
         } else if (pos == 2) {
-            three('b');
+            three(team);
         }
     }
     // Go to the first block
@@ -170,16 +170,6 @@ abstract class Block extends Autonomous {
     private void sixthToFoundation(char team) {
         moveToFoundation(d6Foundation, team);
     }
-
-
-
-
-
-
-
-
-
-
 
     private void one(char team) {
         toFirst(team);

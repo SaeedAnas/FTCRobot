@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop.NewTele;
 
-import android.util.SparseArray;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -37,10 +35,6 @@ public class TeleOp extends LinearOpMode {
 
     protected static CRServo blockMover;
 
-    protected Buttons b;
-
-    protected SparseArray<Button> buttons;
-
     protected static boolean gpad1x, gpad1y, gpad1a, gpad1b, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right, dpad1Up, dpad1Down, dpad1Right, dpad1Left;
     protected static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
     public OpMode opmode = this;
@@ -51,7 +45,7 @@ public class TeleOp extends LinearOpMode {
         initHardware();
         while(opModeIsActive()) {
             update();
-            move();
+            accurateMove();
             foundation();
             intake();
             slides();
@@ -215,7 +209,7 @@ public class TeleOp extends LinearOpMode {
 
     
     //peter move function code variables
-    public static void accurateMove() {
+    public void accurateMove() {
         double y = -gamepad1.left_stick_y; // reversed
         double x = gamepad1.left_stick_x*1;//STRAFE FIX
         double rx = gamepad1.right_stick_x;
