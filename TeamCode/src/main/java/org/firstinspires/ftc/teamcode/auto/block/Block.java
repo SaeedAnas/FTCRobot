@@ -12,16 +12,17 @@ abstract class Block extends Autonomous {
     // PLEASE READ:
     // ALWAYS CODE FOR BLUE TEAM AND ADD * turnVal to the turns
     // -Degree is left, +Degree is right
+    static char team;
 
     // blue
     private void getBlock(char team){
         int pos = VisionPipeline.getBlockPosition();
         if (pos == 0) {
-            one(team);
+            one('b');
         } else if (pos == 1) {
-            two(team);
+            two('b');
         } else if (pos == 2) {
-            three(team);
+            three('b');
         }
     }
     // Go to the first block
@@ -36,17 +37,63 @@ abstract class Block extends Autonomous {
     // Go Back
     // Turn to the wall
     // Push foundation into the build site
-    int oneBlockLength = 8;
-    double d1Block = Math.sqrt(2) * (oneBlockLength * 2.5);
-    int d2Block;
+    int OneBlockLength = 8;
+    double d1Block = Math.sqrt(2) * (OneBlockLength * 2.5);
+    double d2Block = (TILE_LENGTH*2)-ROBOT_LENGTH;
     double d3Block = (TILE_LENGTH * 2) - ROBOT_WIDTH;
-    int d1Foundation;
-    int d2Foundation;
-    int d3Foundation;
-    int d4Foundation;
-    int d5Foundation;
-    int d6Foundation;
-    int space = 5;
+    int d1Foundation = 69;
+    int d2Foundation = 69 + (OneBlockLength);
+    int d3Foundation = 69 + (OneBlockLength*2);
+    int d4Foundation = 69 + (OneBlockLength*3);
+    int d5Foundation = 69 + (OneBlockLength*4);
+    int d6Foundation = 69 + (OneBlockLength*5);
+    int space = 6;
+
+    private void moveToFoundation(double distance, char team) {
+        if(team == 'b') {
+            move(FORWARD, distance, DRIVE_SPEED);
+            move(RIGHT, space, DRIVE_SPEED);
+            dropBlock();
+            move(LEFT, space, DRIVE_SPEED);
+        } else if (team == 'r') {
+            move(FORWARD, distance,DRIVE_SPEED);
+            move(LEFT, space, DRIVE_SPEED);
+            dropBlock();
+            move(RIGHT, space, DRIVE_SPEED);
+        }
+    }
+
+    private void moveToBlock(double distance, char team) {
+        if (team == 'b') {
+            move(BACKWARD,distance, DRIVE_SPEED);
+            move(RIGHT,space, DRIVE_SPEED);
+            pickUpBlock();
+            move(LEFT,space,DRIVE_SPEED);
+        } else if (team == 'r') {
+            move(BACKWARD, distance, DRIVE_SPEED);
+            move(LEFT, space, DRIVE_SPEED);
+            pickUpBlock();
+            move(RIGHT, space,DRIVE_SPEED);
+        }
+    }
+
+    private void moveFoundation(char team) {
+        if (team == 'b') {
+            turnByGyro(TURN_SPEED, 90);
+            move(BACKWARD,(TILE_LENGTH*2)-ROBOT_LENGTH, 1);
+            turnByGyro(TURN_SPEED, -90);
+            move(FORWARD, 5, 1);
+            move(BACKWARD_LEFT, 15, DRIVE_SPEED);
+            move(BACKWARD, 15, DRIVE_SPEED);
+        } else if (team == 'r') {
+            turnByGyro(TURN_SPEED, -90);
+            move(BACKWARD, (TILE_LENGTH*2)-ROBOT_LENGTH, 1);
+            move(FORWARD, TILE_LENGTH, 1);
+            turnByGyro(TURN_SPEED, 90);
+            move(BACKWARD, 15, DRIVE_SPEED);
+            move(FORWARD, 15, DRIVE_SPEED);
+        }
+    }
 
     private void toFirst(char team) {
         int distance = 10;
@@ -67,9 +114,9 @@ abstract class Block extends Autonomous {
         int distance = 15;
         if (team == 'b') {
         move(FORWARD_RIGHT, d2Block, DRIVE_SPEED);
-        move(RIGHT, distance, DRIVE_SPEED);
+        move(RIGHT, 4, DRIVE_SPEED);
         pickUpBlock();
-        move(LEFT, space, DRIVE_SPEED);
+        move(FORWARD, space, DRIVE_SPEED);
         } else if (team == 'r') {
             move(FORWARD_LEFT, d2Block, DRIVE_SPEED);
             move(LEFT, distance, DRIVE_SPEED);
@@ -90,58 +137,23 @@ abstract class Block extends Autonomous {
         }
     }
 
-    private void firstToFoundation(char team) {
-            moveToFoundation(d1Foundation,team);
 
-    }
 
-    private void secondToFoundation(char team) {
-            moveToFoundation(d2Foundation, team);
+    private void firstToFoundation(char team) { moveToFoundation(d1Foundation,team); }
 
-    }
+    private void secondToFoundation(char team) { moveToFoundation(d2Foundation, team); }
 
-    private void thirdToFoundation(char team) {
-            moveToFoundation(d3Foundation, team);
-   
-    }
-    
-    private void moveToFoundation(double distance, char team) {
-        if(team == 'b') {
-        move(FORWARD, distance, DRIVE_SPEED);
-        move(RIGHT, space, DRIVE_SPEED);
-        dropBlock();
-        move(LEFT, space, DRIVE_SPEED);
-        } else if (team == 'r') {
-            move(FORWARD, distance,DRIVE_SPEED);
-            move(LEFT, space, DRIVE_SPEED);
-            dropBlock();
-            move(RIGHT, space, DRIVE_SPEED);
-        }
-    }
+    private void thirdToFoundation(char team) { moveToFoundation(d3Foundation, team); }
 
-    private void moveToBlock(double distance, char team) {
-        if (team == 'b') {
-        move(BACKWARD,distance, DRIVE_SPEED);
-        move(RIGHT,space, DRIVE_SPEED);
-        pickUpBlock();
-        move(LEFT,space,DRIVE_SPEED);
-        } else if (team == 'r') {
-            move(BACKWARD, distance, DRIVE_SPEED);
-            move(LEFT, space, DRIVE_SPEED);
-            pickUpBlock();
-            move(RIGHT, space,DRIVE_SPEED);
-        }
-    }
+
+
+
 
     private void foundationToFourth(char team) {
             moveToBlock(d4Foundation, team);
     }
 
-    private void foundationToFifth(char team) {
-
-            moveToBlock(d5Foundation,team);
- 
-    }
+    private void foundationToFifth(char team) { moveToBlock(d5Foundation,team); }
 
     private void foundationToSixth(char team) {
         moveToBlock(d6Foundation, team);
@@ -159,23 +171,14 @@ abstract class Block extends Autonomous {
         moveToFoundation(d6Foundation, team);
     }
 
-    private void moveFoundation(char team) {
-        if (team == 'b') {
-        turnByGyro(TURN_SPEED, 90);
-        move(BACKWARD,(TILE_LENGTH*2)-ROBOT_LENGTH, 1);
-        turnByGyro(TURN_SPEED, -90);
-        move(FORWARD, 5, 1);
-        move(BACKWARD_LEFT, 15, DRIVE_SPEED);
-        move(BACKWARD, 15, DRIVE_SPEED);
-        } else if (team == 'r') {
-        turnByGyro(TURN_SPEED, -90);
-        move(BACKWARD, (TILE_LENGTH*2)-ROBOT_LENGTH, 1);
-        move(FORWARD, TILE_LENGTH, 1);
-        turnByGyro(TURN_SPEED, 90);
-        move(BACKWARD, 15, DRIVE_SPEED);
-        move(FORWARD, 15, DRIVE_SPEED);
-        }
-    }
+
+
+
+
+
+
+
+
 
 
     private void one(char team) {

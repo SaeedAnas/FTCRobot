@@ -7,7 +7,7 @@ public class BlueBlock extends Block {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            getBlock('b');
+//            getBlock('b');
         }
         // stop
     }
