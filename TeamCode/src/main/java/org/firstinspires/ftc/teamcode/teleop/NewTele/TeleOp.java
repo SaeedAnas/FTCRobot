@@ -44,14 +44,15 @@ public class TeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         initHardware();
         while(opModeIsActive()) {
+            tele();
             update();
             accurateMove();
             foundation();
             intake();
-            slides();
-            sideServo();
+            cascade();
+            autoArm();
             grabber();
-            continuous();
+            continuousRack();
         }
     }
 
@@ -82,7 +83,7 @@ public class TeleOp extends LinearOpMode {
         topRight.setDirection(DcMotorSimple.Direction.REVERSE);
         bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
         cascadeRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        intakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
+//        intakeRight.setDirection(DcMotorSimple.Direction.REVERSE);
         intakeLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         // rightMotor is upside-down
 //        leftMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -105,6 +106,14 @@ public class TeleOp extends LinearOpMode {
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
         waitForStart();
+    }
+    protected  void tele(){
+        telemetry.addData("frontleft",topLeft.getCurrentPosition());
+        telemetry.addData("frontright",topRight.getCurrentPosition());
+        telemetry.addData("bottomleft",bottomLeft.getCurrentPosition());
+        telemetry.addData("bottomright",bottomRight.getCurrentPosition());
+        telemetry.update();
+
     }
 
     protected void update() {
@@ -152,9 +161,9 @@ public class TeleOp extends LinearOpMode {
     }
 
     private void grabber() {
-        if (dpad2Left) {
+        if (dpad1Left) {
             grabber.setPosition(1);
-        } else if (dpad2Right) {
+        } else if (dpad1Right) {
             grabber.setPosition(0);
         }
     }
@@ -207,7 +216,7 @@ public class TeleOp extends LinearOpMode {
         bottomLeft.setPower(0);
     }
 
-    
+
     //peter move function code variables
     public void accurateMove() {
         double y = -gamepad1.left_stick_y; // reversed
@@ -313,50 +322,50 @@ public class TeleOp extends LinearOpMode {
 // }
 
 // private void move() {
-    //     double powerStrafe = 0.5;
-    //     double powerStraight = 0.8;
-    //     double powerRotate = 0.5;
-    //     // frontLeft
-    //     if (leftX1 < -0.3 && leftY1 < -0.3) {
-    //         strafeLeftFront(powerStrafe);
-    //     }
-    //     // frontRight
-    //     else if (leftX1 > 0.3 && leftY1 < -0.3) {
-    //         strafeRightFront(powerStrafe);
-    //     }
-    //     //bottomLeft
-    //     else if (leftX1 < -0.3 && leftY1 > 0.3) {
-    //         strafeLeftBack(powerStrafe);
-    //     }
-    //     // bottomRight
-    //     else if (leftX1 > 0.3 && leftY1 > 0.3) {
-    //         strafeRightBack(powerStrafe);
-    //     }
-    //     // rotateRight
-    //     else if (leftX1 > 0.9) {
-    //         rotateRight(powerRotate);
-    //     }
-    //     // rotateLeft
-    //     else if (leftX1 < -0.9) {
-    //         rotateLeft(powerRotate);
-    //     }
-    //     // forward
-    //     else if (leftY1 < -0.9) {
-    //         forward(powerStraight);
-    //     }
-    //     // backward
-    //     else if (leftY1 > 0.9) {
-    //         backward(powerStraight);
-    //     }
-    //     // side right
-    //     else if (rightX1 > 0.9) {
-    //         slideRight(powerRotate);
-    //     }
-    //     // slide left
-    //     else if (rightX1 < -0.9) {
-    //         slideLeft(powerRotate);
-    //     } else {
-    //         stopRobot();
-    //     }
+//     double powerStrafe = 0.5;
+//     double powerStraight = 0.8;
+//     double powerRotate = 0.5;
+//     // frontLeft
+//     if (leftX1 < -0.3 && leftY1 < -0.3) {
+//         strafeLeftFront(powerStrafe);
+//     }
+//     // frontRight
+//     else if (leftX1 > 0.3 && leftY1 < -0.3) {
+//         strafeRightFront(powerStrafe);
+//     }
+//     //bottomLeft
+//     else if (leftX1 < -0.3 && leftY1 > 0.3) {
+//         strafeLeftBack(powerStrafe);
+//     }
+//     // bottomRight
+//     else if (leftX1 > 0.3 && leftY1 > 0.3) {
+//         strafeRightBack(powerStrafe);
+//     }
+//     // rotateRight
+//     else if (leftX1 > 0.9) {
+//         rotateRight(powerRotate);
+//     }
+//     // rotateLeft
+//     else if (leftX1 < -0.9) {
+//         rotateLeft(powerRotate);
+//     }
+//     // forward
+//     else if (leftY1 < -0.9) {
+//         forward(powerStraight);
+//     }
+//     // backward
+//     else if (leftY1 > 0.9) {
+//         backward(powerStraight);
+//     }
+//     // side right
+//     else if (rightX1 > 0.9) {
+//         slideRight(powerRotate);
+//     }
+//     // slide left
+//     else if (rightX1 < -0.9) {
+//         slideLeft(powerRotate);
+//     } else {
+//         stopRobot();
+//     }
 
-    // }
+// }

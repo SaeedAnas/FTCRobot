@@ -18,56 +18,44 @@ abstract class Foundation extends Autonomous {
             turnVal = -1;
     }
 
-    private void moveFoundationHorizontal(char team) {
-        checkTeam(team);
-        releaseFoundation();
-        move(BACKWARD, 3, DRIVE_SPEED);
-        turnByGyro(TURN_SPEED, -45 * turnVal);
-        move(BACKWARD, 30, DRIVE_SPEED);
-        turnByGyro(TURN_SPEED, 45 * turnVal);
-        move(BACKWARD, TILE_LENGTH - 18, DRIVE_SPEED);
-        grabFoundation();
-        sleep(1000);
-        move(FORWARD, 5, DRIVE_SPEED);
-        turnByGyro(1, -90 * turnVal);
-        releaseFoundation();
-        move(FORWARD, TILE_LENGTH - 3, DRIVE_SPEED);
-        brake();
-    }
 
     private void moveFoundationRed() {
-        releaseFoundation();
-        autoCorrectMove(FORWARD_RIGHT, 20, 0.3);
-        sleep(500);
-        autoCorrectMove(FORWARD, 10, 0.3);
-        sleep(500);
-        grabFoundation();
-        sleep(500);
-        move(BACKWARD, 10, 0.3);
-        sleep(500);
-        turnByGyro(0.7, 90);
-        sleep(500);
-        releaseFoundation();
-        sleep(500);
-        move(BACKWARD, TILE_LENGTH, 0.3);
-        sleep(500);
+        try {
+            releaseFoundation();
+            releaseFoundation();
+            move(FORWARD, (TILE_LENGTH * 2) - ROBOT_LENGTH - 2, DRIVE_SPEED);
+            grabFoundation();
+            sleep(1000);
+            move(BACKWARD, TILE_LENGTH + 3, 1);
+            turnByGyro(0.9, 90);
+            releaseFoundation();
+            move(FORWARD, 10, 1);
+            sleep(1000);
+            move(BACKWARD, ((TILE_LENGTH * 2) - ROBOT_LENGTH) * 1.2, DRIVE_SPEED);
+            brake();
+    } catch (Exception e) {
+        telemetry.addData("F", "IT DED");
+        telemetry.update();
+    }
     }
     private void moveFoundationBlue() {
-        releaseFoundation();
-        autoCorrectMove(FORWARD_LEFT, 20, 0.3);
-        sleep(500);
-        autoCorrectMove(FORWARD, 10, 0.3);
-        sleep(500);
-        grabFoundation();
-        sleep(500);
-        move(BACKWARD, 10, 0.3);
-        sleep(500);
-        turnByGyro(0.7, -90);
-        sleep(500);
-        releaseFoundation();
-        sleep(500);
-        move(BACKWARD, TILE_LENGTH, 0.3);
-        sleep(500);
+        try {
+            releaseFoundation();
+            releaseFoundation();
+            move(FORWARD, (TILE_LENGTH * 2) - ROBOT_LENGTH - 2, DRIVE_SPEED);
+            grabFoundation();
+            sleep(1000);
+            move(BACKWARD, TILE_LENGTH + 3, 1);
+            turnByGyro(0.9, -90);
+            releaseFoundation();
+            move(FORWARD, 10, 1);
+            sleep(1000);
+            move(BACKWARD, ((TILE_LENGTH * 2) - ROBOT_LENGTH) * 1.2, DRIVE_SPEED);
+            brake();
+        } catch (Exception e) {
+            telemetry.addData("F", "IT DED");
+            telemetry.update();
+        }
     }
     // 10 foudnation
     // 20 skystone

@@ -11,23 +11,30 @@ public class EncoderTest extends Autonomous {
     public void runOpMode() throws InterruptedException {
         initHardware();
         if(opModeIsActive()) {
-            int sleepTime = 10000;
-            move(FORWARD, 20, 0.5);
-            sleep(sleepTime);
-            move(BACKWARD, 20, 0.5);
-            sleep(sleepTime);
-            move(LEFT, 20, 0.5);
-            sleep(sleepTime);
-            move(RIGHT, 20, 0.5);
-            sleep(sleepTime);
-            move(FORWARD_LEFT, 20, 0.5);
-            sleep(sleepTime);
-            move(BACKWARD_LEFT, 20,0.5);
-            sleep(sleepTime);
-            move(FORWARD_RIGHT, 20, 0.5);
-            sleep(sleepTime);
-            move(BACKWARD_RIGHT, 20, 0.5);
-            sleep(sleepTime);
+            try {
+                int sleepTime = 10000;
+                double rat = 1;
+                double distance = 20 * rat;
+                autoCorrect(FORWARD, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(BACKWARD, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(LEFT, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(RIGHT, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(FORWARD_LEFT, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(BACKWARD_LEFT, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(FORWARD_RIGHT, distance, 0.5);
+                sleep(sleepTime);
+                autoCorrect(BACKWARD_RIGHT, distance, 0.5);
+                sleep(sleepTime);
+            } catch (Exception e) {
+                telemetry.addData("Kendall is gay", "This code is also gay");
+                telemetry.update();
+            }
         }
     }
 }

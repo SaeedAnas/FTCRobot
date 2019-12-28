@@ -17,6 +17,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.auto.vision.VisionPipeline;
 import org.firstinspires.ftc.teamcode.auto.vision.VisionThread;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 public abstract class Autonomous extends LinearOpMode {
@@ -193,16 +200,16 @@ public abstract class Autonomous extends LinearOpMode {
      * brings the foundation servos down to grab the foundation
      */
     protected void grabFoundation() {
-        foundationLeft.setPosition(LEFT_FOUNDATION_DOWN);
-        foundationRight.setPosition(RIGHT_FOUNDATION_DOWN);
+        foundationLeft.setPosition(L_FOUNDATION_GRAB);
+        foundationRight.setPosition(R_FOUNDATION_GRAB);
     }
 
     /**
      * brings the foundation servos up to release the foundation
      */
     protected void releaseFoundation() {
-        foundationLeft.setPosition(LEFT_FOUNDATION_UP);
-        foundationRight.setPosition(RIGHT_FOUNDATION_UP);
+        foundationLeft.setPosition(L_FOUNDATON_RELEASE);
+        foundationRight.setPosition(R_FOUNDATION_RELEASE);
     }
 
     protected void moveFoundation(double left, double right) {
@@ -292,7 +299,6 @@ public abstract class Autonomous extends LinearOpMode {
         telemetry.addData("Power = 0", 0);
         telemetry.update();
     }
-
     /**
      * turns the robot right
      * @param motorPower power
@@ -328,35 +334,129 @@ public abstract class Autonomous extends LinearOpMode {
      * @param power power
      */
     protected void move(Direction direction, double distance, double power) {
-        if (opModeIsActive()) {
-            // target
-            DcMotor[] motors = direction.getMotors();
-            double target = direction.getTarget(distance, motors);
-            direction.setPower(power);
-            while(opModeIsActive() && direction.hasNotReached(target, motors)) {
-                telemetry.addData("Direction: ", direction);
-                telemetry.addData("AvgCurrent", getAvg(motors));
-                telemetry.addData("Target", target);
-                telemetry.update();
+            if (opModeIsActive()) {
+                ExecutorService t = Executors.newFixedThreadPool(1);
+                ExecutorService avg = Executors.newFixedThreadPool(1);
+                CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+                CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+
+                Future<Double> futureAvg;
+                Future<Boolean> futureTarget;
+
+                double degree = getGyroYAngle();
+                double average;
+                boolean hasNotReached;
+
+                DcMotor[] motors = direction.getMotors();
+                double target = direction.getTarget(distance, motors);
+
+                Callable<Boolean> hNR = new targetGet(direction, motors, target);
+                Callable<Double> avgCall = new average(motors);
+
+                direction.setPower(power);
+
+                futureTarget = targetService.submit(hNR);
+                futureAvg = avgService.submit(avgCall);
+
+                try {
+                    hasNotReached = futureTarget.get();
+                    average = futureAvg.get();
+
+                    while (opModeIsActive() && hasNotReached) {
+
+                        futureAvg = avgService.submit(avgCall);
+                        futureTarget = targetService.submit(hNR);
+
+                        direction.setPower(power);
+                        telemetry.addData("Direction: ", direction);
+                        telemetry.addData("Current: ", average);
+                        telemetry.addData("Target: ", target);
+                        telemetry.update();
+
+                        hasNotReached = futureTarget.get();
+                        average = futureAvg.get();
+                    }
+
+                } catch (Exception e) {
+                    telemetry.addData("HI", "KENDALL IS GAY");
+                    telemetry.update();
+                }
+                if (opModeIsActive()) {
+                    Direction.stopRobot(motors);
+                    if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+                        correctPosition(degree, 0.5);
+                    }
+                }
+                Direction.stopRobot(motors);
+                t.shutdownNow();
+                avg.shutdownNow();
             }
-            Direction.stopRobot(motors);
-        }
+
     }
 
-    protected void move(Strafe direction, double distance, double power) {
-        if (opModeIsActive()) {
-            // target
-            DcMotor[] motors = direction.getMotors();
-            double[] target = direction.getTarget(distance, motors);
-            direction.setPower(power);
-            while(opModeIsActive() && direction.hasNotReached(target, motors)) {
-                telemetry.addData("Direction: ", direction);
-                telemetry.addData("AvgCurrent", getAvg(motors));
-                telemetry.addData("Target", target);
-                telemetry.update();
+    protected void move(Strafe direction, double distance, double power){
+            if (opModeIsActive()) {
+                ExecutorService t = Executors.newFixedThreadPool(1);
+                ExecutorService avg = Executors.newFixedThreadPool(1);
+                CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+                CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+
+                Future<Double> futureAvg;
+                Future<Boolean> futureTarget;
+
+                double degree = getGyroYAngle();
+                double average;
+                boolean hasNotReached;
+
+                DcMotor[] motors = direction.getMotors();
+                double target[] = direction.getTarget(distance, motors);
+
+                Callable<Boolean> hNR = new targetGetS(direction, motors, target);
+                Callable<Double> avgCall = new average(motors);
+
+                direction.setPower(power);
+
+                futureTarget = targetService.submit(hNR);
+                futureAvg = avgService.submit(avgCall);
+
+                try {
+
+                    hasNotReached = futureTarget.get();
+                    average = futureAvg.get();
+
+                    while (opModeIsActive() && hasNotReached) {
+
+                        futureAvg = avgService.submit(avgCall);
+                        futureTarget = targetService.submit(hNR);
+
+                        direction.setPower(power);
+                        telemetry.addData("Direction: ", direction);
+                        telemetry.addData("Current: ", average);
+                        telemetry.addData("Target: ", target);
+                        telemetry.update();
+
+                        hasNotReached = futureTarget.get();
+                        average = futureAvg.get();
+                    }
+                } catch (Exception e) {
+                    telemetry.addData("HI", "KENDALL IS GAY");
+                    telemetry.update();
+                }
+
+                if (opModeIsActive()) {
+
+                    Strafe.stopRobot(motors);
+                    if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+                        correctPosition(degree, 0.5);
+                    }
+
+                }
+
+                Strafe.stopRobot(motors);
+                t.shutdownNow();
+                avg.shutdownNow();
+
             }
-            Direction.stopRobot(motors);
-        }
     }
 
     /**
@@ -404,31 +504,173 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
-    protected void autoCorrectMove(Strafe direction, double distance, double power) {
-        if (opModeIsActive()) {
-            double degree = getGyroYAngle();
-            double currentDegree;
-            DcMotor[] motors = direction.getMotors();
-            double[] target = direction.getTarget(distance, motors);
-            direction.setPower(power);
-            while (opModeIsActive() && direction.hasNotReached(target, motors)) {
-                currentDegree = getGyroYAngle();
-                if ((currentDegree < degree - DEGREE_THRESHOLD) || currentDegree > degree + DEGREE_THRESHOLD) {
-                    correctPosition(degree, power);
-                }
-                else {
-                    direction.setPower(power);
-                    telemetry.addData("Degree", degree);
-                    telemetry.addData("CurrentDegree", currentDegree);
-                    telemetry.addData("Direction: ", direction);
-                    telemetry.update();
-                }
-            }
+    // Make has not reached and imu thread
+    // telemetry
 
-            Strafe.stopRobot(motors);
+    class ImuGet implements Callable<Double> {
+
+        @Override
+        public Double call() throws Exception {
+            return getGyroYAngle();
         }
     }
 
+    class targetGet implements Callable<Boolean> {
+        Direction direction;
+        DcMotor[] motors;
+        double target;
+        targetGet(Direction direction, DcMotor[] motors, double target) {
+            this.direction = direction;
+            this.target = target;
+            this.motors = motors;
+        }
+
+        @Override
+        public Boolean call() throws Exception {
+            return direction.hasNotReached(target,motors);
+        }
+    }
+
+    class targetGetS implements Callable<Boolean> {
+        Strafe direction;
+        DcMotor[] motors;
+        double[] target;
+        targetGetS(Strafe direction, DcMotor[] motors, double[] target) {
+            this.direction = direction;
+            this.target = target;
+            this.motors = motors;
+        }
+
+        @Override
+        public Boolean call() throws Exception {
+            return direction.hasNotReached(target,motors);
+        }
+    }
+
+    class tel implements Runnable {
+
+        @Override
+        public void run() {
+
+        }
+    }
+
+    class average implements Callable<Double> {
+        DcMotor[] d;
+        average(DcMotor[] d) {
+            this.d = d;
+        }
+
+        @Override
+        public Double call() {
+            return getAvg(d);
+        }
+    }
+
+    protected void autoCorrect(Direction direction, double distance, double power) throws Exception{
+        if (opModeIsActive()) {
+            ExecutorService t = Executors.newFixedThreadPool(1);
+            ExecutorService avg = Executors.newFixedThreadPool(1);
+            CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+            CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+
+            Future<Double> futureAvg;
+            Future<Boolean> futureTarget;
+            double degree = getGyroYAngle();
+
+            double average;
+            boolean hasNotReached;
+
+            DcMotor[] motors = direction.getMotors();
+            double target = direction.getTarget(distance,motors);
+
+            Callable<Boolean> hNR = new targetGet(direction, motors, target);
+            Callable<Double> avgCall = new average(motors);
+
+            direction.setPower(power);
+
+            futureTarget = targetService.submit(hNR);
+            futureAvg = avgService.submit(avgCall);
+
+            hasNotReached = futureTarget.get();
+            average = futureAvg.get();
+
+            while(opModeIsActive() && hasNotReached) {
+
+                futureAvg = avgService.submit(avgCall);
+                futureTarget = targetService.submit(hNR);
+
+                    direction.setPower(power);
+                    telemetry.addData("Direction: ", direction);
+                    telemetry.addData("Current: ", average);
+                    telemetry.addData("Target: ", target);
+                    telemetry.update();
+
+                hasNotReached = futureTarget.get();
+                average = futureAvg.get();
+            }
+            Direction.stopRobot(motors);
+            if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+                correctPosition(degree, 0.5);
+            }
+            Direction.stopRobot(motors);
+            t.shutdownNow();
+            avg.shutdownNow();
+        }
+    }
+
+    protected void autoCorrect(Strafe direction, double distance, double power) throws Exception{
+        if (opModeIsActive()) {
+            ExecutorService t = Executors.newFixedThreadPool(1);
+            ExecutorService avg = Executors.newFixedThreadPool(1);
+            CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+            CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+
+            Future<Double> futureAvg;
+            Future<Boolean> futureTarget;
+
+            double degree = getGyroYAngle();
+            double average;
+            boolean hasNotReached;
+
+            DcMotor[] motors = direction.getMotors();
+            double target[] = direction.getTarget(distance,motors);
+
+            Callable<Boolean> hNR = new targetGetS(direction, motors, target);
+            Callable<Double> avgCall = new average(motors);
+
+            direction.setPower(power);
+
+            futureTarget = targetService.submit(hNR);
+            futureAvg = avgService.submit(avgCall);
+
+            hasNotReached = futureTarget.get();
+            average = futureAvg.get();
+
+            while(opModeIsActive() && hasNotReached) {
+
+                futureAvg = avgService.submit(avgCall);
+                futureTarget = targetService.submit(hNR);
+
+                direction.setPower(power);
+                telemetry.addData("Direction: ", direction);
+                telemetry.addData("Current: ", average);
+                telemetry.addData("Target: ", target);
+                telemetry.update();
+
+                hasNotReached = futureTarget.get();
+                average = futureAvg.get();
+            }
+
+            Strafe.stopRobot(motors);
+            if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+                correctPosition(degree, 0.3);
+            }
+            Strafe.stopRobot(motors);
+            t.shutdownNow();
+            avg.shutdownNow();
+        }
+    }
     /**
      * Moves the robot to the specified degree (different from turns)
      * @param degree degree you want to go back to
@@ -565,9 +807,9 @@ public abstract class Autonomous extends LinearOpMode {
             @Override
             public boolean hasNotReached(double[] targets, DcMotor[] motors) {
                 boolean hasNotReached = false;
-                double currentPos = getAvg(new DcMotor[] {motors[1], motors[2]});
+                double currentPost = getAvg(new DcMotor[] {motors[1], motors[2]});
                 double currentNeg = getAvg(new DcMotor[] {motors[0], motors[3]});
-                if (targets[0] > currentPos || targets[1] < currentNeg) {
+                if (targets[0] > currentPost || targets[1] < currentNeg) {
                     hasNotReached = true;
                 }
                 return hasNotReached;
@@ -575,7 +817,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
+                return new DcMotor[]{topRight, topLeft, bottomRight, bottomLeft};
             }
         };
         /**
@@ -662,8 +904,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public boolean hasNotReached(double target, DcMotor[] motors) {
-                double motorAvg = getAvg(motors);
-                return motorAvg > target;
+                return getAvg(motors) > target;
             }
 
             @Override

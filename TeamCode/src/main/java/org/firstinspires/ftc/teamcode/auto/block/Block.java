@@ -14,15 +14,16 @@ abstract class Block extends Autonomous {
     // -Degree is left, +Degree is right
 
     // blue
-    private void getBlock(char team){
+    public void getBlock(char team){
         int pos = VisionPipeline.getBlockPosition();
-        if (pos == 0) {
-            one(team);
-        } else if (pos == 1) {
-            two(team);
-        } else if (pos == 2) {
-            three(team);
-        }
+        one(team);
+        // if (pos == 0) {
+        //     one(team);
+        // } else if (pos == 1) {
+        //     two(team);
+        // } else if (pos == 2) {
+        //     three(team);
+        // }
     }
     // Go to the first block
     // Get the first block
@@ -37,21 +38,23 @@ abstract class Block extends Autonomous {
     // Turn to the wall
     // Push foundation into the build site
     int OneBlockLength = 8;
-    double d1Block = Math.sqrt(2) * (OneBlockLength * 2.5);
-    double d2Block = (TILE_LENGTH*2)-ROBOT_LENGTH;
+    double d1Block = (TILE_LENGTH*2)-ROBOT_WIDTH - 3;
+    double d2Block = (TILE_LENGTH*2)-ROBOT_WIDTH;
     double d3Block = (TILE_LENGTH * 2) - ROBOT_WIDTH;
-    int d1Foundation = 69;
-    int d2Foundation = 69 + (OneBlockLength);
-    int d3Foundation = 69 + (OneBlockLength*2);
-    int d4Foundation = 69 + (OneBlockLength*3);
-    int d5Foundation = 69 + (OneBlockLength*4);
-    int d6Foundation = 69 + (OneBlockLength*5);
+    // 69
+    double d1Foundation = 47.5;
+    double d2Foundation = d1Foundation + (OneBlockLength);
+    double d3Foundation = d1Foundation + (OneBlockLength*2);
+    double d4Foundation = d1Foundation + (OneBlockLength*3);
+    double d5Foundation = d1Foundation + (OneBlockLength*4);
+    double d6Foundation = d1Foundation + (OneBlockLength*5);
     int space = 6;
 
     private void moveToFoundation(double distance, char team) {
         if(team == 'b') {
             move(FORWARD, distance, DRIVE_SPEED);
-            move(RIGHT, space, DRIVE_SPEED);
+            move(RIGHT, 2, DRIVE_SPEED);
+            sleep(2000);
             dropBlock();
             move(LEFT, space, DRIVE_SPEED);
         } else if (team == 'r') {
@@ -65,7 +68,8 @@ abstract class Block extends Autonomous {
     private void moveToBlock(double distance, char team) {
         if (team == 'b') {
             move(BACKWARD,distance, DRIVE_SPEED);
-            move(RIGHT,space, DRIVE_SPEED);
+            move(RIGHT,space + 0.3, DRIVE_SPEED);
+            sleep(2000);
             pickUpBlock();
             move(LEFT,space,DRIVE_SPEED);
         } else if (team == 'r') {
@@ -97,8 +101,9 @@ abstract class Block extends Autonomous {
     private void toFirst(char team) {
         int distance = 10;
         if (team =='b') {
-        move(FORWARD_RIGHT, d1Block, DRIVE_SPEED);
-        move(RIGHT, distance, DRIVE_SPEED);
+        move(RIGHT, d1Block, DRIVE_SPEED);
+        move(FORWARD, OneBlockLength, 0.3);
+        sleep(2000);
         pickUpBlock();
         move(LEFT, space, DRIVE_SPEED);
         } else if (team == 'r') {
