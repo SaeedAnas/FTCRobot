@@ -18,9 +18,14 @@ public class PlanB extends Autonomous {
     }
 
     private void planB() {
-        sleep(20000);
-        move(FORWARD, TILE_LENGTH, DRIVE_SPEED);
-        brake();
+        try {
+            sleep(20000);
+            move(FORWARD, TILE_LENGTH, DRIVE_SPEED);
+            brake();
+        } catch (Exception e) {
+            telemetry.addData("WERE GENUINELY FUCKED","F");
+            telemetry.update();
+        }
     }
 
 }

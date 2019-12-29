@@ -1,10 +1,14 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\kenda\\Documents\\WTFRobot\\FTCRobot\\TeamCode\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+            "outputFile": "/Users/anas/Downloads/SkyStone-master copy 2/TeamCode/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v14/values-v14.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\kenda\\.gradle\\caches\\transforms-2\\files-2.1\\bf84662e09ac1ecb7131dcb0999f618c\\RobotCore-release\\res\\values-v14\\values-v14.xml",
+=======
+                    "source": "/Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/res/values-v14/values-v14.xml",
+>>>>>>> 842c7d9bfb02ca81baf8c78463ea410686d16e6a
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

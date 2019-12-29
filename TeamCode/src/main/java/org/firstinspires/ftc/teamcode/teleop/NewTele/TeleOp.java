@@ -216,7 +216,7 @@ public class TeleOp extends LinearOpMode {
         bottomLeft.setPower(0);
     }
 
-    
+
     //peter move function code variables
     public void accurateMove() {
         double y = -gamepad1.left_stick_y; // reversed
@@ -322,50 +322,50 @@ public class TeleOp extends LinearOpMode {
 // }
 
 // private void move() {
-    //     double powerStrafe = 0.5;
-    //     double powerStraight = 0.8;
-    //     double powerRotate = 0.5;
-    //     // frontLeft
-    //     if (leftX1 < -0.3 && leftY1 < -0.3) {
-    //         strafeLeftFront(powerStrafe);
-    //     }
-    //     // frontRight
-    //     else if (leftX1 > 0.3 && leftY1 < -0.3) {
-    //         strafeRightFront(powerStrafe);
-    //     }
-    //     //bottomLeft
-    //     else if (leftX1 < -0.3 && leftY1 > 0.3) {
-    //         strafeLeftBack(powerStrafe);
-    //     }
-    //     // bottomRight
-    //     else if (leftX1 > 0.3 && leftY1 > 0.3) {
-    //         strafeRightBack(powerStrafe);
-    //     }
-    //     // rotateRight
-    //     else if (leftX1 > 0.9) {
-    //         rotateRight(powerRotate);
-    //     }
-    //     // rotateLeft
-    //     else if (leftX1 < -0.9) {
-    //         rotateLeft(powerRotate);
-    //     }
-    //     // forward
-    //     else if (leftY1 < -0.9) {
-    //         forward(powerStraight);
-    //     }
-    //     // backward
-    //     else if (leftY1 > 0.9) {
-    //         backward(powerStraight);
-    //     }
-    //     // side right
-    //     else if (rightX1 > 0.9) {
-    //         slideRight(powerRotate);
-    //     }
-    //     // slide left
-    //     else if (rightX1 < -0.9) {
-    //         slideLeft(powerRotate);
-    //     } else {
-    //         stopRobot();
-    //     }
+//     double powerStrafe = 0.5;
+//     double powerStraight = 0.8;
+//     double powerRotate = 0.5;
+//     // frontLeft
+//     if (leftX1 < -0.3 && leftY1 < -0.3) {
+//         strafeLeftFront(powerStrafe);
+//     }
+//     // frontRight
+//     else if (leftX1 > 0.3 && leftY1 < -0.3) {
+//         strafeRightFront(powerStrafe);
+//     }
+//     //bottomLeft
+//     else if (leftX1 < -0.3 && leftY1 > 0.3) {
+//         strafeLeftBack(powerStrafe);
+//     }
+//     // bottomRight
+//     else if (leftX1 > 0.3 && leftY1 > 0.3) {
+//         strafeRightBack(powerStrafe);
+//     }
+//     // rotateRight
+//     else if (leftX1 > 0.9) {
+//         rotateRight(powerRotate);
+//     }
+//     // rotateLeft
+//     else if (leftX1 < -0.9) {
+//         rotateLeft(powerRotate);
+//     }
+//     // forward
+//     else if (leftY1 < -0.9) {
+//         forward(powerStraight);
+//     }
+//     // backward
+//     else if (leftY1 > 0.9) {
+//         backward(powerStraight);
+//     }
+//     // side right
+//     else if (rightX1 > 0.9) {
+//         slideRight(powerRotate);
+//     }
+//     // slide left
+//     else if (rightX1 < -0.9) {
+//         slideLeft(powerRotate);
+//     } else {
+//         stopRobot();
+//     }
 
-    // }
+// }
