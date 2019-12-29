@@ -12,11 +12,8 @@ public class MoveTest extends Autonomous {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            intakeLeft.setPower(1);
-            intakeRight.setPower(1);
-            sleep(10000);
-            intakeLeft.setPower(0);
-            intakeRight.setPower(0);
+            move(FORWARD, 10, DRIVE_SPEED);
+            sleep(2000);
         }
         // stop
     }

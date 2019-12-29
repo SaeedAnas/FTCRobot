@@ -4,7 +4,7 @@ public class multiThreadCascadeUp extends CascadeConstants implements Runnable {
     public void run(){
         try{
             mutexUp = false;
-            cascadeUp(1);
+            cascadeUp();
             Thread.sleep(500);
             mutexUp = false;
         }catch(Exception e){}

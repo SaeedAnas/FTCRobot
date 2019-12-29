@@ -210,7 +210,7 @@ public abstract class Autonomous extends LinearOpMode {
         foundationRight.setPosition(right);
     }
 
-    // TODO finish this method
+    // TODO finish this method anto arm
     protected void pickUpBlock() {
 
     }
@@ -620,7 +620,7 @@ public abstract class Autonomous extends LinearOpMode {
     public enum Direction {
 
         FORWARD {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
+            final double CORRECTION = 24.5/20;
             @Override
             public void setPower(double power) {
                 topRight.setPower(power);
@@ -631,7 +631,7 @@ public abstract class Autonomous extends LinearOpMode {
 
             @Override
             public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
+                return getAvg(motors) + (COUNTS_PER_INCH * distance * CORRECTION);
             }
 
             @Override

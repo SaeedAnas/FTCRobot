@@ -14,7 +14,7 @@ abstract class Block extends Autonomous {
     // -Degree is left, +Degree is right
 
     // blue
-    private void getBlock(char team){
+    public void getBlock(char team){
         int pos = VisionPipeline.getBlockPosition();
         if (pos == 0) {
             one(team);
@@ -169,16 +169,6 @@ abstract class Block extends Autonomous {
     private void sixthToFoundation(char team) {
         moveToFoundation(d6Foundation, team);
     }
-
-
-
-
-
-
-
-
-
-
 
     private void one(char team) {
         toFirst(team);

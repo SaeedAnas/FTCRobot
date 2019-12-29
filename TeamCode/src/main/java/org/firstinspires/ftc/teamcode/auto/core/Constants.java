@@ -12,7 +12,7 @@ public class Constants {
             TILE_LENGTH = 24,
             COUNTS_PER_MOTOR_REV = 1440,
             DRIVE_GEAR_REDUCTION = 0.33333, // this is < 1.0 if geared UP
-            WHEEL_DIAMETER_INCHES = 3.85827,
+            WHEEL_DIAMETER_INCHES = 3.93,
             WHEEL_WIDTH_INCHES = 1.77165,
             ROLLER_LENGTH_INCHES = 1.5748,
             COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI),

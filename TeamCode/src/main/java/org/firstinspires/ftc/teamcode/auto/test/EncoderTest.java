@@ -12,22 +12,25 @@ public class EncoderTest extends Autonomous {
         initHardware();
         if(opModeIsActive()) {
             int sleepTime = 10000;
-            move(FORWARD, 20, 0.5);
+            double distRatio = 1.1;
+            double dist = 20*distRatio;
+            autoCorrectMove(FORWARD,dist , 0.2);
             sleep(sleepTime);
-            move(BACKWARD, 20, 0.5);
+            autoCorrectMove(BACKWARD, dist, 0.2);
             sleep(sleepTime);
-            move(LEFT, 20, 0.5);
+            autoCorrectMove(LEFT, dist, 0.5);
             sleep(sleepTime);
-            move(RIGHT, 20, 0.5);
+            autoCorrectMove(RIGHT, dist, 0.5);
             sleep(sleepTime);
-            move(FORWARD_LEFT, 20, 0.5);
+            autoCorrectMove(FORWARD_LEFT, dist, 0.5);
             sleep(sleepTime);
-            move(BACKWARD_LEFT, 20,0.5);
+            autoCorrectMove(BACKWARD_LEFT, dist,0.5);
             sleep(sleepTime);
-            move(FORWARD_RIGHT, 20, 0.5);
+            move(FORWARD_RIGHT, dist, 0.5);
             sleep(sleepTime);
-            move(BACKWARD_RIGHT, 20, 0.5);
+            move(BACKWARD_RIGHT, dist, 0.5);
             sleep(sleepTime);
         }
     }
 }
+

@@ -3,24 +3,24 @@
 3    package="com.qualcomm.ftcrobotcontroller.test" >
 4
 5    <uses-sdk
-5-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:5:5-74
+5-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:5:5-74
 6        android:minSdkVersion="21"
-6-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:5:15-41
+6-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:5:15-41
 7        android:targetSdkVersion="26" />
-7-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:5:42-71
+7-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:5:42-71
 8
 9    <instrumentation
-9-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:11:5-15:86
+9-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:11:5-15:86
 10        android:name="android.test.InstrumentationTestRunner"
-10-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:11:22-75
+10-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:11:22-75
 11        android:functionalTest="false"
-11-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:14:22-52
+11-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:14:22-52
 12        android:handleProfiling="false"
-12-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:13:22-53
+12-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:13:22-53
 13        android:label="Tests for com.qualcomm.ftcrobotcontroller.test"
-13-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:15:22-84
+13-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:15:22-84
 14        android:targetPackage="com.qualcomm.ftcrobotcontroller.test" />
-14-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:12:22-82
+14-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:12:22-82
 15
 16    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 16-->[__tested_artifact__::FtcRobotController] C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-81
@@ -125,7 +125,7 @@
 65-->[:RobotCore-release:] C:\Users\kenda\.gradle\caches\transforms-2\files-2.1\bf84662e09ac1ecb7131dcb0999f618c\RobotCore-release\AndroidManifest.xml:62:19-51
 66
 67    <application
-67-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:7:5-9:19
+67-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:7:5-9:19
 68        android:name="org.firstinspires.ftc.robotcore.internal.system.RobotApplication"
 68-->[:RobotCore-release:] C:\Users\kenda\.gradle\caches\transforms-2\files-2.1\bf84662e09ac1ecb7131dcb0999f618c\RobotCore-release\AndroidManifest.xml:78:18-97
 69        android:allowBackup="true"
@@ -133,7 +133,7 @@
 70        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
 70-->[com.android.support:support-compat:28.0.0] C:\Users\kenda\.gradle\caches\transforms-2\files-2.1\b73d0db3c489aeab8b531c92b0313ef9\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 71        android:debuggable="true"
-71-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:7:18-43
+71-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:7:18-43
 72        android:icon="@drawable/ic_launcher"
 72-->[__tested_artifact__::FtcRobotController] C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:9-45
 73        android:label="@string/app_name"
@@ -143,8 +143,8 @@
 75        android:theme="@style/AppThemeRedRC" >
 75-->[__tested_artifact__::FtcRobotController] C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:9-45
 76        <uses-library android:name="android.test.runner" />
-76-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:8:9-60
-76-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger1523498497170285868.xml:8:23-57
+76-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:8:9-60
+76-->C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger4185119375901414031.xml:8:23-57
 77        <!-- Indicates to the ControlHubUpdater what the latest version of the Control Hub is that this app supports -->
 78        <meta-data
 78-->[__tested_artifact__::FtcRobotController] C:\Users\kenda\Documents\WTFRobot\FTCRobot\FtcRobotController\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:9-28:33
