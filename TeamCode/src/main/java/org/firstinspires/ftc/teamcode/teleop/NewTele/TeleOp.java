@@ -163,7 +163,7 @@ public class TeleOp extends LinearOpMode {
 
     private void grabber() {
         if (gpad2x) {
-            grabber.setPosition(0.3);
+            grabber.setPosition(0.4);
         } else if (gpad2y) {
             grabber.setPosition(0.9);
         }

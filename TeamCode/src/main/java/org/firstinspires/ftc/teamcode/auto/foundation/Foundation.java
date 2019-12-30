@@ -29,11 +29,12 @@ abstract class Foundation extends Autonomous {
             grabFoundation();
             sleep(1000);
             move(BACKWARD, TILE_LENGTH + 3, 1);
-            turnByGyro(0.9, 90);
+            turnByGyro(0.9, 85);
             releaseFoundation();
-            move(FORWARD, 10, 1);
+            move(BACKWARD, 5, DRIVE_SPEED);
+            move(RIGHT, 20, DRIVE_SPEED);
             sleep(1000);
-            move(BACKWARD, ((TILE_LENGTH * 2) - ROBOT_LENGTH) * 1.2, DRIVE_SPEED);
+            move(BACKWARD, ((TILE_LENGTH * 2) - (ROBOT_LENGTH+10)) * 1.2, DRIVE_SPEED);
             brake();
     } catch (Exception e) {
         telemetry.addData("F", "IT DED");
