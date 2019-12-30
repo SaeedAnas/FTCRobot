@@ -67,14 +67,14 @@ abstract class Block extends Autonomous {
 
     private void moveToBlock(double distance, char team) {
         if (team == 'b') {
-            move(BACKWARD,distance, DRIVE_SPEED);
+            autoCorrectMove(BACKWARD,distance, DRIVE_SPEED);
             move(RIGHT,space + 0.3, DRIVE_SPEED);
             sleep(2000);
             pickUpBlock();
             move(LEFT,space,DRIVE_SPEED);
         } else if (team == 'r') {
-            move(BACKWARD, distance, DRIVE_SPEED);
-            move(LEFT, space, DRIVE_SPEED);
+            autoCorrectMove(BACKWARD, distance, DRIVE_SPEED);
+            move(FORWARD_LEFT, space, DRIVE_SPEED);
             pickUpBlock();
             move(RIGHT, space,DRIVE_SPEED);
         }

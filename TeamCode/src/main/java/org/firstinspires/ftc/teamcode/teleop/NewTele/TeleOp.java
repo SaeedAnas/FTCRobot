@@ -35,7 +35,7 @@ public class TeleOp extends LinearOpMode {
 
     protected static CRServo blockMover;
 
-    protected static boolean gpad1x, gpad1y, gpad1a, gpad1b, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2down, dpad2right, dpad1Up, dpad1Down, dpad1Right, dpad1Left;
+    protected static boolean gpad1x, gpad1y, gpad1a, gpad1b, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2Down, dpad2Right, dpad2Left, dpad1Up, dpad1Down, dpad1Right, dpad1Left;
     protected static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
     public OpMode opmode = this;
 
@@ -142,8 +142,9 @@ public class TeleOp extends LinearOpMode {
         rightX2 =opmode. gamepad2.right_stick_x;
         rightY2 =opmode.gamepad2.right_stick_y;
         dpad2Up = opmode.gamepad2.dpad_up;
-        dpad2down = opmode.gamepad2.dpad_down;
-        dpad2right = opmode.gamepad2.dpad_right;
+        dpad2Down = opmode.gamepad2.dpad_down;
+        dpad2Right = opmode.gamepad2.dpad_right;
+        dpad2Left = opmode.gamepad2.dpad_left;
         dpad1Up = opmode.gamepad1.dpad_up;
         dpad1Down = opmode.gamepad1.dpad_down;
         dpad1Left = opmode.gamepad1.dpad_left;
@@ -161,27 +162,27 @@ public class TeleOp extends LinearOpMode {
     }
 
     private void grabber() {
-        if (dpad1Left) {
-            grabber.setPosition(1);
-        } else if (dpad1Right) {
-            grabber.setPosition(0);
+        if (gpad2x) {
+            grabber.setPosition(0.3);
+        } else if (gpad2y) {
+            grabber.setPosition(0.9);
         }
     }
 
     private void foundation() {
         if (gpad1x) {
-            foundationRight.setPosition(1);
-            foundationLeft.setPosition(1);
+            foundationRight.setPosition(0.15);
+            foundationLeft.setPosition(0.0);
         } else if (gpad1y) {
-            foundationRight.setPosition(0.5);
-            foundationLeft.setPosition(0.5);
+            foundationRight.setPosition(0.65);
+            foundationLeft.setPosition(0.4);
         }
     }
 
     private void intake() {
         if (gpad1a) {
-            intakeLeft.setPower(1);
-            intakeRight.setPower(1);
+            intakeLeft.setPower(0.5);
+            intakeRight.setPower(0.5);
         } else if (gpad1b){
             intakeLeft.setPower(0);
             intakeRight.setPower(0);
@@ -192,7 +193,7 @@ public class TeleOp extends LinearOpMode {
         if (dpad2Up) {
             cascadeLeft.setPower(0.5);
             cascadeRight.setPower(0.5);
-        } else if (dpad2down) {
+        } else if (dpad2Down) {
             cascadeLeft.setPower(-0.5);
             cascadeRight.setPower(-0.5);
         } else {

@@ -22,8 +22,8 @@ public class Constants {
             ARM_SPEED = 0.3,
             L_FOUNDATION_GRAB = 0,
             L_FOUNDATON_RELEASE = 0.4,
-            R_FOUNDATION_GRAB = 0.26,
-            R_FOUNDATION_RELEASE = 0.66,
+            R_FOUNDATION_GRAB = 0.15,
+            R_FOUNDATION_RELEASE = 0.65,
             GRABBER_GRAB = 0.0,
             GRABBER_RELEASE = 0.7,
             GEAR_IN = 32,
@@ -32,7 +32,7 @@ public class Constants {
             P_DISTANCE_PER_ROTATION = 20.8,
             TICKS_PER_MM_ARM = (GEAR_RATIO_ARM * COUNTS_PER_MOTOR_REV)/P_DISTANCE_PER_ROTATION,
             CORRECTION = 3,
-            DEGREE_THRESHOLD = 3.5,
+            DEGREE_THRESHOLD = 5.0,
             TICKS_PER_INCH_STRAIGHT = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
 

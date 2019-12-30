@@ -990,6 +990,7 @@ public abstract class Autonomous extends LinearOpMode {
         // TODO Change the getTarget and hasNotReached
         BACKWARD_RIGHT {
             final double CORRECTION = 0 * COUNTS_PER_INCH;
+
             @Override
             public void setPower(double power) {
                 topLeft.setPower(-power);
@@ -1012,6 +1013,7 @@ public abstract class Autonomous extends LinearOpMode {
                 return new DcMotor[]{topLeft, bottomRight};
             }
         };
+
 
 
         /**

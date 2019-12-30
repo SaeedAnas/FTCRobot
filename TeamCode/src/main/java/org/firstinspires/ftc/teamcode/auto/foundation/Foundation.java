@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.auto.foundation;
 
 import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Strafe.LEFT;
+import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Strafe.RIGHT;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 abstract class Foundation extends Autonomous {
@@ -42,15 +44,17 @@ abstract class Foundation extends Autonomous {
         try {
             releaseFoundation();
             releaseFoundation();
-            move(FORWARD, (TILE_LENGTH * 2) - ROBOT_LENGTH - 2, DRIVE_SPEED);
+            move(FORWARD, (TILE_LENGTH * 2+3) - ROBOT_LENGTH - 2, DRIVE_SPEED);
             grabFoundation();
             sleep(1000);
-            move(BACKWARD, TILE_LENGTH + 3, 1);
-            turnByGyro(0.9, -90);
+            move(BACKWARD, TILE_LENGTH + 6, 1);
+            turnByGyro(0.9, -85);
             releaseFoundation();
-            move(FORWARD, 10, 1);
             sleep(1000);
-            move(BACKWARD, ((TILE_LENGTH * 2) - ROBOT_LENGTH) * 1.2, DRIVE_SPEED);
+            move(BACKWARD, 5, DRIVE_SPEED);
+            move(RIGHT, 17, DRIVE_SPEED);
+            sleep(1000);
+            autoCorrectMove(BACKWARD, ((TILE_LENGTH * 2) - (ROBOT_LENGTH+5)) * 1.2, DRIVE_SPEED);
             brake();
         } catch (Exception e) {
             telemetry.addData("F", "IT DED");
