@@ -54,7 +54,7 @@ abstract class Block extends Autonomous {
         if(team == 'b') {
             move(FORWARD, distance, DRIVE_SPEED);
             move(RIGHT, 2, DRIVE_SPEED);
-            sleep(2000);
+            sleep(1000);
             dropBlock();
             move(LEFT, space, DRIVE_SPEED);
         } else if (team == 'r') {
@@ -67,14 +67,14 @@ abstract class Block extends Autonomous {
 
     private void moveToBlock(double distance, char team) {
         if (team == 'b') {
-            autoCorrectMove(BACKWARD,distance, DRIVE_SPEED);
+            move(BACKWARD,distance, 0.5);
             move(RIGHT,space + 0.3, DRIVE_SPEED);
-            sleep(2000);
+            sleep(1000);
             pickUpBlock();
             move(LEFT,space,DRIVE_SPEED);
         } else if (team == 'r') {
-            autoCorrectMove(BACKWARD, distance, DRIVE_SPEED);
-            move(FORWARD_LEFT, space, DRIVE_SPEED);
+            move(BACKWARD, distance, 0.5);
+            move(FORWARD_LEFT, space, 0.5);
             pickUpBlock();
             move(RIGHT, space,DRIVE_SPEED);
         }
@@ -102,12 +102,12 @@ abstract class Block extends Autonomous {
         int distance = 10;
         if (team =='b') {
         move(RIGHT, d1Block, DRIVE_SPEED);
-        move(FORWARD, OneBlockLength, 0.3);
-        sleep(2000);
+        move(FORWARD, OneBlockLength, 0.5);
+        sleep(1000);
         pickUpBlock();
         move(LEFT, space, DRIVE_SPEED);
         } else if (team == 'r') {
-        move(FORWARD_LEFT, d1Block, DRIVE_SPEED);
+        move(FORWARD, d1Block, 0.5);
         move(LEFT, distance, DRIVE_SPEED);
         pickUpBlock();
         move(RIGHT, space, DRIVE_SPEED);

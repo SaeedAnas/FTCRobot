@@ -180,10 +180,10 @@ public class TeleOp extends LinearOpMode {
     }
 
     private void intake() {
-        if (gpad1a) {
-            intakeLeft.setPower(0.5);
-            intakeRight.setPower(0.5);
-        } else if (gpad1b){
+        if (gpad1rightBumper) {
+            intakeLeft.setPower(0.8);
+            intakeRight.setPower(0.8);
+        } else if (gpad1leftBumper){
             intakeLeft.setPower(0);
             intakeRight.setPower(0);
         }

@@ -17,7 +17,7 @@ public class Constants {
             ROLLER_LENGTH_INCHES = 1.5748,
             //COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI),
             COUNTS_PER_INCH = (1101+1132+1095+1084)/80,
-            DRIVE_SPEED = 0.4,
+            DRIVE_SPEED = 0.8,
             TURN_SPEED = 0.3,
             ARM_SPEED = 0.3,
             L_FOUNDATION_GRAB = 0,
