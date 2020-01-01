@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOp extends LinearOpMode {
+public class TeleOp extends LinearOpMode{
 
     protected static DcMotor topRight;
 
@@ -189,16 +189,16 @@ public class TeleOp extends LinearOpMode {
         }
     }
 
-    private void cascade() {
+    private void cascade(){
         if (dpad2Up) {
-            cascadeLeft.setPower(0.5);
-            cascadeRight.setPower(0.5);
+            multiThreadCascadeUp cascadeUp = new multiThreadCascadeUp();
+            cascadeUp.run();
         } else if (dpad2Down) {
-            cascadeLeft.setPower(-0.5);
-            cascadeRight.setPower(-0.5);
-        } else {
-            cascadeLeft.setPower(0);
-            cascadeRight.setPower(0);
+            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
+            cascadeDown.run();
+        } else if (dpad2Right){
+            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
+            cascadeReset.run();
         }
     }
 
