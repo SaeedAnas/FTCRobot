@@ -590,7 +590,7 @@ abstract class Block extends Autonomous {
 
 
     private void dickbutt() {
-        telemetry.addData("Status: ", "Dicking Butt");
+        telemetry.addData("Status: ", "Dick Butt");
         telemetry.update();
     }
 }
