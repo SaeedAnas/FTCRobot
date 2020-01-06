@@ -2,13 +2,14 @@ package org.firstinspires.ftc.teamcode.teleop.NewTele;
 
 public class CascadeConstants extends ThreadButton{
     static int count = 0; //cascadeUp = count ++  cascadeDown = count -- cascadeReset = distance*count
-    static double blockHeight = 4; //actually dont know (hight of the block)
+    static double blockHeight = 5.3; //actually dont know (hight of the block)
     static int block = 1;
     static double PullyCumm = 1.75;
     static double countPerRev = 1440;
     static double COUNTS_PER_INCH = countPerRev / (PullyCumm * Math.PI); //COUNTER_PER_INCH is differnt
     //COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI)
     static double encoderValue = COUNTS_PER_INCH * (blockHeight * block);
+    static int roundedEncoderValue = (int) Math.round(encoderValue);
     static double max = 6;
     static double min = 0;
     static boolean mutexUp = true;
@@ -26,10 +27,11 @@ public class CascadeConstants extends ThreadButton{
         }
     }
     public void cascadeUp() {
-        double distance = encoderValue + 0.3;
+        cascadeRight.setTargetPosition(roundedEncoderValue);
+        cascadeLeft.setTargetPosition(roundedEncoderValue);
         count++;
         if(count < max) {
-            while (cascadeLeft.getCurrentPosition() < distance || cascadeRight.getCurrentPosition() < distance) {
+            while (cascadeLeft.isBusy() || cascadeRight.isBusy()) {
                 cascadeLeft.setPower(0.5);
                 cascadeRight.setPower(0.5);
                 telemetry.addData("Status: ", "Cascade Up");

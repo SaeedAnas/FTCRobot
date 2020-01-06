@@ -33,7 +33,12 @@ public class Constants {
             TICKS_PER_MM_ARM = (GEAR_RATIO_ARM * COUNTS_PER_MOTOR_REV)/P_DISTANCE_PER_ROTATION,
             CORRECTION = 3,
             DEGREE_THRESHOLD = 5.0,
-            TICKS_PER_INCH_STRAIGHT = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
+            TICKS_PER_INCH_STRAIGHT = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI),
+            AUTO_GRAB_DOWN = 0.6,
+            AUTO_GRAB_UP = 0.2,
+            AUTO_ARM_DOWN = 0.6,
+            AUTO_ARM_UP = 0.1;
+
 
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:

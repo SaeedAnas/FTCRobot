@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp
-public class TeleOp extends LinearOpMode{
+public class TeleOp extends LinearOpMode {
 
     protected static DcMotor topRight;
 
@@ -29,6 +29,8 @@ public class TeleOp extends LinearOpMode{
 
     protected static Servo grabber;
 
+    protected static Servo sideServoGrabber;
+
     protected static DcMotor cascadeRight;
 
     protected static DcMotor cascadeLeft;
@@ -43,7 +45,7 @@ public class TeleOp extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
         initHardware();
-        while(opModeIsActive()) {
+        while (opModeIsActive()) {
             tele();
             update();
             accurateMove();
@@ -57,7 +59,6 @@ public class TeleOp extends LinearOpMode{
     }
 
 
-
     void initHardware() {
         telemetry.addData("Status: ", "Initializing");
         telemetry.update();
@@ -68,6 +69,7 @@ public class TeleOp extends LinearOpMode{
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
+        sideServoGrabber = hardwareMap.get(Servo.class, "sideServoGrabber");
         cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
@@ -107,11 +109,16 @@ public class TeleOp extends LinearOpMode{
         telemetry.update();
         waitForStart();
     }
-    protected  void tele(){
-        telemetry.addData("frontleft",topLeft.getCurrentPosition());
-        telemetry.addData("frontright",topRight.getCurrentPosition());
-        telemetry.addData("bottomleft",bottomLeft.getCurrentPosition());
-        telemetry.addData("bottomright",bottomRight.getCurrentPosition());
+
+    protected void tele() {
+        telemetry.addData("frontleft", topLeft.getCurrentPosition());
+        telemetry.addData("frontright", topRight.getCurrentPosition());
+        telemetry.addData("bottomleft", bottomLeft.getCurrentPosition());
+        telemetry.addData("bottomright", bottomRight.getCurrentPosition());
+        telemetry.addData("cascade right", cascadeRight.getCurrentPosition());
+        telemetry.addData("cascade left", cascadeLeft.getCurrentPosition());
+
+
         telemetry.update();
 
     }
@@ -126,7 +133,7 @@ public class TeleOp extends LinearOpMode{
         gpad2x = opmode.gamepad2.x;
         gpad2y = opmode.gamepad2.y;
         gpad1leftTrigger = opmode.gamepad1.left_trigger;
-        gpad1rightTrigger =opmode.gamepad1.right_trigger;
+        gpad1rightTrigger = opmode.gamepad1.right_trigger;
         gpad2leftTrigger = opmode.gamepad2.left_trigger;
         gpad2rightTrigger = opmode.gamepad2.right_trigger;
         gpad1leftBumper = opmode.gamepad1.left_bumper;
@@ -139,8 +146,8 @@ public class TeleOp extends LinearOpMode{
         rightY1 = opmode.gamepad1.right_stick_y;
         leftX2 = opmode.gamepad2.left_stick_x;
         leftY2 = opmode.gamepad2.left_stick_y;
-        rightX2 =opmode. gamepad2.right_stick_x;
-        rightY2 =opmode.gamepad2.right_stick_y;
+        rightX2 = opmode.gamepad2.right_stick_x;
+        rightY2 = opmode.gamepad2.right_stick_y;
         dpad2Up = opmode.gamepad2.dpad_up;
         dpad2Down = opmode.gamepad2.dpad_down;
         dpad2Right = opmode.gamepad2.dpad_right;
@@ -152,9 +159,9 @@ public class TeleOp extends LinearOpMode{
     }
 
     private void continuousRack() {
-        if (leftY2 > 0) {
+        if (gpad2rightBumper) {
             blockMover.setPower(0.7);
-        } else if (leftY2 < 0) {
+        } else if (gpad2leftBumper) {
             blockMover.setPower(-0.7);
         } else {
             blockMover.setPower(0);
@@ -171,11 +178,13 @@ public class TeleOp extends LinearOpMode{
 
     private void foundation() {
         if (gpad1x) {
-            foundationRight.setPosition(0.15);
-            foundationLeft.setPosition(0.0);
-        } else if (gpad1y) {
-            foundationRight.setPosition(0.65);
+            //down
+            foundationRight.setPosition(0.6);
             foundationLeft.setPosition(0.4);
+        } else if (gpad1y) {
+            //up
+            foundationRight.setPosition(0);
+            foundationLeft.setPosition(0.9);
         }
     }
 
@@ -183,30 +192,54 @@ public class TeleOp extends LinearOpMode{
         if (gpad1rightBumper) {
             intakeLeft.setPower(0.8);
             intakeRight.setPower(0.8);
-        } else if (gpad1leftBumper){
+        } else if (gpad1leftBumper) {
             intakeLeft.setPower(0);
             intakeRight.setPower(0);
         }
     }
 
-    private void cascade(){
-        if (dpad2Up) {
-            multiThreadCascadeUp cascadeUp = new multiThreadCascadeUp();
-            cascadeUp.run();
-        } else if (dpad2Down) {
-            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
-            cascadeDown.run();
-        } else if (dpad2Right){
-            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
-            cascadeReset.run();
-        }
+    private void cascade() {
+
+    cascadeRight.setPower(gpad2leftTrigger/1.2);
+    cascadeLeft.setPower(gpad2leftTrigger/1.2);
+
+    cascadeRight.setPower(-gpad2rightTrigger/1.2);
+    cascadeLeft.setPower(-gpad2rightTrigger/1.2);
+
+    if (gpad2leftTrigger==0||gpad2rightTrigger==0){
+        cascadeRight.setPower(0.001);
+        cascadeLeft.setPower(0.001);
     }
 
+
+//        if (dpad2Up) {
+//            cascadeLeft.setPower(0.8);
+//            cascadeRight.setPower(0.8);
+////            multiThreadCascadeUp cascadeUp = new multiThreadCascadeUp();
+////            cascadeUp.run();
+//        } else if (dpad2Down) {
+//            cascadeRight.setPower(-0.8);
+//            cascadeLeft.setPower(-0.8);
+//            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
+//            cascadeDown.run();
+//        } else if (dpad2Right){
+//            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
+//            cascadeReset.run();
+//        }
+        }
+
+
     private void autoArm() {
-        if (dpad1Up) {
-            sideServo.setPosition(1);
-        } else if (dpad1Down) {
-            sideServo.setPosition(0);
+        if (dpad1Down) {
+            sideServo.setPosition(0.6);
+            sleep(1000);
+            sideServoGrabber.setPosition(0.6);
+        } else if (dpad1Up) {
+            sideServo.setPosition(0.1);
+            sideServoGrabber.setPosition(0.2);
+        } else if (dpad1Left) {
+            sideServo.setPosition(0.1);
+            sideServoGrabber.setPosition(0.6);
         }
     }
 
@@ -221,14 +254,14 @@ public class TeleOp extends LinearOpMode{
     //peter move function code variables
     public void accurateMove() {
         double y = -gamepad1.left_stick_y; // reversed
-        double x = gamepad1.left_stick_x*1;//STRAFE FIX
+        double x = gamepad1.left_stick_x * 1;//STRAFE FIX
         double rx = gamepad1.right_stick_x;
 
-        double frontLeftPower=(y + x + rx);
-        double frontRightPower=(y - x - rx);
-        double backLeftPower=(y - x + rx);
-        double backRightPower=(y + x - rx);
-        if (Math.abs(frontLeftPower) > 1 || Math.abs(backLeftPower) > 1 || Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1 ) {
+        double frontLeftPower = (y + x + rx);
+        double frontRightPower = (y - x - rx);
+        double backLeftPower = (y - x + rx);
+        double backRightPower = (y + x - rx);
+        if (Math.abs(frontLeftPower) > 1 || Math.abs(backLeftPower) > 1 || Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1) {
             // Find the largest power
             double max = 0;
             max = Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower));
@@ -245,9 +278,7 @@ public class TeleOp extends LinearOpMode{
             topRight.setPower(frontRightPower);
             topLeft.setPower(frontLeftPower);
 
-        }
-
-        else{
+        } else {
             bottomRight.setPower(backRightPower);
             bottomLeft.setPower(backLeftPower);
             topRight.setPower(frontRightPower);

@@ -56,6 +56,8 @@ public abstract class Autonomous extends LinearOpMode {
 
     protected static DcMotor cascadeLeft;
 
+    protected static Servo sideServoGrabber;
+
     protected static CRServo blockMover;
 
     private static Thread vision;
@@ -77,6 +79,7 @@ public abstract class Autonomous extends LinearOpMode {
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
+        sideServoGrabber = hardwareMap.get(Servo.class, "sideServoGrabber");
         cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
@@ -217,7 +220,25 @@ public abstract class Autonomous extends LinearOpMode {
         foundationRight.setPosition(right);
     }
 
+
+//    private void autoArm() {
+//        if (dpad1Down) {
+//            sideServo.setPosition(0.6);
+//            sleep(1000);
+//            sideServoGrabber.setPosition(0.6);
+//        } else if (dpad1Up) {
+//            sideServo.setPosition(0.1);
+//            sideServoGrabber.setPosition(0.2);
+//        } else if (dpad1Left) {
+//            sideServo.setPosition(0.1);
+//            sideServoGrabber.setPosition(0.6);
+//        }
+//    }
     // TODO finish this method anto arm
+    private void getBlock() {
+        sideServo.setPosition();
+        sideServoGrabber.setPosition();
+    }
     protected void pickUpBlock() {
 
     }
