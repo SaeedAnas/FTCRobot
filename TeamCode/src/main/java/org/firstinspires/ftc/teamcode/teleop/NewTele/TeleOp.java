@@ -199,19 +199,19 @@ public class TeleOp extends LinearOpMode {
     }
 
     private void cascade() {
-
-    cascadeRight.setPower(gpad2leftTrigger/1.2);
-    cascadeLeft.setPower(gpad2leftTrigger/1.2);
-
-    cascadeRight.setPower(-gpad2rightTrigger/1.2);
-    cascadeLeft.setPower(-gpad2rightTrigger/1.2);
-
-    if (gpad2leftTrigger==0||gpad2rightTrigger==0){
-        cascadeRight.setPower(0.001);
-        cascadeLeft.setPower(0.001);
+//        if(dpad2Up){
+//            cascadeRight.setPower(0.8);
+//            cascadeLeft.setPower(0.8);
+//        }
+        cascadeRight.setPower(gpad2rightTrigger / 1.2);
+        cascadeLeft.setPower(gpad2rightTrigger / 1.2);
+        if(dpad2Down) {
+            cascadeRight.setPower(-0.8);
+            cascadeLeft.setPower(-0.8);
+        }
     }
 
-
+//
 //        if (dpad2Up) {
 //            cascadeLeft.setPower(0.8);
 //            cascadeRight.setPower(0.8);
@@ -220,13 +220,13 @@ public class TeleOp extends LinearOpMode {
 //        } else if (dpad2Down) {
 //            cascadeRight.setPower(-0.8);
 //            cascadeLeft.setPower(-0.8);
-//            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
-//            cascadeDown.run();
+////            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
+////            cascadeDown.run();
 //        } else if (dpad2Right){
-//            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
-//            cascadeReset.run();
+////            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
+////            cascadeReset.run();
 //        }
-        }
+//    }
 
 
     private void autoArm() {

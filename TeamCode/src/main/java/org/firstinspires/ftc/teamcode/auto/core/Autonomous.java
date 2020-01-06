@@ -236,15 +236,19 @@ public abstract class Autonomous extends LinearOpMode {
 //    }
     // TODO finish this method anto arm
     private void getBlock() {
-        sideServo.setPosition();
-        sideServoGrabber.setPosition();
+        sideServo.setPosition(AUTO_ARM_DOWN);
+        sideServoGrabber.setPosition(AUTO_GRAB_DOWN);
     }
     protected void pickUpBlock() {
+        sideServo.setPosition(AUTO_ARM_UP);
+        sideServoGrabber.setPosition(AUTO_GRAB_DOWN);
 
     }
 
     // TODO finish this method
     protected void dropBlock() {
+        sideServo.setPosition(AUTO_GRAB_DOWN);
+        sideServoGrabber.setPosition(AUTO_GRAB_UP);
 
     }
 
