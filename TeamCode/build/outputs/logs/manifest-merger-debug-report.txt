@@ -1,10 +1,10 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-MERGED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-69:12
+ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+MERGED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-69:12
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:2:1-108:12
 MERGED from [:Hardware-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/cf8450475982aaa503b5a6a6b2886e0f/Hardware-release/AndroidManifest.xml:2:1-11:12
 MERGED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/a61982c58efad1a027dce87ca57beccf/FtcCommon-release/AndroidManifest.xml:3:1-235:12
@@ -48,27 +48,27 @@ MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/anas/.gradle/cac
 MERGED from [android.arch.core:runtime:1.1.1] /Users/anas/.gradle/caches/transforms-2/files-2.1/d8ef00b68490a45f49fd0664d6982489/runtime-1.1.1/AndroidManifest.xml:17:1-22:12
 MERGED from [org.openftc:easyopencv:1.2] /Users/anas/.gradle/caches/transforms-2/files-2.1/ac5176afd7c8e98e366b6c336b30327d/easyopencv-1.2/AndroidManifest.xml:2:1-11:12
 MERGED from [org.openftc:opencv-repackaged:4.1.0-A] /Users/anas/.gradle/caches/transforms-2/files-2.1/4653290a55ea65ec4287e8c9af05f43b/opencv-repackaged-4.1.0-A/AndroidManifest.xml:2:1-11:12
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
 	package
-		ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:9:5-45
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
+		ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:9:5-45
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:10:5-63
+		ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:10:5-63
 application
-ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:11:5-19
-MERGED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-67:19
-MERGED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-67:19
+ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:11:5-19
+MERGED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-67:19
+MERGED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-67:19
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:78:5-106:19
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:78:5-106:19
 MERGED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/a61982c58efad1a027dce87ca57beccf/FtcCommon-release/AndroidManifest.xml:23:5-233:19
@@ -90,23 +90,23 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/anas/.gradle
 	android:supportsRtl
 		ADDED from [com.github.dogecv:dogecv:2020.4-alpha] /Users/anas/.gradle/caches/transforms-2/files-2.1/046931cac211253969bbf1aec583a1f2/dogecv-2020.4-alpha/AndroidManifest.xml:14:9-35
 	android:label
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:9-41
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:9-41
 	android:largeHeap
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-33
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-33
 	android:icon
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:9-45
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:9-45
 	android:allowBackup
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-35
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:9-35
 	android:theme
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-45
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-45
 	android:name
 		ADDED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:78:18-97
 uses-sdk
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-MERGED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
-MERGED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+MERGED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
+MERGED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:7:5-9:41
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:7:5-9:41
 MERGED from [:Hardware-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/cf8450475982aaa503b5a6a6b2886e0f/Hardware-release/AndroidManifest.xml:7:5-9:41
@@ -191,100 +191,100 @@ MERGED from [org.openftc:easyopencv:1.2] /Users/anas/.gradle/caches/transforms-2
 MERGED from [org.openftc:easyopencv:1.2] /Users/anas/.gradle/caches/transforms-2/files-2.1/ac5176afd7c8e98e366b6c336b30327d/easyopencv-1.2/AndroidManifest.xml:7:5-9:41
 MERGED from [org.openftc:opencv-repackaged:4.1.0-A] /Users/anas/.gradle/caches/transforms-2/files-2.1/4653290a55ea65ec4287e8c9af05f43b/opencv-repackaged-4.1.0-A/AndroidManifest.xml:7:5-9:41
 MERGED from [org.openftc:opencv-repackaged:4.1.0-A] /Users/anas/.gradle/caches/transforms-2/files-2.1/4653290a55ea65ec4287e8c9af05f43b/opencv-repackaged-4.1.0-A/AndroidManifest.xml:7:5-9:41
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		ADDED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
-		INJECTED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		ADDED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
+		INJECTED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-81
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-81
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-78
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-78
 uses-permission#android.permission.CAMERA
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-65
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-65
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:55:5-65
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:55:5-65
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:22-62
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:22-62
 uses-feature#android.hardware.camera
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-60
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-60
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:76:5-60
 MERGED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:76:5-60
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:19-57
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:19-57
 uses-feature#android.hardware.camera.autofocus
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-70
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-70
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:19-67
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:19-67
 meta-data#org.firstinspires.latestSupportedControlHubVersion
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:9-28:33
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:9-28:33
 	android:value
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:13-30
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:13-30
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:13-78
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:13-78
 activity#org.firstinspires.ftc.robotcontroller.internal.PermissionValidatorWrapper
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:9-42:20
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:9-42:20
 	android:screenOrientation
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:13-49
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:13-49
 	android:label
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:13-45
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:13-45
 	android:launchMode
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:13-44
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:13-44
 	android:configChanges
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-59
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:13-59
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:13-101
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:13-101
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:13-41:29
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:13-41:29
 category#android.intent.category.LAUNCHER
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:17-77
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:17-77
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:27-74
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:27-74
 action#android.intent.action.MAIN
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:17-69
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:17-69
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:25-66
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:25-66
 activity#org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:9-61:20
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:9-61:20
 	android:screenOrientation
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:13-49
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:13-49
 	android:label
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:46:13-45
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:46:13-45
 	android:launchMode
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:47:13-44
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:47:13-44
 	android:configChanges
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:13-59
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:13-59
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:13-101
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:13-101
 intent-filter#action:name:android.hardware.usb.action.USB_DEVICE_ATTACHED
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:13-51:29
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:13-51:29
 action#android.hardware.usb.action.USB_DEVICE_ATTACHED
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:17-90
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:17-90
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:25-87
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:25-87
 meta-data#android.hardware.usb.action.USB_DEVICE_ATTACHED
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:13-55:57
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:13-55:57
 	android:resource
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:55:17-54
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:55:17-54
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:17-79
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:17-79
 meta-data#org.firstinspires.main.entry
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:58:13-60:40
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:58:13-60:40
 	android:value
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:60:17-37
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:60:17-37
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:59:17-60
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:59:17-60
 service#com.qualcomm.ftccommon.FtcRobotControllerService
-ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:64:9-66:38
+ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:64:9-66:38
 	android:enabled
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:66:13-35
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:66:13-35
 	android:name
-		ADDED from [:FtcRobotController] /Users/anas/Downloads/SkyStone-master copy 2/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:65:13-76
+		ADDED from [:FtcRobotController] /Users/anas/Documents/FTCRobot/FTCRobot/FtcRobotController/build/intermediates/library_manifest/debug/AndroidManifest.xml:65:13-76
 uses-permission#android.permission.ACCESS_WIFI_STATE
 ADDED from [:RobotCore-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/5271bee21e16531bdf933a743d87e4e5/RobotCore-release/AndroidManifest.xml:11:5-13:35
 MERGED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/a61982c58efad1a027dce87ca57beccf/FtcCommon-release/AndroidManifest.xml:12:5-76
@@ -772,7 +772,7 @@ ADDED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-2
 	android:name
 		ADDED from [:FtcCommon-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/a61982c58efad1a027dce87ca57beccf/FtcCommon-release/AndroidManifest.xml:231:13-102
 uses-permission#android.permission.READ_PHONE_STATE
-IMPLIED from /Users/anas/Downloads/SkyStone-master copy 2/TeamCode/src/main/AndroidManifest.xml:8:1-12:12 reason: org.tensorflow.lite has a targetSdkVersion < 4
+IMPLIED from /Users/anas/Documents/FTCRobot/FTCRobot/TeamCode/src/main/AndroidManifest.xml:8:1-12:12 reason: org.tensorflow.lite has a targetSdkVersion < 4
 uses-permission#android.permission.BLUETOOTH_ADMIN
 ADDED from [:Inspection-release:] /Users/anas/.gradle/caches/transforms-2/files-2.1/2fe8b4c69f953c5a270b9f92f899542f/Inspection-release/AndroidManifest.xml:12:5-74
 	android:name
