@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.core;
+]package org.firstinspires.ftc.teamcode.auto.core;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
@@ -358,8 +358,15 @@ public abstract class Autonomous extends LinearOpMode {
      * @param distance distance you want to travel (100, 200), never less than 0
      * @param power power
      */
+
+    // we can make the motors ramp up as well as slow down as it gets close to the target under a certain threshold
+    /* Better AutoCorrect
+    * Basically we swerve back into position
+    * 
+    * */
     protected void move(Direction direction, double distance, double power) {
             if (opModeIsActive()) {
+
                 ExecutorService t = Executors.newFixedThreadPool(1);
                 ExecutorService avg = Executors.newFixedThreadPool(1);
                 CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
@@ -383,6 +390,14 @@ public abstract class Autonomous extends LinearOpMode {
                 futureTarget = targetService.submit(hNR);
                 futureAvg = avgService.submit(avgCall);
 
+                double real = target - getAvg(direction.getMotors());
+
+                double revUp = target - (real * 0.9);
+                double slowDown = target - (real * 0.1);
+
+              
+                int i = 3;
+                
                 try {
                     hasNotReached = futureTarget.get();
                     average = futureAvg.get();
@@ -391,8 +406,15 @@ public abstract class Autonomous extends LinearOpMode {
 
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);
+                        if (average < revUp) {
+                            direction.setPower(average/revUp);
 
-                        direction.setPower(power);
+                        } else if (average > slowDown ) {
+                            direction.setPower(1 - (average/target));
+                        } else {
+                            direction.setPower(power);
+                        }
+
                         telemetry.addData("Direction: ", direction);
                         telemetry.addData("Current: ", average);
                         telemetry.addData("Target: ", target);
@@ -417,6 +439,15 @@ public abstract class Autonomous extends LinearOpMode {
                 avg.shutdownNow();
             }
 
+    }
+
+    protected void revUp(double power, double target) {
+        int i;
+        if(0<getAvg(direction.getMotors())<(average/4)){
+            i = 0.6;
+            power *= i;
+            direction.setPower(power);
+        }
     }
 
     protected void move(Strafe direction, double distance, double power){
@@ -444,12 +475,26 @@ public abstract class Autonomous extends LinearOpMode {
                 futureTarget = targetService.submit(hNR);
                 futureAvg = avgService.submit(avgCall);
 
+                double real = target - getAvg(direction.getMotors());
+
+                double revUp = target - (real * 0.9);
+                double slowDown = target - (real * 0.1);
+
                 try {
 
                     hasNotReached = futureTarget.get();
                     average = futureAvg.get();
 
                     while (opModeIsActive() && hasNotReached) {
+
+                        if (average < revUp) {
+                            direction.setPower(average/revUp);
+
+                        } else if (average > slowDown ) {
+                            direction.setPower(1 - (average/target));
+                        } else {
+                            direction.setPower(power);
+                        }
 
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);
@@ -804,6 +849,7 @@ public abstract class Autonomous extends LinearOpMode {
                 }
                 return hasNotReached;
             }
+
 
             @Override
             public DcMotor[] getMotors() {
