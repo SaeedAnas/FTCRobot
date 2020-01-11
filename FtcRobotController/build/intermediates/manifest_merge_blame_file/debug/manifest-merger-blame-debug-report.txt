@@ -1,0 +1,117 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.qualcomm.ftcrobotcontroller"
+5    android:versionCode="34"
+6    android:versionName="5.2" >
+7
+8    <uses-sdk
+9        android:minSdkVersion="21"
+9-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml
+10        android:targetSdkVersion="26" />
+10-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml
+11
+12    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+12-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:8:3-79
+12-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:8:20-76
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:9:3-63
+13-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:9:20-60
+14
+15    <uses-feature android:name="android.hardware.camera" />
+15-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:11:3-58
+15-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:11:17-55
+16    <uses-feature android:name="android.hardware.camera.autofocus" />
+16-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:12:3-68
+16-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:12:17-65
+17
+18    <application
+18-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:14:3-66:17
+19        android:allowBackup="true"
+19-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:15:5-31
+20        android:icon="@drawable/ic_launcher"
+20-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:17:5-41
+21        android:label="@string/app_name"
+21-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:18:5-37
+22        android:largeHeap="true"
+22-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:16:5-29
+23        android:theme="@style/AppThemeRedRC" >
+23-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:19:5-41
+24
+25        <!-- Indicates to the ControlHubUpdater what the latest version of the Control Hub is that this app supports -->
+26        <meta-data
+26-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:22:5-24:29
+27            android:name="org.firstinspires.latestSupportedControlHubVersion"
+27-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:23:9-74
+28            android:value="1" />
+28-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:24:9-26
+29
+30        <!-- The main robot controller activity -->
+31        <activity
+31-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:27:5-38:16
+32            android:name="org.firstinspires.ftc.robotcontroller.internal.PermissionValidatorWrapper"
+32-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:27:15-103
+33            android:configChanges="orientation|screenSize"
+33-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:29:15-61
+34            android:label="@string/app_name"
+34-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:30:15-47
+35            android:launchMode="singleTask"
+35-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:31:15-46
+36            android:screenOrientation="fullUser" >
+36-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:28:15-51
+37            <intent-filter>
+37-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:33:7-36:23
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:34:9-69
+38-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:34:19-66
+39
+40                <action android:name="android.intent.action.MAIN" />
+40-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:35:9-61
+40-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:35:17-58
+41            </intent-filter>
+42        </activity>
+43        <activity
+43-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:40:5-59:16
+44            android:name="org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity"
+44-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:41:7-95
+45            android:configChanges="orientation|screenSize"
+45-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:43:7-53
+46            android:label="@string/app_name"
+46-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:44:7-39
+47            android:launchMode="singleTask"
+47-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:45:7-38
+48            android:screenOrientation="fullUser" >
+48-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:42:7-43
+49            <intent-filter>
+49-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:47:7-49:23
+50                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+50-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:48:9-82
+50-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:48:17-79
+51            </intent-filter>
+52
+53            <meta-data
+53-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:51:7-53:49
+54                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+54-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:52:9-71
+55                android:resource="@xml/device_filter" />
+55-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:53:9-46
+56
+57            <!-- org.firstinspires.main.entry indicates that this app is compatible with the Dragonboard Control Hub -->
+58            <meta-data
+58-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:56:7-58:34
+59                android:name="org.firstinspires.main.entry"
+59-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:57:11-54
+60                android:value="true" />
+60-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:58:11-31
+61        </activity>
+62
+63        <!-- The robot controller service in which most of the robot functionality is managed -->
+64        <service
+64-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:62:5-64:32
+65            android:name="com.qualcomm.ftccommon.FtcRobotControllerService"
+65-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:63:7-70
+66            android:enabled="true" />
+66-->/Users/anas/Downloads/FTCRobot-hi/FtcRobotController/src/main/AndroidManifest.xml:64:7-29
+67    </application>
+68
+69</manifest>
