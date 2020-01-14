@@ -70,11 +70,14 @@ abstract class Block extends Autonomous {
             move(BACKWARD,distance, 0.5);
             move(RIGHT, space + 0.3, DRIVE_SPEED);
             sleep(1000);
+            getBlock();
             pickUpBlock();
             move(LEFT,space,DRIVE_SPEED);
         } else if (team == 'r') {
             move(BACKWARD, distance, 0.5);
             move(FORWARD_LEFT, space, 0.5);
+            sleep(1000);
+            getBlock();
             pickUpBlock();
             move(RIGHT, space,DRIVE_SPEED);
         }
@@ -99,16 +102,19 @@ abstract class Block extends Autonomous {
     }
 
     private void toFirst(char team) {
-        int distance = 10;
+        double distance = (TILE_LENGTH * 2) - ROBOT_WIDTH - 2;
         if (team =='b') {
         move(RIGHT, d1Block, DRIVE_SPEED);
         move(FORWARD, OneBlockLength, 0.5);
         sleep(1000);
+            getBlock();
         pickUpBlock();
         move(LEFT, space, DRIVE_SPEED);
         } else if (team == 'r') {
-        move(FORWARD, d1Block, 0.5);
+        move(FORWARD, 10, 0.5);
         move(LEFT, distance, DRIVE_SPEED);
+        sleep(1000);
+            getBlock();
         pickUpBlock();
         move(RIGHT, space, DRIVE_SPEED);
         }
@@ -119,11 +125,15 @@ abstract class Block extends Autonomous {
         if (team == 'b') {
         move(FORWARD_RIGHT, d2Block, DRIVE_SPEED);
         move(RIGHT, 4, DRIVE_SPEED);
+        sleep(1000);
+            getBlock();
         pickUpBlock();
         move(FORWARD, space, DRIVE_SPEED);
         } else if (team == 'r') {
             move(FORWARD_LEFT, d2Block, DRIVE_SPEED);
             move(LEFT, distance, DRIVE_SPEED);
+            sleep(1000);
+            getBlock();
             pickUpBlock();
             move(RIGHT, space, DRIVE_SPEED);
         }
@@ -132,10 +142,13 @@ abstract class Block extends Autonomous {
     private void toThird(char team) {
         if (team == 'b') {
         move(RIGHT, d3Block,DRIVE_SPEED);
+            getBlock();
         pickUpBlock();
         move(LEFT,space,DRIVE_SPEED);
         } else if (team == 'r') {
             move(LEFT,d3Block, DRIVE_SPEED);
+            sleep(1000);
+            getBlock();
             pickUpBlock();
             move(RIGHT, space, DRIVE_SPEED);
         }

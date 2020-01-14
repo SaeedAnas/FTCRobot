@@ -235,9 +235,11 @@ public abstract class Autonomous extends LinearOpMode {
 //        }
 //    }
     // TODO finish this method anto arm
-    private void getBlock() {
+    protected void getBlock() {
         sideServo.setPosition(AUTO_ARM_DOWN);
+        sleep(500);
         sideServoGrabber.setPosition(AUTO_GRAB_DOWN);
+        sleep(500);
     }
     protected void pickUpBlock() {
         sideServo.setPosition(AUTO_ARM_UP);
@@ -391,10 +393,7 @@ public abstract class Autonomous extends LinearOpMode {
                 futureAvg = avgService.submit(avgCall);
 
                 // target can be negative
-                double real = Math.abs(target) - Math.abs(getAvg(direction.getMotors()));
 
-                double revUp = Math.abs(target) - Math.abs((real * 0.9));
-                double slowDown = Math.abs(target) - Math.abs((real * 0.1));
 
               
                 int i = 3;
@@ -403,32 +402,68 @@ public abstract class Autonomous extends LinearOpMode {
                     hasNotReached = futureTarget.get();
                     average = Math.abs(futureAvg.get());
 
-                    while (opModeIsActive() && hasNotReached) {
 
-                        futureAvg = avgService.submit(avgCall);
-                        futureTarget = targetService.submit(hNR);
-                        if (average < revUp) {
-                            direction.setPower(average/revUp);
 
-                        } else if (average > slowDown ) {
-                            direction.setPower(1 - (average/target));
-                        } else {
-                            direction.setPower(power);
+                    if (average < target) {
+                        double real = target - getAvg(direction.getMotors());
+                        double slowDown = Math.abs(target) - Math.abs((real * 0.2));
+                        while (opModeIsActive() && hasNotReached) {
+
+                            futureAvg = avgService.submit(avgCall);
+                            futureTarget = targetService.submit(hNR);
+                            if (average > slowDown) {
+                                direction.setPower(0.2);
+                            } else {
+                                direction.setPower(power);
+                            }
+
+                            telemetry.addData("Direction: ", direction);
+                            telemetry.addData("Current: ", average);
+                            telemetry.addData("Target: ", target);
+                            telemetry.update();
+
+                            hasNotReached = futureTarget.get();
+                            average = futureAvg.get();
                         }
 
-                        telemetry.addData("Direction: ", direction);
-                        telemetry.addData("Current: ", average);
-                        telemetry.addData("Target: ", target);
-                        telemetry.update();
+                    } else {
+                        double real = target + getAvg(direction.getMotors());
+                        double slowDown = Math.abs(target) + Math.abs((real * 0.2));
 
-                        hasNotReached = futureTarget.get();
-                        average = Math.abs(futureAvg.get());
+                        while (opModeIsActive() && hasNotReached) {
+
+                            futureAvg = avgService.submit(avgCall);
+                            futureTarget = targetService.submit(hNR);
+
+                            if (average < slowDown) {
+                                direction.setPower(0.2);
+                            } else {
+                                direction.setPower(power);
+                            }
+
+                            telemetry.addData("Direction: ", direction);
+                            telemetry.addData("Current: ", average);
+                            telemetry.addData("Target: ", target);
+                            telemetry.update();
+
+                            hasNotReached = futureTarget.get();
+                            average = futureAvg.get();
+                        }
+
                     }
+
+
+
+                    telemetry.addData("Direction: ", direction);
+                    telemetry.addData("Current: ", average);
+                    telemetry.addData("Target: ", target);
+                    telemetry.update();
 
                 } catch (Exception e) {
                     telemetry.addData("HI", "KENDALL IS GAY");
                     telemetry.update();
                 }
+
                 if (opModeIsActive()) {
                     Direction.stopRobot(motors);
                     if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
@@ -468,10 +503,6 @@ public abstract class Autonomous extends LinearOpMode {
                 futureTarget = targetService.submit(hNR);
                 futureAvg = avgService.submit(avgCall);
 
-                double real = target[0] - getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
-
-                double revUp = target[0] - (real * 0.9);
-                double slowDown = target[0] - (real * 0.1);
 
                 try {
 
@@ -479,16 +510,7 @@ public abstract class Autonomous extends LinearOpMode {
                     average = futureAvg.get();
 
                     while (opModeIsActive() && hasNotReached) {
-
-                        if (average < revUp) {
-                            direction.setPower(average/revUp);
-
-                        } else if (average > slowDown ) {
-                            direction.setPower(1 - (average/target[0]));
-                        } else {
                             direction.setPower(power);
-                        }
-
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);
 

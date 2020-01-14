@@ -27,9 +27,13 @@ public class TeleOp extends LinearOpMode {
 
     protected static Servo sideServo;
 
+    protected static Servo sideServo2;
+
     protected static Servo grabber;
 
-    protected static Servo sideServoGrabber;
+    protected static Servo sideServoGrabberLeft;
+
+    protected static Servo sideServoGrabberRight;
 
     protected static DcMotor cascadeRight;
 
@@ -40,7 +44,7 @@ public class TeleOp extends LinearOpMode {
     protected static boolean gpad1x, gpad1y, gpad1a, gpad1b, gpad2a, gpad2b, gpad2x, gpad2y, gpad2rightBumper, gpad2leftBumper, gpad1rightBumper, gpad1leftBumper, dpad2Up, dpad2Down, dpad2Right, dpad2Left, dpad1Up, dpad1Down, dpad1Right, dpad1Left;
     protected static double leftX1, leftY1, rightX1, rightY1, leftX2, leftY2, rightX2, rightY2, gpad1leftTrigger, gpad1rightTrigger, gpad2leftTrigger, gpad2rightTrigger;
     public OpMode opmode = this;
-
+    private boolean isRight = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -69,7 +73,9 @@ public class TeleOp extends LinearOpMode {
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
-        sideServoGrabber = hardwareMap.get(Servo.class, "sideServoGrabber");
+        sideServo2 = hardwareMap.get(Servo.class, "sideServo2");
+        sideServoGrabberLeft = hardwareMap.get(Servo.class, "sideServoGrabber");
+        sideServoGrabberRight = hardwareMap.get(Servo.class, "grabber2");
         cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
@@ -111,14 +117,12 @@ public class TeleOp extends LinearOpMode {
     }
 
     protected void tele() {
-        telemetry.addData("frontleft", topLeft.getCurrentPosition());
-        telemetry.addData("frontright", topRight.getCurrentPosition());
-        telemetry.addData("bottomleft", bottomLeft.getCurrentPosition());
-        telemetry.addData("bottomright", bottomRight.getCurrentPosition());
+        telemetry.addData("front left", topLeft.getCurrentPosition());
+        telemetry.addData("front right", topRight.getCurrentPosition());
+        telemetry.addData("bottom left", bottomLeft.getCurrentPosition());
+        telemetry.addData("bottom right", bottomRight.getCurrentPosition());
         telemetry.addData("cascade right", cascadeRight.getCurrentPosition());
         telemetry.addData("cascade left", cascadeLeft.getCurrentPosition());
-
-
         telemetry.update();
 
     }
@@ -158,10 +162,24 @@ public class TeleOp extends LinearOpMode {
         dpad1Right = opmode.gamepad1.dpad_right;
     }
 
+    private void autoArm() {
+        if (gamepad1.back && isRight) {
+            isRight = false;
+        } else if (gamepad1.back) {
+            isRight = true;
+        }
+        if (isRight) {
+            autoArmRight();
+        } else {
+            autoArmLeft();
+
+        }
+    }
+
     private void continuousRack() {
-        if (gpad2rightBumper) {
+        if (gpad2leftBumper) {
             blockMover.setPower(0.7);
-        } else if (gpad2leftBumper) {
+        } else if (gpad2rightBumper) {
             blockMover.setPower(-0.7);
         } else {
             blockMover.setPower(0);
@@ -170,7 +188,7 @@ public class TeleOp extends LinearOpMode {
 
     private void grabber() {
         if (gpad2x) {
-            grabber.setPosition(0.4);
+            grabber.setPosition(0.25);
         } else if (gpad2y) {
             grabber.setPosition(0.9);
         }
@@ -180,35 +198,41 @@ public class TeleOp extends LinearOpMode {
         if (gpad1x) {
             //down
             foundationRight.setPosition(0);
-            foundationLeft.setPosition(0);
+            foundationLeft.setPosition(1);
         } else if (gpad1y) {
             //up
             foundationRight.setPosition(1);
-            foundationLeft.setPosition(1);
+            foundationLeft.setPosition(0);
         }
     }
 
     private void intake() {
-        if (gpad1rightBumper) {
-            intakeLeft.setPower(-0.8);
-            intakeRight.setPower(-0.8);
-        } else {
+        if (gpad1rightTrigger > 0) {
             intakeLeft.setPower(0);
             intakeRight.setPower(0);
+        } else if (gpad1rightBumper) {
+            intakeLeft.setPower(-0.8);
+            intakeRight.setPower(-0.8);
+        } else if (gpad1leftBumper) {
+            intakeLeft.setPower(0.8);
+            intakeRight.setPower(0.8);
         }
+
     }
 
     private void cascade() {
-//        if(dpad2Up){
-//            cascadeRight.setPower(0.8);
-//            cascadeLeft.setPower(0.8);
-//        }
-        cascadeRight.setPower(gpad2rightTrigger / 1.2);
-        cascadeLeft.setPower(gpad2rightTrigger / 1.2);
-        if(dpad2Down) {
-            cascadeRight.setPower(-0.8);
-            cascadeLeft.setPower(-0.8);
+        double stop = 0.8;
+        if (gpad2rightTrigger > 0) {
+            cascadeLeft.setPower(gpad2rightTrigger * stop);
+            cascadeRight.setPower(gpad2rightTrigger * stop);
+        } else if (gpad2leftTrigger > 0) {
+            cascadeLeft.setPower(-gpad2leftTrigger * stop);
+            cascadeRight.setPower(-gpad2leftTrigger * stop);
+        } else {
+            cascadeLeft.setPower(0);
+            cascadeRight.setPower(0);
         }
+
     }
 
 //
@@ -229,17 +253,31 @@ public class TeleOp extends LinearOpMode {
 //    }
 
 
-    private void autoArm() {
+    private void autoArmLeft() {
         if (dpad1Down) {
             sideServo.setPosition(0.65);
             sleep(1000);
-            sideServoGrabber.setPosition(0.6);
+            sideServoGrabberLeft.setPosition(0.6);
         } else if (dpad1Up) {
-            sideServo.setPosition(0.1);
-            sideServoGrabber.setPosition(0.2);
+            sideServo.setPosition(0.15);
+            sideServoGrabberLeft.setPosition(0.2);
         } else if (dpad1Left) {
-            sideServo.setPosition(0.1);
-            sideServoGrabber.setPosition(0.6);
+            sideServo.setPosition(0.15);
+            sideServoGrabberLeft.setPosition(0.6);
+        }
+    }
+
+    private void autoArmRight() {
+        if (dpad1Down) {
+            sideServo2.setPosition(0);
+            sleep(1000);
+            sideServoGrabberRight.setPosition(1);
+        } else if (dpad1Up) {
+            sideServo2.setPosition(0.5);
+            sideServoGrabberRight.setPosition(0.6);
+        } else if (dpad1Left) {
+            sideServo2.setPosition(0.5);
+            sideServoGrabberRight.setPosition(1);
         }
     }
 
@@ -263,7 +301,7 @@ public class TeleOp extends LinearOpMode {
         double backRightPower = (y + x - rx);
         if (Math.abs(frontLeftPower) > 1 || Math.abs(backLeftPower) > 1 || Math.abs(frontRightPower) > 1 || Math.abs(backRightPower) > 1) {
             // Find the largest power
-            double max = 0;
+            double max;
             max = Math.max(Math.abs(frontLeftPower), Math.abs(backLeftPower));
             max = Math.max(Math.abs(frontRightPower), max);
             max = Math.max(Math.abs(backRightPower), max);
@@ -285,8 +323,11 @@ public class TeleOp extends LinearOpMode {
             topLeft.setPower(frontLeftPower);
         }
     }
-}
 
+    public void fieldCentricMove() {
+
+    }
+}
 
 //     private void forward(double power) {
 //         topRight.setPower(power);

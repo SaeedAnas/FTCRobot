@@ -46,7 +46,7 @@ abstract class Foundation extends Autonomous {
         try {
             releaseFoundation();
             releaseFoundation();
-            move(FORWARD, moveToFoundation, DRIVE_SPEED);
+            move(FORWARD, moveToFoundation - 2, DRIVE_SPEED);
             grabFoundation();
             sleep(1000);
             move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);

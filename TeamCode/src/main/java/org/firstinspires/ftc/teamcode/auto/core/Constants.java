@@ -20,10 +20,10 @@ public class Constants {
             DRIVE_SPEED = 0.8,
             TURN_SPEED = 0.3,
             ARM_SPEED = 0.3,
-            L_FOUNDATION_GRAB = 0.15,
-            L_FOUNDATON_RELEASE = 0.65,
-            R_FOUNDATION_GRAB = 0.15,
-            R_FOUNDATION_RELEASE = 0.65,
+            L_FOUNDATION_GRAB = 1,
+            L_FOUNDATON_RELEASE = 0,
+            R_FOUNDATION_GRAB = 0,
+            R_FOUNDATION_RELEASE = 1,
             GRABBER_GRAB = 0.0,
             GRABBER_RELEASE = 0.7,
             GEAR_IN = 32,
@@ -36,8 +36,8 @@ public class Constants {
             TICKS_PER_INCH_STRAIGHT = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI),
             AUTO_GRAB_DOWN = 0.6,
             AUTO_GRAB_UP = 0.2,
-            AUTO_ARM_DOWN = 0.6,
-            AUTO_ARM_UP = 0.1;
+            AUTO_ARM_DOWN = 0.65,
+            AUTO_ARM_UP = 0.15;
 
 
 
