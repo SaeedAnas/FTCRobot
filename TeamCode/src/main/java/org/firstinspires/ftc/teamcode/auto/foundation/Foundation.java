@@ -2,11 +2,8 @@ package org.firstinspires.ftc.teamcode.auto.foundation;
 
 import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 
-import java.sql.Driver;
+import static org.firstinspires.ftc.teamcode.auto.core.Direction.*;
 
-import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
-import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Strafe.LEFT;
-import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Strafe.RIGHT;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 abstract class Foundation extends Autonomous {
@@ -56,7 +53,7 @@ abstract class Foundation extends Autonomous {
             move(BACKWARD, moveAfterRelease, DRIVE_SPEED);
             move(RIGHT, moveToAvoidOtherRobot, DRIVE_SPEED);
             sleep(1000);
-            autoCorrectMove(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
+            move(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
             brake();
         } catch (Exception e) {
             telemetry.addData("F", "You fucking Donkey");

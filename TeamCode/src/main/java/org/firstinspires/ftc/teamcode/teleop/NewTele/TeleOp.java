@@ -161,9 +161,9 @@ public class TeleOp extends LinearOpMode {
 
     private void continuousRack() {
         if (gpad2rightBumper) {
-            blockMover.setPower(0.7);
-        } else if (gpad2leftBumper) {
             blockMover.setPower(-0.7);
+        } else if (gpad2leftBumper) {
+            blockMover.setPower(0.7);
         } else {
             blockMover.setPower(0);
         }

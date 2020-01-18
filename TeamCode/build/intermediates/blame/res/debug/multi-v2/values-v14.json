@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\kenda\\Documents\\WTFRobot\\FTCRobot\\TeamCode\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v14\\values-v14.xml",
+            "outputFile": "/Users/anas/Downloads/FTCRobot-hi/TeamCode/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v14/values-v14.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\kenda\\.gradle\\caches\\transforms-2\\files-2.1\\bf84662e09ac1ecb7131dcb0999f618c\\RobotCore-release\\res\\values-v14\\values-v14.xml",
+                    "source": "/Users/anas/.gradle/caches/transforms-2/files-2.1/bf84662e09ac1ecb7131dcb0999f618c/RobotCore-release/res/values-v14/values-v14.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

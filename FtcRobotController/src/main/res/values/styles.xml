@@ -2,22 +2,22 @@
 <!-- This is a placeholder for adding future style-specific content in the robot controller only -->
 <resources>
 
-    <style name="AppThemeRedRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeRedRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="AppThemeGreenRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeGreenRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="AppThemeBlueRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeBlueRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="AppThemePurpleRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemePurpleRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="AppThemeOrangeRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeOrangeRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
-    <style name="AppThemeTealRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeTealRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
 </resources>

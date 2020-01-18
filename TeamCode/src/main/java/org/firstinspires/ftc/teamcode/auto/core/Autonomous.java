@@ -32,13 +32,13 @@ public abstract class Autonomous extends LinearOpMode {
     // tune encoders becasue we are shit
     // measure
     // four mecanum wheels
-    protected static DcMotor topRight;
+    public static DcMotor topRight;
 
-    protected static DcMotor topLeft;
+    public static DcMotor topLeft;
 
-    protected static DcMotor bottomLeft;
+    public static DcMotor bottomLeft;
 
-    protected static DcMotor bottomRight;
+    public static DcMotor bottomRight;
 
     protected static DcMotor intakeLeft;
 
@@ -380,7 +380,7 @@ public abstract class Autonomous extends LinearOpMode {
                 boolean hasNotReached;
 
                 DcMotor[] motors = direction.getMotors();
-                double target = direction.getTarget(distance, motors);
+                double[] target = direction.getTarget(distance, motors);
 
                 Callable<Boolean> hNR = new targetGet(direction, motors, target);
                 Callable<Double> avgCall = new average(motors);
@@ -389,15 +389,6 @@ public abstract class Autonomous extends LinearOpMode {
 
                 futureTarget = targetService.submit(hNR);
                 futureAvg = avgService.submit(avgCall);
-
-                // target can be negative hi hows your day been
-                double real = target - (getAvg(direction.getMotors()));
-                double revUp = Math.abs(target) - Math.abs((real * 0.9));
-                double slowDown = Math.abs(target) - Math.abs((real * 0.1));
-                double firstEquation = real/target;
-                double secondEquation = target/real;
-                double slow = firstEquation - secondEquation;
-                double firstThreshhold = (1*target)/2;
 
 
                 try {
@@ -408,18 +399,7 @@ public abstract class Autonomous extends LinearOpMode {
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);
 
-                        if (average > firstThreshhold){
-                            direction.setPower(slow);
-                        }
-
-                        if (average < revUp) {
-                            direction.setPower(average/revUp);
-
-                        } else if (average > slowDown ) {
-                            direction.setPower(1 - (average/target));
-                        } else {
-                            direction.setPower(power);
-                        }
+                        direction.setPower(power);
 
                         telemetry.addData("Direction: ", direction);
                         telemetry.addData("Current: ", average);
@@ -448,98 +428,98 @@ public abstract class Autonomous extends LinearOpMode {
     }
 
 
-    protected void move(Strafe direction, double distance, double power){
-            if (opModeIsActive()) {
-                ExecutorService t = Executors.newFixedThreadPool(1);
-                ExecutorService avg = Executors.newFixedThreadPool(1);
-                CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
-                CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
-
-                Future<Double> futureAvg;
-                Future<Boolean> futureTarget;
-
-                double degree = getGyroYAngle();
-                double average;
-                boolean hasNotReached;
-
-                DcMotor[] motors = direction.getMotors();
-                double target[] = direction.getTarget(distance, motors);
-
-                Callable<Boolean> hNR = new targetGetS(direction, motors, target);
-                Callable<Double> avgCall = new averageS(motors);
-
-                direction.setPower(power);
-
-                futureTarget = targetService.submit(hNR);
-                futureAvg = avgService.submit(avgCall);
-
-                double real = target[0] - getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
-                double current = getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
-                double revUp = target[0] - (real * 0.9);
-                double slowDown = target[0] - (real * 0.1);
-
-                double firstEquation = current/distance;
-                double secondEquation = distance/current;
-                double finalEquation = firstEquation - secondEquation;
-                double firstDistance = (distance*4)/6;
-                try {
-
-                    hasNotReached = futureTarget.get();
-                    average = futureAvg.get();
-
-                    while (opModeIsActive() && hasNotReached) {
-
-                        if (current < firstDistance) {
-                            direction.setPower(1);
-//                            direction.setPower(average/revUp);
-
-                        } else if (current > firstDistance ) {
-                            direction.setPower(finalEquation);
-//                            direction.setPower(1 - (average/target[0]));
-                        }
-//                        else {
-//                            direction.setPower(power);
+//    protected void move(Slide direction, double distance, double power){
+//            if (opModeIsActive()) {
+//                ExecutorService t = Executors.newFixedThreadPool(1);
+//                ExecutorService avg = Executors.newFixedThreadPool(1);
+//                CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+//                CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+//
+//                Future<Double> futureAvg;
+//                Future<Boolean> futureTarget;
+//
+//                double degree = getGyroYAngle();
+//                double average;
+//                boolean hasNotReached;
+//
+//                DcMotor[] motors = direction.getMotors();
+//                double target[] = direction.getTarget(distance, motors);
+//
+//                Callable<Boolean> hNR = new targetGetS(direction, motors, target);
+//                Callable<Double> avgCall = new averageS(motors);
+//
+//                direction.setPower(power);
+//
+//                futureTarget = targetService.submit(hNR);
+//                futureAvg = avgService.submit(avgCall);
+//
+//                double real = target[0] - getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
+//                double current = getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
+//                double revUp = target[0] - (real * 0.9);
+//                double slowDown = target[0] - (real * 0.1);
+//
+//                double firstEquation = current/distance;
+//                double secondEquation = distance/current;
+//                double finalEquation = firstEquation - secondEquation;
+//                double firstDistance = (distance*4)/6;
+//                try {
+//
+//                    hasNotReached = futureTarget.get();
+//                    average = futureAvg.get();
+//
+//                    while (opModeIsActive() && hasNotReached) {
+//
+//                        if (current < firstDistance) {
+//                            direction.setPower(1);
+////                            direction.setPower(average/revUp);
+//
+//                        } else if (current > firstDistance ) {
+//                            direction.setPower(finalEquation);
+////                            direction.setPower(1 - (average/target[0]));
 //                        }
-
-                        futureAvg = avgService.submit(avgCall);
-                        futureTarget = targetService.submit(hNR);
-
-                        direction.setPower(power);
-                        telemetry.addData("Direction: ", direction);
-                        telemetry.addData("Current: ", average);
-                        telemetry.addData("Target: ", target);
-                        telemetry.update();
-
-                        hasNotReached = futureTarget.get();
-                        average = futureAvg.get();
-                    }
-                } catch (Exception e) {
-                    telemetry.addData("HI", "KENDALL IS GAY");
-                    telemetry.update();
-                }
-
-                if (opModeIsActive()) {
-
-                    Strafe.stopRobot(motors);
-                    if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
-                        correctPosition(degree, 0.5);
-                    }
-
-                }
-
-                Strafe.stopRobot(motors);
-                t.shutdownNow();
-                avg.shutdownNow();
-
-            }
-    }
+////                        else {
+////                            direction.setPower(power);
+////                        }
+//
+//                        futureAvg = avgService.submit(avgCall);
+//                        futureTarget = targetService.submit(hNR);
+//
+//                        direction.setPower(power);
+//                        telemetry.addData("Direction: ", direction);
+//                        telemetry.addData("Current: ", average);
+//                        telemetry.addData("Target: ", target);
+//                        telemetry.update();
+//
+//                        hasNotReached = futureTarget.get();
+//                        average = futureAvg.get();
+//                    }
+//                } catch (Exception e) {
+//                    telemetry.addData("HI", "KENDALL IS GAY");
+//                    telemetry.update();
+//                }
+//
+//                if (opModeIsActive()) {
+//
+//                    Slide.stopRobot(motors);
+//                    if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+//                        correctPosition(degree, 0.5);
+//                    }
+//
+//                }
+//
+//                Slide.stopRobot(motors);
+//                t.shutdownNow();
+//                avg.shutdownNow();
+//
+//            }
+//    }
 
     /**
      * gets the average of all of the motors' current positions
      * @param motors array of DcMotors
      * @return average of the DcMotor current positions
      */
-    protected static double getAvg(DcMotor[] motors) {
+    public static double getAvg(DcMotor[] motors) {
         double motorAvg = 0;
         for(DcMotor motor: motors) {
             motorAvg += motor.getCurrentPosition();
@@ -548,36 +528,31 @@ public abstract class Autonomous extends LinearOpMode {
         return motorAvg;
     }
 
-    /**
-     * Move function that auto corrects when it is moved off track
-     * @param direction one of the Direction enums (FORWARD, BACKWARD, LEFT)
-     * @param distance distance you want to travel
-     * @param power power
-     */
-    protected void autoCorrectMove(Direction direction, double distance, double power) {
-        if (opModeIsActive()) {
-            double degree = getGyroYAngle();
-            double currentDegree;
-            DcMotor[] motors = direction.getMotors();
-            double target = direction.getTarget(distance, motors);
-            direction.setPower(power);
-            while (opModeIsActive() && direction.hasNotReached(target, motors)) {
-                currentDegree = getGyroYAngle();
-                if ((currentDegree < degree - DEGREE_THRESHOLD) || currentDegree > degree + DEGREE_THRESHOLD) {
-                    correctPosition(degree, power);
-                }
-                else {
-                    direction.setPower(power);
-                    telemetry.addData("Degree", degree);
-                    telemetry.addData("CurrentDegree", currentDegree);
-                    telemetry.addData("Direction: ", direction);
-                    telemetry.update();
-                }
-            }
 
-            Direction.stopRobot(motors);
-        }
-    }
+//    protected void autoCorrectMove(Direction direction, double distance, double power) {
+//        if (opModeIsActive()) {
+//            double degree = getGyroYAngle();
+//            double currentDegree;
+//            DcMotor[] motors = direction.getMotors();
+//            double target = direction.getTarget(distance, motors);
+//            direction.setPower(power);
+//            while (opModeIsActive() && direction.hasNotReached(target, motors)) {
+//                currentDegree = getGyroYAngle();
+//                if ((currentDegree < degree - DEGREE_THRESHOLD) || currentDegree > degree + DEGREE_THRESHOLD) {
+//                    correctPosition(degree, power);
+//                }
+//                else {
+//                    direction.setPower(power);
+//                    telemetry.addData("Degree", degree);
+//                    telemetry.addData("CurrentDegree", currentDegree);
+//                    telemetry.addData("Direction: ", direction);
+//                    telemetry.update();
+//                }
+//            }
+//
+//            Direction.stopRobot(motors);
+//        }
+//    }
 
     // Make has not reached and imu thread
     // telemetry
@@ -593,8 +568,8 @@ public abstract class Autonomous extends LinearOpMode {
     class targetGet implements Callable<Boolean> {
         Direction direction;
         DcMotor[] motors;
-        double target;
-        targetGet(Direction direction, DcMotor[] motors, double target) {
+        double[] target;
+        targetGet(Direction direction, DcMotor[] motors, double[] target) {
             this.direction = direction;
             this.target = target;
             this.motors = motors;
@@ -607,10 +582,10 @@ public abstract class Autonomous extends LinearOpMode {
     }
 
     class targetGetS implements Callable<Boolean> {
-        Strafe direction;
+        Slide direction;
         DcMotor[] motors;
         double[] target;
-        targetGetS(Strafe direction, DcMotor[] motors, double[] target) {
+        targetGetS(Slide direction, DcMotor[] motors, double[] target) {
             this.direction = direction;
             this.target = target;
             this.motors = motors;
@@ -654,110 +629,110 @@ public abstract class Autonomous extends LinearOpMode {
         }
     }
 
-    protected void autoCorrect(Direction direction, double distance, double power) throws Exception{
-        if (opModeIsActive()) {
-            ExecutorService t = Executors.newFixedThreadPool(1);
-            ExecutorService avg = Executors.newFixedThreadPool(1);
-            CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
-            CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+//    protected void autoCorrect(Direction direction, double distance, double power) throws Exception{
+//        if (opModeIsActive()) {
+//            ExecutorService t = Executors.newFixedThreadPool(1);
+//            ExecutorService avg = Executors.newFixedThreadPool(1);
+//            CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+//            CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+//
+//            Future<Double> futureAvg;
+//            Future<Boolean> futureTarget;
+//            double degree = getGyroYAngle();
+//
+//            double average;
+//            boolean hasNotReached;
+//
+//            DcMotor[] motors = direction.getMotors();
+//            double target = direction.getTarget(distance,motors);
+//
+//            Callable<Boolean> hNR = new targetGet(direction, motors, target);
+//            Callable<Double> avgCall = new average(motors);
+//
+//            direction.setPower(power);
+//
+//            futureTarget = targetService.submit(hNR);
+//            futureAvg = avgService.submit(avgCall);
+//
+//            hasNotReached = futureTarget.get();
+//            average = futureAvg.get();
+//
+//            while(opModeIsActive() && hasNotReached) {
+//
+//                futureAvg = avgService.submit(avgCall);
+//                futureTarget = targetService.submit(hNR);
+//
+//                    direction.setPower(power);
+//                    telemetry.addData("Direction: ", direction);
+//                    telemetry.addData("Current: ", average);
+//                    telemetry.addData("Target: ", target);
+//                    telemetry.update();
+//
+//                hasNotReached = futureTarget.get();
+//                average = futureAvg.get();
+//            }
+//            Direction.stopRobot(motors);
+//            if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+//                correctPosition(degree, 0.5);
+//            }
+//            Direction.stopRobot(motors);
+//            t.shutdownNow();
+//            avg.shutdownNow();
+//        }
+//    }
 
-            Future<Double> futureAvg;
-            Future<Boolean> futureTarget;
-            double degree = getGyroYAngle();
-
-            double average;
-            boolean hasNotReached;
-
-            DcMotor[] motors = direction.getMotors();
-            double target = direction.getTarget(distance,motors);
-
-            Callable<Boolean> hNR = new targetGet(direction, motors, target);
-            Callable<Double> avgCall = new average(motors);
-
-            direction.setPower(power);
-
-            futureTarget = targetService.submit(hNR);
-            futureAvg = avgService.submit(avgCall);
-
-            hasNotReached = futureTarget.get();
-            average = futureAvg.get();
-
-            while(opModeIsActive() && hasNotReached) {
-
-                futureAvg = avgService.submit(avgCall);
-                futureTarget = targetService.submit(hNR);
-
-                    direction.setPower(power);
-                    telemetry.addData("Direction: ", direction);
-                    telemetry.addData("Current: ", average);
-                    telemetry.addData("Target: ", target);
-                    telemetry.update();
-
-                hasNotReached = futureTarget.get();
-                average = futureAvg.get();
-            }
-            Direction.stopRobot(motors);
-            if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
-                correctPosition(degree, 0.5);
-            }
-            Direction.stopRobot(motors);
-            t.shutdownNow();
-            avg.shutdownNow();
-        }
-    }
-
-    protected void autoCorrect(Strafe direction, double distance, double power) throws Exception{
-        if (opModeIsActive()) {
-            ExecutorService t = Executors.newFixedThreadPool(1);
-            ExecutorService avg = Executors.newFixedThreadPool(1);
-            CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
-            CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
-
-            Future<Double> futureAvg;
-            Future<Boolean> futureTarget;
-
-            double degree = getGyroYAngle();
-            double average;
-            boolean hasNotReached;
-
-            DcMotor[] motors = direction.getMotors();
-            double target[] = direction.getTarget(distance,motors);
-
-            Callable<Boolean> hNR = new targetGetS(direction, motors, target);
-            Callable<Double> avgCall = new average(motors);
-
-            direction.setPower(power);
-
-            futureTarget = targetService.submit(hNR);
-            futureAvg = avgService.submit(avgCall);
-
-            hasNotReached = futureTarget.get();
-            average = futureAvg.get();
-
-            while(opModeIsActive() && hasNotReached) {
-
-                futureAvg = avgService.submit(avgCall);
-                futureTarget = targetService.submit(hNR);
-
-                direction.setPower(power);
-                telemetry.addData("Direction: ", direction);
-                telemetry.addData("Current: ", average);
-                telemetry.addData("Target: ", target);
-                telemetry.update();
-
-                hasNotReached = futureTarget.get();
-                average = futureAvg.get();
-            }
-
-            Strafe.stopRobot(motors);
-            if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
-                correctPosition(degree, 0.3);
-            }
-            Strafe.stopRobot(motors);
-            t.shutdownNow();
-            avg.shutdownNow();
-        }
-    }
+//    protected void autoCorrect(Slide direction, double distance, double power) throws Exception{
+//        if (opModeIsActive()) {
+//            ExecutorService t = Executors.newFixedThreadPool(1);
+//            ExecutorService avg = Executors.newFixedThreadPool(1);
+//            CompletionService<Boolean> targetService = new ExecutorCompletionService<>(t);
+//            CompletionService<Double> avgService = new ExecutorCompletionService<>(avg);
+//
+//            Future<Double> futureAvg;
+//            Future<Boolean> futureTarget;
+//
+//            double degree = getGyroYAngle();
+//            double average;
+//            boolean hasNotReached;
+//
+//            DcMotor[] motors = direction.getMotors();
+//            double target[] = direction.getTarget(distance,motors);
+//
+//            Callable<Boolean> hNR = new targetGetS(direction, motors, target);
+//            Callable<Double> avgCall = new average(motors);
+//
+//            direction.setPower(power);
+//
+//            futureTarget = targetService.submit(hNR);
+//            futureAvg = avgService.submit(avgCall);
+//
+//            hasNotReached = futureTarget.get();
+//            average = futureAvg.get();
+//
+//            while(opModeIsActive() && hasNotReached) {
+//
+//                futureAvg = avgService.submit(avgCall);
+//                futureTarget = targetService.submit(hNR);
+//
+//                direction.setPower(power);
+//                telemetry.addData("Direction: ", direction);
+//                telemetry.addData("Current: ", average);
+//                telemetry.addData("Target: ", target);
+//                telemetry.update();
+//
+//                hasNotReached = futureTarget.get();
+//                average = futureAvg.get();
+//            }
+//
+//            Slide.stopRobot(motors);
+//            if (getGyroYAngle() < degree - DEGREE_THRESHOLD || getGyroYAngle() > degree + DEGREE_THRESHOLD) {
+//                correctPosition(degree, 0.3);
+//            }
+//            Slide.stopRobot(motors);
+//            t.shutdownNow();
+//            avg.shutdownNow();
+//        }
+//    }
     /**
      * Moves the robot to the specified degree (different from turns)
      * @param degree degree you want to go back to
@@ -836,312 +811,5 @@ public abstract class Autonomous extends LinearOpMode {
      * has four abstract methods
      */
 
-    public enum Strafe {
-        // TODO Change the getTarget and hasNotReached
-        LEFT {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topRight.setPower(power);
-                topLeft.setPower(-power);
-                bottomRight.setPower(-power);
-                bottomLeft.setPower(power);
-            }
-
-            @Override
-            public double[] getTarget(double distance, DcMotor[] motors) {
-                double[] targets = new double[2];
-                targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
-                targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
-                return targets;
-            }
-
-            @Override
-            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-                boolean hasNotReached = false;
-                double currentPos = getAvg(new DcMotor[] {motors[1], motors[2]});
-                double currentNeg = getAvg(new DcMotor[] {motors[0], motors[3]});
-                if (targets[0] > currentPos || targets[1] < currentNeg) {
-                    hasNotReached = true;
-                }
-                return hasNotReached;
-            }
-
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topLeft, topRight, bottomLeft , bottomRight};
-            }
-        },
-        // TODO Change the getTarget and hasNotReached
-        RIGHT {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topRight.setPower(-power);
-                topLeft.setPower(power);
-                bottomRight.setPower(power);
-                bottomLeft.setPower(-power);
-            }
-
-            @Override
-            public double[] getTarget(double distance, DcMotor[] motors) {
-                double[] targets = new double[2];
-                targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
-                targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
-                return targets;
-            }
-
-            @Override
-            public boolean hasNotReached(double[] targets, DcMotor[] motors) {
-                boolean hasNotReached = false;
-                double currentPost = getAvg(new DcMotor[] {motors[1], motors[2]});
-                double currentNeg = getAvg(new DcMotor[] {motors[0], motors[3]});
-                if (targets[0] > currentPost || targets[1] < currentNeg) {
-                    hasNotReached = true;
-                }
-                return hasNotReached;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, topLeft, bottomRight, bottomLeft};
-            }
-        };
-        /**
-         * moves the motors to go to a specific direction
-         * @param power
-         */
-        public abstract void setPower(double power);
-
-        /**
-         * finds the target tick count the motors should get to
-         * @param distance
-         * @param motors
-         * @return
-         */
-        public abstract double[] getTarget(double distance, DcMotor[] motors);
-
-        /**
-         * determines whether or not the robot has reached the target
-         * @param targets
-         * @param motors
-         * @return
-         */
-        public abstract boolean hasNotReached(double targets[], DcMotor[] motors);
-
-        /**
-         * gets the motors that are in use for the direction
-         * @return
-         */
-        public abstract DcMotor[] getMotors();
-
-        /**
-         * stops the motors
-         * @param motors
-         */
-        public static void stopRobot(DcMotor[] motors) {
-            for (DcMotor motor : motors) {
-                motor.setPower(0);
-            }
-        }
-
-    }
-    public enum Direction {
-
-        FORWARD {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topRight.setPower(power);
-                topLeft.setPower(power);
-                bottomRight.setPower(power);
-                bottomLeft.setPower(power);
-            }
-
-            @Override
-            public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
-            }
-
-            @Override
-            public boolean hasNotReached(double target, DcMotor[] motors) {
-                double motorAvg = getAvg(motors);
-                return motorAvg < target;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
-            }
-        },
-        BACKWARD {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topRight.setPower(-power);
-                topLeft.setPower(-power);
-                bottomRight.setPower(-power);
-                bottomLeft.setPower(-power);
-            }
-
-            @Override
-            public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) - (COUNTS_PER_INCH * distance) - CORRECTION;
-            }
-
-            @Override
-            public boolean hasNotReached(double target, DcMotor[] motors) {
-                return getAvg(motors) > target;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
-            }
-        },
-        // TODO Change the getTarget and hasNotReached
-        FORWARD_LEFT {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topRight.setPower(power);
-                bottomLeft.setPower(power);
-            }
-
-            @Override
-            public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
-            }
-
-            @Override
-            public boolean hasNotReached(double target, DcMotor[] motors) {
-                double motorAvg = getAvg(motors);
-                return motorAvg < target;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, bottomLeft};
-            }
-        },
-        // TODO Change the getTarget and hasNotReached
-        FORWARD_RIGHT {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topLeft.setPower(power);
-                bottomRight.setPower(power);
-            }
-
-            @Override
-            public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) + (COUNTS_PER_INCH * distance) + CORRECTION;
-            }
-
-            @Override
-            public boolean hasNotReached(double target, DcMotor[] motors) {
-                double motorAvg = getAvg(motors);
-                return motorAvg < target;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topLeft, bottomRight};
-            }
-        },
-        // TODO Change the getTarget and hasNotReached
-        BACKWARD_LEFT {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-            @Override
-            public void setPower(double power) {
-                topRight.setPower(-power);
-                bottomLeft.setPower(-power);
-            }
-
-            @Override
-            public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) - (COUNTS_PER_INCH * distance) - CORRECTION;
-            }
-
-            @Override
-            public boolean hasNotReached(double targets, DcMotor[] motors) {
-                double motorAvg = getAvg(motors);
-                return motorAvg > targets;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topRight, bottomLeft};
-            }
-        },
-        // TODO Change the getTarget and hasNotReached
-        BACKWARD_RIGHT {
-            final double CORRECTION = 0 * COUNTS_PER_INCH;
-
-            @Override
-            public void setPower(double power) {
-                topLeft.setPower(-power);
-                bottomRight.setPower(-power);
-            }
-
-            @Override
-            public double getTarget(double distance, DcMotor[] motors) {
-                return getAvg(motors) - (COUNTS_PER_INCH * distance) - CORRECTION;
-            }
-
-            @Override
-            public boolean hasNotReached(double target, DcMotor[] motors) {
-                double motorAvg = getAvg(motors);
-                return motorAvg > target;
-            }
-
-            @Override
-            public DcMotor[] getMotors() {
-                return new DcMotor[]{topLeft, bottomRight};
-            }
-        };
-
-
-
-        /**
-         * moves the motors to go to a specific direction
-         * @param power
-         */
-        public abstract void setPower(double power);
-
-        /**
-         * finds the target tick count the motors should get to
-         * @param distance
-         * @param motors
-         * @return
-         */
-        public abstract double getTarget(double distance, DcMotor[] motors);
-
-        /**
-         * determines whether or not the robot has reached the target
-         * @param targets
-         * @param motors
-         * @return
-         */
-        public abstract boolean hasNotReached(double targets, DcMotor[] motors);
-
-        /**
-         * gets the motors that are in use for the direction
-         * @return
-         */
-        public abstract DcMotor[] getMotors();
-
-        /**
-         * stops the motors
-         * @param motors
-         */
-        public static void stopRobot(DcMotor[] motors) {
-            for (DcMotor motor : motors) {
-                motor.setPower(0);
-            }
-        }
-
-    }
 
 }

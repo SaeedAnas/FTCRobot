@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.test;
 
 import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 
-import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Direction.*;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
@@ -23,13 +23,13 @@ public class MoveTest extends Autonomous {
 //            sleep(2000);
 //            move(BACKWARD, 20, 1);
 //            sleep(2000);
-//            move(Strafe.LEFT, 20, 1);
+//            move(Slide.LEFT, 20, 1);
 //            sleep(2000);
-//            move(Strafe.RIGHT, 20, 1);
+//            move(Slide.RIGHT, 20, 1);
 //            sleep(2000);
-//            move(Strafe.LEFT, 20, 1);
+//            move(Slide.LEFT, 20, 1);
 //            sleep(2000);
-//            move(Strafe.RIGHT, 20, 1);
+//            move(Slide.RIGHT, 20, 1);
 //            sleep(2000);
 //            move(FORWARD_RIGHT, 20, 1);
 //            sleep(2000);

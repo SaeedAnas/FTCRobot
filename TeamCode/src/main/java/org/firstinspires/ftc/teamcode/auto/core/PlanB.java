@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.auto.core;
 
 import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
 
-import static org.firstinspires.ftc.teamcode.auto.core.Autonomous.Direction.*;
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
+import static org.firstinspires.ftc.teamcode.auto.core.Direction.FORWARD;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 public class PlanB extends Autonomous {
