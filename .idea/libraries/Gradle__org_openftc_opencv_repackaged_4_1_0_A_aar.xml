@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: org.openftc:opencv-repackaged:4.1.0-A@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/038fd6af2f36c459fc9f97e6d20ed802/opencv-repackaged-4.1.0-A/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/038fd6af2f36c459fc9f97e6d20ed802/opencv-repackaged-4.1.0-A/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openftc/opencv-repackaged/4.1.0-A/37001fdf60a64efb55489e7abdc5e62cab8f7b1c/opencv-repackaged-4.1.0-A-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openftc/opencv-repackaged/4.1.0-A/1951393d7907b7302a010690cc3c11f3ebf138cf/opencv-repackaged-4.1.0-A-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
