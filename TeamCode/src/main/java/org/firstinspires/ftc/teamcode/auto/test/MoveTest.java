@@ -12,30 +12,33 @@ public class MoveTest extends Autonomous {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            move(FORWARD, 20, 1);
-            sleep(2000);
-            move(BACKWARD, 20, 1);
-            sleep(2000);
-            move(FORWARD, 20, 1);
-            sleep(2000);
-            move(BACKWARD, 20, 1);
-            sleep(2000);
-            move(Strafe.LEFT, 20, 1);
-            sleep(2000);
-            move(Strafe.RIGHT, 20, 1);
-            sleep(2000);
-            move(Strafe.LEFT, 20, 1);
-            sleep(2000);
-            move(Strafe.RIGHT, 20, 1);
-            sleep(2000);
-            move(FORWARD_RIGHT, 20, 1);
-            sleep(2000);
-            move(BACKWARD_LEFT, 20, 1);
-            sleep(2000);
-            move(FORWARD_LEFT, 20, 1);
-            sleep(2000);
-            move(BACKWARD_RIGHT, 20, 1);
-            sleep(2000);
+            move(FORWARD, 20+ROBOT_LENGTH, 1);
+            grabFoundation();
+            move(BACKWARD, 10, 1);
+            turnByGyro(100, 0.7);
+//            sleep(2000);
+//            move(BACKWARD, 20, 1);
+//            sleep(2000);
+//            move(FORWARD, 20, 1);
+//            sleep(2000);
+//            move(BACKWARD, 20, 1);
+//            sleep(2000);
+//            move(Strafe.LEFT, 20, 1);
+//            sleep(2000);
+//            move(Strafe.RIGHT, 20, 1);
+//            sleep(2000);
+//            move(Strafe.LEFT, 20, 1);
+//            sleep(2000);
+//            move(Strafe.RIGHT, 20, 1);
+//            sleep(2000);
+//            move(FORWARD_RIGHT, 20, 1);
+//            sleep(2000);
+//            move(BACKWARD_LEFT, 20, 1);
+//            sleep(2000);
+//            move(FORWARD_LEFT, 20, 1);
+//            sleep(2000);
+//            move(BACKWARD_RIGHT, 20, 1);
+//            sleep(2000);
         }
         // stop
     }

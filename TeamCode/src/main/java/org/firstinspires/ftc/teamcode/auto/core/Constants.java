@@ -7,8 +7,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 public class Constants {
     public static final double
-            ROBOT_WIDTH = 17,
-            ROBOT_LENGTH = 15.25,
+            ROBOT_WIDTH = 18,
+            ROBOT_LENGTH = 18,
             TILE_LENGTH = 24,
             COUNTS_PER_MOTOR_REV = 1440,
             DRIVE_GEAR_REDUCTION = 0.33333, // this is < 1.0 if geared UP

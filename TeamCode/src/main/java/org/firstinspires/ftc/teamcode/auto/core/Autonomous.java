@@ -390,23 +390,28 @@ public abstract class Autonomous extends LinearOpMode {
                 futureTarget = targetService.submit(hNR);
                 futureAvg = avgService.submit(avgCall);
 
-                // target can be negative
-                double real = Math.abs(target) - Math.abs(getAvg(direction.getMotors()));
-
+                // target can be negative hi hows your day been
+                double real = target - (getAvg(direction.getMotors()));
                 double revUp = Math.abs(target) - Math.abs((real * 0.9));
                 double slowDown = Math.abs(target) - Math.abs((real * 0.1));
+                double firstEquation = real/target;
+                double secondEquation = target/real;
+                double slow = firstEquation - secondEquation;
+                double firstThreshhold = (1*target)/2;
 
-              
-                int i = 3;
-                
+
                 try {
                     hasNotReached = futureTarget.get();
                     average = Math.abs(futureAvg.get());
 
                     while (opModeIsActive() && hasNotReached) {
-
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);
+
+                        if (average > firstThreshhold){
+                            direction.setPower(slow);
+                        }
+
                         if (average < revUp) {
                             direction.setPower(average/revUp);
 
@@ -426,7 +431,7 @@ public abstract class Autonomous extends LinearOpMode {
                     }
 
                 } catch (Exception e) {
-                    telemetry.addData("HI", "KENDALL IS GAY");
+                    telemetry.addData("HI", "Anas IS GAY");
                     telemetry.update();
                 }
                 if (opModeIsActive()) {
@@ -469,10 +474,14 @@ public abstract class Autonomous extends LinearOpMode {
                 futureAvg = avgService.submit(avgCall);
 
                 double real = target[0] - getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
-
+                double current = getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
                 double revUp = target[0] - (real * 0.9);
                 double slowDown = target[0] - (real * 0.1);
 
+                double firstEquation = current/distance;
+                double secondEquation = distance/current;
+                double finalEquation = firstEquation - secondEquation;
+                double firstDistance = (distance*4)/6;
                 try {
 
                     hasNotReached = futureTarget.get();
@@ -480,14 +489,17 @@ public abstract class Autonomous extends LinearOpMode {
 
                     while (opModeIsActive() && hasNotReached) {
 
-                        if (average < revUp) {
-                            direction.setPower(average/revUp);
+                        if (current < firstDistance) {
+                            direction.setPower(1);
+//                            direction.setPower(average/revUp);
 
-                        } else if (average > slowDown ) {
-                            direction.setPower(1 - (average/target[0]));
-                        } else {
-                            direction.setPower(power);
+                        } else if (current > firstDistance ) {
+                            direction.setPower(finalEquation);
+//                            direction.setPower(1 - (average/target[0]));
                         }
+//                        else {
+//                            direction.setPower(power);
+//                        }
 
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);

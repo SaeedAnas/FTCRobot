@@ -15,15 +15,16 @@ abstract class Block extends Autonomous {
 
     // blue
     public void getBlock(char team){
+        sideServo.setPosition(0.65);
         int pos = VisionPipeline.getBlockPosition();
-        one(team);
-        // if (pos == 0) {
-        //     one(team);
-        // } else if (pos == 1) {
-        //     two(team);
-        // } else if (pos == 2) {
-        //     three(team);
-        // }
+//        one(team);
+         if (pos == 0) {
+             one(team);
+         } else if (pos == 1) {
+             two(team);
+         } else if (pos == 2) {
+             three(team);
+         }
     }
     // Go to the first block
     // Get the first block
@@ -52,12 +53,14 @@ abstract class Block extends Autonomous {
 
     private void moveToFoundation(double distance, char team){
         if(team == 'b') {
+            sideServo.setPosition(0.1);
             move(FORWARD, distance, DRIVE_SPEED);
             move(RIGHT, 2, DRIVE_SPEED);
             sleep(1000);
             dropBlock();
             move(LEFT, space, DRIVE_SPEED);
         } else if (team == 'r') {
+            sideServo.setPosition(0.1);
             move(FORWARD, distance,DRIVE_SPEED);
             move(LEFT, space, DRIVE_SPEED);
             dropBlock();
@@ -67,12 +70,14 @@ abstract class Block extends Autonomous {
 
     private void moveToBlock(double distance, char team) {
         if (team == 'b') {
+            sideServo.setPosition(0.1);
             move(BACKWARD,distance, 0.5);
             move(RIGHT, space + 0.3, DRIVE_SPEED);
             sleep(1000);
             pickUpBlock();
             move(LEFT,space,DRIVE_SPEED);
         } else if (team == 'r') {
+            sideServo.setPosition(0.1);
             move(BACKWARD, distance, 0.5);
             move(FORWARD_LEFT, space, 0.5);
             pickUpBlock();

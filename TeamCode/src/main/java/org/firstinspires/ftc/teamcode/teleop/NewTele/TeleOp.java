@@ -55,6 +55,7 @@ public class TeleOp extends LinearOpMode {
             autoArm();
             grabber();
             continuousRack();
+            outtake();
         }
     }
 
@@ -170,7 +171,7 @@ public class TeleOp extends LinearOpMode {
 
     private void grabber() {
         if (gpad2x) {
-            grabber.setPosition(0.4);
+            grabber.setPosition(0.3);
         } else if (gpad2y) {
             grabber.setPosition(0.9);
         }
@@ -180,19 +181,32 @@ public class TeleOp extends LinearOpMode {
         if (gpad1x) {
             //down
             foundationRight.setPosition(0);
-            foundationLeft.setPosition(0);
+            foundationLeft.setPosition(1);
         } else if (gpad1y) {
             //up
             foundationRight.setPosition(1);
-            foundationLeft.setPosition(1);
+            foundationLeft.setPosition(0);
         }
     }
 
     private void intake() {
-        if (gpad1rightBumper) {
+        if(gpad1rightBumper) {
             intakeLeft.setPower(-0.8);
             intakeRight.setPower(-0.8);
-        } else {
+        }
+        if (gpad1a) {
+            intakeLeft.setPower(0);
+            intakeRight.setPower(0);
+        }
+    }
+
+    private void outtake (){
+        if(gpad1leftBumper){
+            intakeLeft.setPower(0.8);
+            intakeRight.setPower(0.8);
+        }
+
+        if (gpad1a){
             intakeLeft.setPower(0);
             intakeRight.setPower(0);
         }
