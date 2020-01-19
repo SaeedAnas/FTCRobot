@@ -7,7 +7,7 @@ public class BlueFoundation extends Foundation {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-//            currentFoundation('b');
+           currentFoundation('b');
         }
         // stop
     }

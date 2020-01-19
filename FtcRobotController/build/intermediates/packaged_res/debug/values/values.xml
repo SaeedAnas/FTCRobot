@@ -30,16 +30,16 @@
     <string name="toastRestartingRobot">Restarting Robot</string>
     <string name="toastWifiConfigurationComplete">Configuration Complete</string>
     <string name="toastWifiUpBeforeProgrammingMode">The Robot Controller must be fully up and running before starting Programming Mode.  Is Wifi turned on in settings?</string>
-    <style name="AppThemeBlueRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeBlueRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
-    <style name="AppThemeGreenRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeGreenRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
-    <style name="AppThemeOrangeRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeOrangeRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
-    <style name="AppThemePurpleRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemePurpleRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
-    <style name="AppThemeRedRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeRedRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
-    <style name="AppThemeTealRC" parent="Theme.AppCompat.Light">
+    <style name="AppThemeTealRC" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 </resources>

@@ -21,18 +21,21 @@ abstract class Foundation extends Autonomous {
     double moveToAvoidOtherRobot = 17;
     double moveToParkUnderBridge = ((TILE_LENGTH * 2) - (ROBOT_LENGTH+15)) * 1.2;
 
-    private void moveFoundationRed() {
+    private void moveFoundationBlue() {
         try {
             releaseFoundation();
             releaseFoundation();
+            move(LEFT, 15, DRIVE_SPEED);
             move(FORWARD, moveToFoundation, DRIVE_SPEED);
+            sleep(1000);
             grabFoundation();
             sleep(1000);
+            move(RIGHT, 5, 0.9);
             move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
             turnByGyro(0.9, degreesToMoveFoundation);
             releaseFoundation();
             sleep(1000);
-            move(BACKWARD, moveAfterRelease, DRIVE_SPEED);
+            move(BACKWARD, moveAfterRelease, 0.8);
             move(LEFT, moveToAvoidOtherRobot, DRIVE_SPEED);
             sleep(1000);
             move(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
@@ -42,20 +45,22 @@ abstract class Foundation extends Autonomous {
         telemetry.update();
     }
     }
-    private void moveFoundationBlue() {
+    private void moveFoundationRed() {
         try {
             releaseFoundation();
             releaseFoundation();
+            move(RIGHT, 10, DRIVE_SPEED);
             move(FORWARD, moveToFoundation, DRIVE_SPEED);
+            sleep(1000);
             grabFoundation();
             sleep(1000);
+            move(LEFT, 7, 0.9);
             move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
             turnByGyro(0.9, -degreesToMoveFoundation);
             releaseFoundation();
             sleep(1000);
-            move(BACKWARD, moveAfterRelease, DRIVE_SPEED);
+            move(BACKWARD, moveAfterRelease, 0.8);
             move(RIGHT, moveToAvoidOtherRobot, DRIVE_SPEED);
-            sleep(1000);
             autoCorrectMove(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
             brake();
         } catch (Exception e) {

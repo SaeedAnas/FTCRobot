@@ -16,14 +16,13 @@ abstract class Block extends Autonomous {
     // blue
     public void getBlock(char team){
         int pos = VisionPipeline.getBlockPosition();
-        one(team);
-        // if (pos == 0) {
-        //     one(team);
-        // } else if (pos == 1) {
-        //     two(team);
-        // } else if (pos == 2) {
-        //     three(team);
-        // }
+         if (pos == 0) {
+             one(team);
+         } else if (pos == 1) {
+             two(team);
+         } else if (pos == 2) {
+             three(team);
+         }
     }
     // Go to the first block
     // Get the first block
@@ -42,13 +41,14 @@ abstract class Block extends Autonomous {
     double d2Block = (TILE_LENGTH*2)-ROBOT_WIDTH;
     double d3Block = (TILE_LENGTH * 2) - ROBOT_WIDTH;
     // 69
-    double d1Foundation = 47.5;
+    double d1Foundation = TILE_LENGTH * 2;
     double d2Foundation = d1Foundation + (OneBlockLength);
     double d3Foundation = d1Foundation + (OneBlockLength*2);
     double d4Foundation = d1Foundation + (OneBlockLength*3);
     double d5Foundation = d1Foundation + (OneBlockLength*4);
     double d6Foundation = d1Foundation + (OneBlockLength*5);
-    int space = 6;
+    int space = 17;
+
 
     private void moveToFoundation(double distance, char team) {
         if(team == 'b') {
@@ -95,7 +95,13 @@ abstract class Block extends Autonomous {
             turnByGyro(TURN_SPEED, 90);
             move(BACKWARD, 15, DRIVE_SPEED);
             move(FORWARD, 15, DRIVE_SPEED);
-        }
+        }        // if (pos == 0) {
+        //     one(team);
+        // } else if (pos == 1) {
+        //     two(team);
+        // } else if (pos == 2) {
+        //     three(team);
+        // }
     }
 
     private void toFirst(char team) {
@@ -180,7 +186,7 @@ abstract class Block extends Autonomous {
         firstToFoundation(team);
         foundationToFourth(team);
         fourthToFoundation(team);
-        moveFoundation(team);
+//        moveFoundation(team);
     }
 
     private void two(char team) {
@@ -188,16 +194,19 @@ abstract class Block extends Autonomous {
         secondToFoundation(team);
         foundationToFifth(team);
         fifthToFoundation(team);
-        moveFoundation(team);
+//        moveFoundation(team);
     }
 
     private void three(char team) {
         toThird(team);
         thirdToFoundation(team);
         foundationToSixth(team);
-        sixthToFoundation(team);
-        moveFoundation(team);
+
+//        sixthToFoundation(team);
+//        moveFoundation(team);
     }
+
+
 
 
 

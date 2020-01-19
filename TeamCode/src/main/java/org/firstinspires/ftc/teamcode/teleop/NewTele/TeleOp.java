@@ -29,6 +29,8 @@ public class TeleOp extends LinearOpMode{
 
     protected static Servo grabber;
 
+    protected static Servo capStone;
+
     protected static DcMotor cascadeRight;
 
     protected static DcMotor cascadeLeft;
@@ -49,10 +51,13 @@ public class TeleOp extends LinearOpMode{
             accurateMove();
             foundation();
             intake();
+            outtake();
             cascade();
             autoArm();
             grabber();
             continuousRack();
+            capStone();
+
         }
     }
 
@@ -68,6 +73,7 @@ public class TeleOp extends LinearOpMode{
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
         sideServo = hardwareMap.get(Servo.class, "sideServo");
+        capStone = hardwareMap.get(Servo.class, "capStone");
         cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
         grabber = hardwareMap.get(Servo.class, "grabber");
@@ -122,7 +128,7 @@ public class TeleOp extends LinearOpMode{
         gpad1a = opmode.gamepad1.a;
         gpad2b = opmode.gamepad2.b;
         gpad2a = opmode.gamepad2.a;
-        gpad2b = opmode.gamepad1.b;
+        gpad1b = opmode.gamepad1.b;
         gpad2x = opmode.gamepad2.x;
         gpad2y = opmode.gamepad2.y;
         gpad1leftTrigger = opmode.gamepad1.left_trigger;
@@ -152,10 +158,10 @@ public class TeleOp extends LinearOpMode{
     }
 
     private void continuousRack() {
-        if (leftY2 > 0) {
-            blockMover.setPower(0.7);
-        } else if (leftY2 < 0) {
+        if (gpad2rightBumper) {
             blockMover.setPower(-0.7);
+        } else if (gpad2leftBumper) {
+            blockMover.setPower(0.7);
         } else {
             blockMover.setPower(0);
         }
@@ -163,7 +169,7 @@ public class TeleOp extends LinearOpMode{
 
     private void grabber() {
         if (gpad2x) {
-            grabber.setPosition(0.4);
+            grabber.setPosition(0.3);
         } else if (gpad2y) {
             grabber.setPosition(0.9);
         }
@@ -171,42 +177,81 @@ public class TeleOp extends LinearOpMode{
 
     private void foundation() {
         if (gpad1x) {
-            foundationRight.setPosition(0.15);
-            foundationLeft.setPosition(0.0);
+            foundationRight.setPosition(0);
+            foundationLeft.setPosition(1);
         } else if (gpad1y) {
-            foundationRight.setPosition(0.65);
-            foundationLeft.setPosition(0.4);
+            foundationRight.setPosition(1);
+            foundationLeft.setPosition(0);
         }
     }
 
     private void intake() {
         if (gpad1rightBumper) {
             intakeLeft.setPower(0.8);
+            intakeRight.setPower(-0.8);
+        } else if (gpad1a){
+            intakeLeft.setPower(0);
+            intakeRight.setPower(0);
+        }
+    }
+
+    private void outtake() {
+        if(gpad1leftBumper) {
+            intakeLeft.setPower(-0.8);
             intakeRight.setPower(0.8);
-        } else if (gpad1leftBumper){
+        } else if (gpad1a){
             intakeLeft.setPower(0);
             intakeRight.setPower(0);
         }
     }
 
     private void cascade(){
-        if (dpad2Up) {
-            multiThreadCascadeUp cascadeUp = new multiThreadCascadeUp();
-            cascadeUp.run();
-        } else if (dpad2Down) {
-            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
-            cascadeDown.run();
-        } else if (dpad2Right){
-            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
-            cascadeReset.run();
+        if (gpad2leftTrigger > 0) {
+            cascadeLeft.setPower(-gpad2leftTrigger);
+            cascadeRight.setPower(-gpad2leftTrigger);
+        }
+        else if (gpad2rightTrigger > 0) {
+            cascadeLeft.setPower(gpad2rightTrigger);
+            cascadeRight.setPower(gpad2rightTrigger);
+        } else {
+
+                cascadeLeft.setPower(0);
+                cascadeRight.setPower(0);
+        }
+//        if (dpad2Up) {
+//            multiThreadCascadeUp cascadeUp = new multiThreadCascadeUp();
+//            cascadeUp.run();
+//        } else if (dpad2Down) {
+//            multiThreadCascadeDown cascadeDown = new multiThreadCascadeDown();
+//            cascadeDown.run();
+//        } else if (dpad2Right){
+//            multiThreadCascadeReset cascadeReset = new multiThreadCascadeReset();
+//            cascadeReset.run();
+//        }
+    }
+
+    private void capStone() {
+        if(gpad2a){
+            capStone.setPosition(0.25);
+        }
+        else if(gpad2b) {
+            capStone.setPosition(0.75);
         }
     }
 
     private void autoArm() {
-        if (dpad1Up) {
-            sideServo.setPosition(1);
-        } else if (dpad1Down) {
-            sideServo.setPosition(0);
+        if(dpad1Down) {
+            sideServo.setPosition(0.65);
+            sleep(1000);
+            sideServo.setPosition(0.6);
+        }
+        else if (dpad1Up){
+            sideServo.setPosition(0.1);
+            sideServo.setPosition(0.2);
+        }
+        else if (dpad1Left) {
+            sideServo.setPosition(0.1);
+            sideServo.setPosition(0.6);
         }
     }
 
