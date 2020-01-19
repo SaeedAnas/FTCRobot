@@ -14,7 +14,7 @@ abstract class Foundation extends Autonomous {
     // ALWAYS CODE FOR BLUE TEAM AND ADD * turnVal to the turns
     // -Degree is left, +Degree is right
 
-    int degreesToMoveFoundation = 85;
+    int degreesToMoveFoundation = 5;
     double moveToFoundation = (TILE_LENGTH * 2) - ROBOT_LENGTH - 2;
     double moveAfterFoundation = TILE_LENGTH + 6;
     double moveAfterRelease = 5;
@@ -32,7 +32,7 @@ abstract class Foundation extends Autonomous {
             sleep(1000);
             move(RIGHT, 5, 0.9);
             move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
-            turnByGyro(0.9, degreesToMoveFoundation);
+            turnByGyro(0.9, -degreesToMoveFoundation);
             releaseFoundation();
             sleep(1000);
             move(BACKWARD, moveAfterRelease, 0.8);
@@ -56,7 +56,7 @@ abstract class Foundation extends Autonomous {
             sleep(1000);
             move(LEFT, 7, 0.9);
             move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
-            turnByGyro(0.9, -degreesToMoveFoundation);
+            turnByGyro(0.9, degreesToMoveFoundation);
             releaseFoundation();
             sleep(1000);
             move(BACKWARD, moveAfterRelease, 0.8);
@@ -74,6 +74,31 @@ abstract class Foundation extends Autonomous {
             moveFoundationRed();
         } else if (team == 'b') {
             moveFoundationBlue();
+        }
+    }
+
+    private void moveFoundationBlueStrafe() {
+        try {
+            releaseFoundation();
+            releaseFoundation();
+            move(LEFT, 15, DRIVE_SPEED);
+            move(FORWARD, moveToFoundation, DRIVE_SPEED);
+            sleep(1000);
+            grabFoundation();
+            sleep(1000);
+            //move(RIGHT, 5, 0.9);
+            move(BACKWARD, moveToFoundation,DRIVE_SPEED);
+            //turnByGyro(0.9, -degreesToMoveFoundation);
+            releaseFoundation();
+            sleep(1000);
+            move(RIGHT, moveAfterRelease, 0.8);
+            //move(LEFT, moveToAvoidOtherRobot, DRIVE_SPEED);
+            sleep(1000);
+            // move(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
+            brake();
+        } catch (Exception e) {
+            telemetry.addData("F", "You fucking Donkey");
+            telemetry.update();
         }
     }
 

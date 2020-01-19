@@ -25,7 +25,11 @@ public class TeleOp extends LinearOpMode{
 
     protected static Servo foundationLeft;
 
-    protected static Servo sideServo;
+    protected static Servo horizontalClampLeft;
+
+    protected static Servo horizontalClampRight;
+
+    protected static Servo verticalClamp;
 
     protected static Servo grabber;
 
@@ -53,7 +57,7 @@ public class TeleOp extends LinearOpMode{
             intake();
             outtake();
             cascade();
-            autoArm();
+//            autoArm();
             grabber();
             continuousRack();
             capStone();
@@ -72,7 +76,9 @@ public class TeleOp extends LinearOpMode{
         bottomRight = hardwareMap.get(DcMotor.class, "rearRight");
         foundationLeft = hardwareMap.get(Servo.class, "foundationLeft");
         foundationRight = hardwareMap.get(Servo.class, "foundationRight");
-        sideServo = hardwareMap.get(Servo.class, "sideServo");
+//        horizontalClampLeft= hardwareMap.get(Servo.class, "horizontalClampLeft");
+//        horizontalClampRight= hardwareMap.get(Servo.class, "horizontalClampRight");
+//        verticalClamp= hardwareMap.get(Servo.class, "verticalClamp");
         capStone = hardwareMap.get(Servo.class, "capStone");
         cascadeLeft = hardwareMap.get(DcMotor.class, "slideLeft");
         cascadeRight = hardwareMap.get(DcMotor.class, "slideRight");
@@ -158,9 +164,9 @@ public class TeleOp extends LinearOpMode{
     }
 
     private void continuousRack() {
-        if (gpad2rightBumper) {
+        if (dpad2Left) {
             blockMover.setPower(-0.7);
-        } else if (gpad2leftBumper) {
+        } else if (dpad2Right) {
             blockMover.setPower(0.7);
         } else {
             blockMover.setPower(0);
@@ -239,21 +245,20 @@ public class TeleOp extends LinearOpMode{
         }
     }
 
-    private void autoArm() {
-        if(dpad1Down) {
-            sideServo.setPosition(0.65);
-            sleep(1000);
-            sideServo.setPosition(0.6);
-        }
-        else if (dpad1Up){
-            sideServo.setPosition(0.1);
-            sideServo.setPosition(0.2);
-        }
-        else if (dpad1Left) {
-            sideServo.setPosition(0.1);
-            sideServo.setPosition(0.6);
-        }
-    }
+//    private void autoArm() {
+//        if(dpad1Down) {
+//            horizontalClampLeft.setPosition(1);
+//            horizontalClampRight.setPosition(1);
+//        }
+//        else if (dpad1Up){
+//            verticalClamp.setPosition(1);
+//        }
+//        else if (dpad1Left) {
+//            verticalClamp.setPosition(0);
+//            horizontalClampRight.setPosition(0);
+//            horizontalClampLeft.setPosition(0);
+//        }
+//    }
 
     private void stopRobot() {
         topRight.setPower(0);

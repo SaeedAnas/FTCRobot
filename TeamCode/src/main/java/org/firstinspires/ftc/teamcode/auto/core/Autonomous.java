@@ -280,38 +280,17 @@ public abstract class Autonomous extends LinearOpMode {
     private void turnLeftByGyro(double motorPower, double targetDegree) {
         double zeroReference = getGyroYAngle();
         double angleTurned = 0;
-        double currentAngle;
-        targetDegree = adjustedAngle(targetDegree, zeroReference);
         topLeft.setPower(-motorPower);
         bottomLeft.setPower(-motorPower);
         topRight.setPower(motorPower);
         bottomRight.setPower(motorPower);
-        if (targetDegree > 0 && zeroReference < 0) {
-            while (opModeIsActive() && (angleTurned < targetDegree)) {
-                currentAngle = getGyroYAngle();
-                angleTurned = adjustedAngle(zeroReference, currentAngle);
-                telemetry.addData("currentAngle", currentAngle);
-                telemetry.addData("AngleTurned", angleTurned);
-                telemetry.addData("Target", targetDegree);
-                telemetry.update();
-            }
-            while (opModeIsActive() && (angleTurned > targetDegree)) {
-                currentAngle = getGyroYAngle();
-                angleTurned = adjustedAngle(zeroReference, currentAngle);
-                telemetry.addData("currentAngle", currentAngle);
-                telemetry.addData("AngleTurned", angleTurned);
-                telemetry.addData("Target", targetDegree);
-                telemetry.update();
-            }
-        } else {
-            while (opModeIsActive() && (angleTurned > targetDegree)) {
-                currentAngle = getGyroYAngle();
-                angleTurned = adjustedAngle(zeroReference, currentAngle);
-                telemetry.addData("currentAngle", currentAngle);
-                telemetry.addData("AngleTurned", angleTurned);
-                telemetry.addData("Target", targetDegree);
-                telemetry.update();
-            }
+        while (opModeIsActive() && (angleTurned < targetDegree)) {
+            double currentAngle = getGyroYAngle();
+            angleTurned = adjustedAngle(zeroReference, currentAngle);
+            telemetry.addData("currentAngle", currentAngle);
+            telemetry.addData("AngleTurned", angleTurned);
+            telemetry.addData("Target", targetDegree);
+            telemetry.update();
         }
         topLeft.setPower(0);
         bottomLeft.setPower(0);
@@ -328,38 +307,17 @@ public abstract class Autonomous extends LinearOpMode {
     private void turnRightByGyro(double motorPower, double targetDegree) {
         double zeroReference = getGyroYAngle();
         double angleTurned = 0;
-        double currentAngle;
-        targetDegree = adjustedAngle(-targetDegree, zeroReference);
         topLeft.setPower(motorPower);
         bottomLeft.setPower(motorPower);
         topRight.setPower(-motorPower);
         bottomRight.setPower(-motorPower);
-        if (targetDegree > 0 && zeroReference < 0) {
-            while (opModeIsActive() && (angleTurned < targetDegree)) {
-                currentAngle = getGyroYAngle();
-                angleTurned = adjustedAngle(zeroReference, currentAngle);
-                telemetry.addData("currentAngle", currentAngle);
-                telemetry.addData("AngleTurned", angleTurned);
-                telemetry.addData("Target", targetDegree);
-                telemetry.update();
-            }
-            while (opModeIsActive() && (angleTurned > targetDegree)) {
-                currentAngle = getGyroYAngle();
-                angleTurned = adjustedAngle(zeroReference, currentAngle);
-                telemetry.addData("currentAngle", currentAngle);
-                telemetry.addData("AngleTurned", angleTurned);
-                telemetry.addData("Target", targetDegree);
-                telemetry.update();
-            }
-        } else {
-            while (opModeIsActive() && (angleTurned < targetDegree)) {
-                currentAngle = getGyroYAngle();
-                angleTurned = adjustedAngle(zeroReference, currentAngle);
-                telemetry.addData("currentAngle", currentAngle);
-                telemetry.addData("AngleTurned", angleTurned);
-                telemetry.addData("Target", targetDegree);
-                telemetry.update();
-            }
+        while (opModeIsActive() && (angleTurned > (-targetDegree))) {
+            double currentAngle = getGyroYAngle();
+            angleTurned = adjustedAngle(zeroReference, currentAngle);
+            telemetry.addData("currentAngle", currentAngle);
+            telemetry.addData("AngleTurned", angleTurned);
+            telemetry.addData("Target", targetDegree);
+            telemetry.update();
         }
         topLeft.setPower(0);
         bottomLeft.setPower(0);
