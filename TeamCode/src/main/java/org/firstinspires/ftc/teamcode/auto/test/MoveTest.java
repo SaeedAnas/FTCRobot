@@ -12,10 +12,7 @@ public class MoveTest extends Autonomous {
     public void runOpMode() {
         initHardware();
         if (opModeIsActive()) {
-            move(FORWARD, 20+ROBOT_LENGTH, 1);
-            grabFoundation();
-            move(BACKWARD, 10, 1);
-            turnByGyro(100, 0.7);
+            move(FORWARD, 50+ROBOT_LENGTH, 1);
 //            sleep(2000);
 //            move(BACKWARD, 20, 1);
 //            sleep(2000);

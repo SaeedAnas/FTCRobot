@@ -394,11 +394,12 @@ public abstract class Autonomous extends LinearOpMode {
                 double real = target - (getAvg(direction.getMotors()));
                 double revUp = Math.abs(target) - Math.abs((real * 0.9));
                 double slowDown = Math.abs(target) - Math.abs((real * 0.1));
-                double firstEquation = real/target;
-                double secondEquation = target/real;
+                double current = getAvg(new DcMotor[] {direction.getMotors()[1], direction.getMotors()[2]});
+                double firstEquation = current/distance;
+                double secondEquation = distance/current;
+                double finalEquation = firstEquation - secondEquation;
+                double firstDistance = (distance*4)/6;
                 double slow = firstEquation - secondEquation;
-                double firstThreshhold = (1*target)/2;
-
 
                 try {
                     hasNotReached = futureTarget.get();
@@ -408,18 +409,13 @@ public abstract class Autonomous extends LinearOpMode {
                         futureAvg = avgService.submit(avgCall);
                         futureTarget = targetService.submit(hNR);
 
-                        if (average > firstThreshhold){
-                            direction.setPower(slow);
+                        if (real < firstDistance) {
+                            direction.setPower(1);
+
+                        } else if (real > firstDistance ) {
+                            direction.setPower(finalEquation);
                         }
 
-                        if (average < revUp) {
-                            direction.setPower(average/revUp);
-
-                        } else if (average > slowDown ) {
-                            direction.setPower(1 - (average/target));
-                        } else {
-                            direction.setPower(power);
-                        }
 
                         telemetry.addData("Direction: ", direction);
                         telemetry.addData("Current: ", average);
@@ -489,11 +485,11 @@ public abstract class Autonomous extends LinearOpMode {
 
                     while (opModeIsActive() && hasNotReached) {
 
-                        if (current < firstDistance) {
+                        if (real < firstDistance) {
                             direction.setPower(1);
 //                            direction.setPower(average/revUp);
 
-                        } else if (current > firstDistance ) {
+                        } else if (real > firstDistance && finalEquation > 0.1) {
                             direction.setPower(finalEquation);
 //                            direction.setPower(1 - (average/target[0]));
                         }
@@ -837,7 +833,7 @@ public abstract class Autonomous extends LinearOpMode {
      */
 
     public enum Strafe {
-        // TODO Change the getTarget and hasNotReached
+        // TODO Change the  and hasNotReached
         LEFT {
             final double CORRECTION = 0 * COUNTS_PER_INCH;
             @Override

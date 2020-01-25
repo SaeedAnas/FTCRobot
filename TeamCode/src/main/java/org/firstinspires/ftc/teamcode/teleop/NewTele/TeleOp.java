@@ -120,6 +120,7 @@ public class TeleOp extends LinearOpMode {
         telemetry.addData("cascade left", cascadeLeft.getCurrentPosition());
 
 
+
         telemetry.update();
 
     }
@@ -219,10 +220,12 @@ public class TeleOp extends LinearOpMode {
 //        }
         cascadeRight.setPower(gpad2rightTrigger / 1.2);
         cascadeLeft.setPower(gpad2rightTrigger / 1.2);
-        if(dpad2Down) {
-            cascadeRight.setPower(-0.8);
-            cascadeLeft.setPower(-0.8);
-        }
+        cascadeLeft.setPower(-(gpad2leftTrigger/1.2));
+        cascadeRight.setPower(-(gpad2leftTrigger/1.2));
+//        if(dpad2Down) {
+//            cascadeRight.setPower(-0.8);
+//            cascadeLeft.setPower(-0.8);
+//        }
     }
 
 //
