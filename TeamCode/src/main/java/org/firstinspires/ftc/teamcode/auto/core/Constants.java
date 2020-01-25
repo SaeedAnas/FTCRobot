@@ -17,7 +17,7 @@ public class Constants {
             ROLLER_LENGTH_INCHES = 1.5748,
             //COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI),
             COUNTS_PER_INCH = (1101+1132+1095+1084)/80,
-            DRIVE_SPEED = 0.8,
+            DRIVE_SPEED = 0.6,
             TURN_SPEED = 0.3,
             ARM_SPEED = 0.3,
             L_FOUNDATION_GRAB = 1,
@@ -32,12 +32,12 @@ public class Constants {
             P_DISTANCE_PER_ROTATION = 20.8,
             TICKS_PER_MM_ARM = (GEAR_RATIO_ARM * COUNTS_PER_MOTOR_REV)/P_DISTANCE_PER_ROTATION,
             CORRECTION = 3,
-            DEGREE_THRESHOLD = 5.0,
+            DEGREE_THRESHOLD = 1,
             TICKS_PER_INCH_STRAIGHT = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI),
             AUTO_GRAB_DOWN = 0.95,
             AUTO_GRAB_UP = 0.3,
-            CAP_SCAN = 1,
-            CAP_OFF = 0;
+            CAP_SCAN = 0,
+            CAP_OFF = 1;
 
 
 

@@ -21,19 +21,24 @@ abstract class Foundation extends Autonomous {
     private void moveFoundationRed() {
         try {
             releaseFoundation();
-            move(RIGHT, 10, DRIVE_SPEED);
-            move(FORWARD, moveToFoundation, DRIVE_SPEED);
+            sleep(1000);
+            correctMove(RIGHT, 10, 0.3);
+            sleep(1000);
+            correctMove(FORWARD, moveToFoundation, 0.3);
+            sleep(1000);
             sleep(500);
             grabFoundation();
             sleep(1000);
-            move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
+            correctMove(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
+            sleep(1000);
             turnByGyro(0.9, degreesToMoveFoundation);
+            sleep(1000);
             releaseFoundation();
             sleep(1000);
-            move(BACKWARD, moveAfterRelease, DRIVE_SPEED);
-            move(LEFT, moveToAvoidOtherRobot, DRIVE_SPEED);
+            correctMove(BACKWARD, moveAfterRelease, DRIVE_SPEED);
+            correctMove(LEFT, moveToAvoidOtherRobot, DRIVE_SPEED);
             sleep(1000);
-            move(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
+            correctMove(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
             brake();
     } catch (Exception e) {
         telemetry.addData("F", "You fucking Donkey");
@@ -43,19 +48,19 @@ abstract class Foundation extends Autonomous {
     private void moveFoundationBlue() {
         try {
             releaseFoundation();
-            move(LEFT, 10, DRIVE_SPEED);
-            move(FORWARD, moveToFoundation, DRIVE_SPEED);
+            correctMove(LEFT, 10, DRIVE_SPEED);
+            correctMove(FORWARD, moveToFoundation, DRIVE_SPEED);
             sleep(500);
             grabFoundation();
             sleep(1000);
-            move(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
+            correctMove(BACKWARD, moveAfterFoundation, DRIVE_SPEED);
             turnByGyro(0.9, -degreesToMoveFoundation);
             releaseFoundation();
             sleep(1000);
-            move(BACKWARD, moveAfterRelease, DRIVE_SPEED);
-            move(RIGHT, moveToAvoidOtherRobot, DRIVE_SPEED);
+            correctMove(BACKWARD, moveAfterRelease, DRIVE_SPEED);
+            correctMove(RIGHT, moveToAvoidOtherRobot, DRIVE_SPEED);
             sleep(1000);
-            move(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
+            correctMove(BACKWARD, moveToParkUnderBridge, DRIVE_SPEED);
             brake();
         } catch (Exception e) {
             telemetry.addData("F", "You fucking Donkey");

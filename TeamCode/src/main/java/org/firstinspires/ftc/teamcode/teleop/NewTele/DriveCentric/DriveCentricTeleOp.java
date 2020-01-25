@@ -59,7 +59,7 @@ public class DriveCentricTeleOp extends LinearOpMode {
             update();
             accurateMove(imuService.getRegion());
             foundation();
-         
+
             cascade();
 
             grabber();
@@ -274,7 +274,7 @@ public class DriveCentricTeleOp extends LinearOpMode {
     }
 
 
-    //peter move function code variables
+    //peter correctMove function code variables
     public void accurateMove(Region region) {
         double y = -gamepad1.left_stick_y; // reversed
         double x = gamepad1.left_stick_x * 1;//STRAFE FIX
@@ -383,7 +383,7 @@ public class DriveCentricTeleOp extends LinearOpMode {
 
 // }
 
-// private void move() {
+// private void correctMove() {
 //     double powerStrafe = 0.5;
 //     double powerStraight = 0.8;
 //     double powerRotate = 0.5;

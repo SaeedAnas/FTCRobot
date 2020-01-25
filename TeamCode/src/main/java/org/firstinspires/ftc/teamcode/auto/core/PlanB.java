@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.auto.core;
 
-import org.firstinspires.ftc.teamcode.auto.core.Autonomous;
-
 import static org.firstinspires.ftc.teamcode.auto.core.Constants.*;
 import static org.firstinspires.ftc.teamcode.auto.core.Direction.FORWARD;
 
@@ -20,7 +18,7 @@ public class PlanB extends Autonomous {
     private void planB() {
         try {
             sleep(20000);
-            move(FORWARD, TILE_LENGTH, DRIVE_SPEED);
+            correctMove(FORWARD, TILE_LENGTH, DRIVE_SPEED);
             brake();
         } catch (Exception e) {
             telemetry.addData("WERE GENUINELY FUCKED","F");

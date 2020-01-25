@@ -20,16 +20,16 @@ public enum Slide {
         @Override
         public double[] getTarget(double distance, DcMotor[] motors) {
             double[] targets = new double[2];
-            targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
-            targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
+            targets[0] = Direction.getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
+            targets[1] = Direction.getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
             return targets;
         }
 
         @Override
         public boolean hasNotReached(double[] targets, DcMotor[] motors) {
             boolean hasNotReached = false;
-            double currentPos = getAvg(new DcMotor[] {motors[1], motors[2]});
-            double currentNeg = getAvg(new DcMotor[] {motors[0], motors[3]});
+            double currentPos = Direction.getAvg(new DcMotor[] {motors[1], motors[2]});
+            double currentNeg = Direction.getAvg(new DcMotor[] {motors[0], motors[3]});
             if (targets[0] > currentPos || targets[1] < currentNeg) {
                 hasNotReached = true;
             }
@@ -56,16 +56,16 @@ public enum Slide {
         @Override
         public double[] getTarget(double distance, DcMotor[] motors) {
             double[] targets = new double[2];
-            targets[0] = getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
-            targets[1] = getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
+            targets[0] = Direction.getAvg(new DcMotor[] {motors[1], motors[2]}) + (COUNTS_PER_INCH * distance) + CORRECTION;
+            targets[1] = Direction.getAvg(new DcMotor[] {motors[0], motors[3]}) - (COUNTS_PER_INCH * distance) - CORRECTION;
             return targets;
         }
 
         @Override
         public boolean hasNotReached(double[] targets, DcMotor[] motors) {
             boolean hasNotReached = false;
-            double currentPost = getAvg(new DcMotor[] {motors[1], motors[2]});
-            double currentNeg = getAvg(new DcMotor[] {motors[0], motors[3]});
+            double currentPost = Direction.getAvg(new DcMotor[] {motors[1], motors[2]});
+            double currentNeg = Direction.getAvg(new DcMotor[] {motors[0], motors[3]});
             if (targets[0] > currentPost || targets[1] < currentNeg) {
                 hasNotReached = true;
             }

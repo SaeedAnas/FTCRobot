@@ -163,9 +163,9 @@ public class TeleOp extends LinearOpMode {
     }
 
     private void continuousRack() {
-        if (dpad2Left) {
+        if (gpad2rightBumper) {
             blockMover.setPower(-0.7);
-        } else if (dpad2Right) {
+        } else if (gpad2leftBumper) {
             blockMover.setPower(0.7);
         } else {
             blockMover.setPower(0);
@@ -178,7 +178,7 @@ public class TeleOp extends LinearOpMode {
             grabber.setPosition(0.3);
         } else if (gpad2y) {
             // down
-            grabber.setPosition(0.95);
+            grabber.setPosition(1);
         }
     }
 
@@ -200,10 +200,10 @@ public class TeleOp extends LinearOpMode {
 //            cascadeRight.setPower(0.8);
 //            cascadeLeft.setPower(0.8);
 //        }
-        if (gpad2rightTrigger > 0) {
+        if (gpad2rightTrigger > 0.5) {
             cascadeRight.setPower(0.8);
             cascadeLeft.setPower(0.8);
-        } else if (gpad2leftTrigger > 0) {
+        } else if (gpad2leftTrigger > 0.5) {
             cascadeRight.setPower(-0.8);
             cascadeLeft.setPower(-0.8);
         } else {
@@ -242,7 +242,7 @@ public class TeleOp extends LinearOpMode {
 
 
 
-    //peter move function code variables
+    //peter correctMove function code variables
     public void accurateMove() {
         double y = -gamepad1.left_stick_y; // reversed
         double x = gamepad1.left_stick_x * 1;//STRAFE FIX
@@ -350,7 +350,7 @@ public class TeleOp extends LinearOpMode {
 
 // }
 
-// private void move() {
+// private void correctMove() {
 //     double powerStrafe = 0.5;
 //     double powerStraight = 0.8;
 //     double powerRotate = 0.5;

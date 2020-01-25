@@ -9,14 +9,11 @@ public class Servo extends Autonomous {
     public void runOpMode() {
         initHardware();
         while (opModeIsActive()) {
-            moveServo(0.7);
-            sleep(2000);
-            moveServo(-0.7);
-            sleep(2000);
-            moveServo(0.7);
-            sleep(1500);
-            moveServo(-0.7);
-            sleep(1500);
+            scanMode();
+            sleep(1000);
+            off();
+            sleep(1000);
+
         }
         // stop
     }

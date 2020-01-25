@@ -41,6 +41,20 @@ public enum Direction {
         public DcMotor[] getMotors() {
             return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
         }
+
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+            // rev Up 0
+            double currentAvg = getAvg(currents);
+            double targetAvg = getAvg(targets);
+            double newPower = 0.2;
+            if (currentAvg < targetAvg*0.1) {
+                //if ()
+            }
+
+            // speed
+            // slow down
+        }
     },
     BACKWARD {
         @Override
@@ -75,6 +89,10 @@ public enum Direction {
         @Override
         public DcMotor[] getMotors() {
             return new DcMotor[]{topRight, topLeft, bottomLeft, bottomRight};
+        }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
         }
     },
     // TODO Change the getTarget and hasNotReached
@@ -115,6 +133,10 @@ public enum Direction {
         public DcMotor[] getMotors() {
             return new DcMotor[]{bottomRight, topLeft, bottomLeft, topRight};
         }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
+        }
     },
     // TODO Change the getTarget and hasNotReached
     RIGHT {
@@ -150,7 +172,11 @@ public enum Direction {
         }
         @Override
         public DcMotor[] getMotors() {
-            return new DcMotor[]{topRight, bottomLeft, bottomLeft, topRight};
+            return new DcMotor[]{topRight, bottomLeft, bottomRight, topLeft};
+        }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
         }
     },
     // TODO Change the getTarget and hasNotReached
@@ -185,6 +211,10 @@ public enum Direction {
         public DcMotor[] getMotors() {
             return new DcMotor[]{topRight, bottomLeft};
         }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
+        }
     },
     // TODO Change the getTarget and hasNotReached
     FORWARD_RIGHT {
@@ -217,6 +247,10 @@ public enum Direction {
         public DcMotor[] getMotors() {
             return new DcMotor[]{topLeft, bottomRight};
         }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
+        }
     },
     // TODO Change the getTarget and hasNotReached
     BACKWARD_RIGHT {
@@ -248,6 +282,10 @@ public enum Direction {
         @Override
         public DcMotor[] getMotors() {
             return new DcMotor[]{topRight, bottomLeft};
+        }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
         }
     },
     // TODO Change the getTarget and hasNotReached
@@ -283,7 +321,13 @@ public enum Direction {
         public DcMotor[] getMotors() {
             return new DcMotor[]{topLeft, bottomRight};
         }
+        @Override
+        public void calcPower(double[] targets, double[] currents, double power) {
+
+        }
     };
+
+
 
 
     public abstract void setPower(double power);
@@ -294,11 +338,37 @@ public enum Direction {
 
     public abstract DcMotor[] getMotors();
 
+    public abstract void calcPower(double[] targets, double[] currents, double power);
+
     public static void stopRobot(DcMotor[] motors) {
         for (DcMotor motor : motors) {
             motor.setPower(0);
         }
     }
+
+    /**
+     * gets the average of all of the motors' current positions
+     * @param motors array of DcMotors
+     * @return average of the DcMotor current positions
+     */
+    public static double getAvg(DcMotor[] motors) {
+        double motorAvg = 0;
+        for(DcMotor motor: motors) {
+            motorAvg += motor.getCurrentPosition();
+        }
+        motorAvg/=motors.length;
+        return motorAvg;
+    }
+
+    public static double getAvg(double[] arr) {
+        double avg = 0;
+        for (double n : arr) {
+            avg += n;
+        }
+        avg/=arr.length;
+        return avg;
+    }
+
 
 }
 //public enum Direction {

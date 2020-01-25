@@ -125,9 +125,9 @@ public class VisionPipeline {
 
 
         // narrows focus to the blocks
-        left = left.submat(new Rect(new Point(0,((left.rows()/8)*5)-(left.rows()/BLOCK_HEIGHT)), new Point(left.cols(), ((left.rows()/8)*5)+(left.rows()/BLOCK_HEIGHT))));
-        middle = middle.submat(new Rect(new Point(0,((middle.rows()/8)*5)-(middle.rows()/BLOCK_HEIGHT)), new Point(middle.cols(), ((middle.rows()/8)*5)+(middle.rows()/BLOCK_HEIGHT))));
-        right = right.submat(new Rect(new Point(0,((right.rows()/8)*5)-(right.rows()/BLOCK_HEIGHT)), new Point(right.cols(), ((right.rows()/8)*5)+(right.rows()/BLOCK_HEIGHT))));
+        left = left.submat(new Rect(new Point(0,((left.rows()/10)*7)-(left.rows()/BLOCK_HEIGHT)), new Point(left.cols(), ((left.rows()/10)*7)+(left.rows()/BLOCK_HEIGHT))));
+        middle = middle.submat(new Rect(new Point(0,((middle.rows()/10)*7)-(middle.rows()/BLOCK_HEIGHT)), new Point(middle.cols(), ((middle.rows()/10)*7)+(middle.rows()/BLOCK_HEIGHT))));
+        right = right.submat(new Rect(new Point(0,((right.rows()/10)*7)-(right.rows()/BLOCK_HEIGHT)), new Point(right.cols(), ((right.rows()/10)*7)+(right.rows()/BLOCK_HEIGHT))));
 
         // Multithread the integral calculations to make it go faster
         Thread l = new Thread(new MatSearcher(left, LEFT));
@@ -326,15 +326,15 @@ public class VisionPipeline {
         // Horizontal Lines
         Imgproc.line(
                 input,
-                new Point(0, ((input.rows()/8)*5)-(input.rows()/BLOCK_HEIGHT)),
-                new Point(input.cols(), ((input.rows()/8)*5)-(input.rows()/BLOCK_HEIGHT)),
+                new Point(0, ((input.rows()/10)*7)-(input.rows()/BLOCK_HEIGHT)),
+                new Point(input.cols(), ((input.rows()/10)*7)-(input.rows()/BLOCK_HEIGHT)),
                 new Scalar(255,255,255),
                 4);
 
         Imgproc.line(
                 input,
-                new Point(0, ((input.rows()/8)*5)+(input.rows()/BLOCK_HEIGHT)),
-                new Point(input.cols(), ((input.rows()/8)*5)+(input.rows()/BLOCK_HEIGHT)),
+                new Point(0, ((input.rows()/10)*7)+(input.rows()/BLOCK_HEIGHT)),
+                new Point(input.cols(), ((input.rows()/10)*7)+(input.rows()/BLOCK_HEIGHT)),
                 new Scalar(255,255,255),
                 4
         );
